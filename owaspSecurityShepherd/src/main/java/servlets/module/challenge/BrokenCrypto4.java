@@ -93,12 +93,14 @@ public class BrokenCrypto4 extends HttpServlet
 				
 				htmlOutput = new String();
 				Connection conn = Database.getChallengeConnection(applicationRoot, "CryptoChallengeShop");
-				log.debug("Looking for Coupons");
-				PreparedStatement prepstmt = conn.prepareStatement("SELECT itemId, perCentOff FROM coupons WHERE couponCode = ?");
-				prepstmt.setString(1, couponCode);
-				ResultSet coupons = prepstmt.executeQuery();
+				PreparedStatement prepstmt = null;
 				try
 				{
+					log.debug("Looking for Coupons");
+					prepstmt = conn.prepareStatement("SELECT itemId, perCentOff FROM coupons WHERE couponCode = ?");
+					prepstmt.setString(1, couponCode);
+					ResultSet coupons = prepstmt.executeQuery();
+					
 					if(coupons.next())
 					{
 						if(coupons.getInt(1) == 1) // MeGusta
@@ -131,7 +133,14 @@ public class BrokenCrypto4 extends HttpServlet
 				{
 					log.debug("Could Not Find Coupon: " + e.toString());
 				}
-				conn.close();
+				finally {
+					if (prepstmt != null && !prepstmt.isClosed()) {
+						prepstmt.close();
+					}
+					if (conn != null && !conn.isClosed()) {
+						conn.close();
+					}
+				}
 				
 				//Work Out Final Cost
 				megustaCost = megustaCost - (megustaCost * (perCentOffMegusta/100));
@@ -154,6 +163,7 @@ public class BrokenCrypto4 extends HttpServlet
 				log.debug("Didn't complete order: " + e.toString());
 				htmlOutput += "<p>" + bundle.getString("insecureCyrptoStorage.4.orderFailed") + "</p>";
 			}
+			
 			try
 			{
 				Thread.sleep(1000);

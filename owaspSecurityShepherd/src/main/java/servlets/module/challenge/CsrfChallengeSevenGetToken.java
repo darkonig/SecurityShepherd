@@ -77,10 +77,11 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 				String userId = request.getParameter("userId").toString();
 				
 				Connection conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeEnumerateTokens");
+				PreparedStatement callstmnt = null;
 				try
 				{
 					log.debug("Preparing setCsrfChallengeSevenToken call");
-					PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfChallengeEnumTokens.csrfTokens WHERE userId LIKE ?");
+					callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfChallengeEnumTokens.csrfTokens WHERE userId LIKE ?");
 					callstmnt.setString(1, userId);
 					log.debug("Executing setCsrfChallengeSevenTokenQuery");
 					ResultSet rs = callstmnt.executeQuery();
@@ -91,12 +92,19 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 						htmlOutput += Encode.forHtml("\"" + rs.getString(1) + "\"") + " <br/>";
 					}
 					log.debug("Returned " + i + " CSRF Tokens for ID: " + userId);
-					conn.close();
 				}
 				catch (Exception e)
 				{
 					log.debug("Could not retrieve Challenge CSRF Tokens: " + e.toString());
 					htmlOutput = csrfGenerics.getString("error.noToken");
+				}
+				finally {
+					if (callstmnt != null) {
+						callstmnt.close();
+					}
+					if (conn != null && !conn.isClosed()) {
+						conn.close();
+					}
 				}
 				out.write(htmlOutput);
 					

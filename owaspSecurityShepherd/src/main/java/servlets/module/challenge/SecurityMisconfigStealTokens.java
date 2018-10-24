@@ -90,37 +90,42 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 						break; //End Loop, because we found the token
 					}
 				}
-				String cookieValue = theToken.getValue();
-				
-				log.debug("User Submitted Cookie: " + cookieValue);
-				log.debug("Stored Cookie Value  : " + userActualCookie);
-				
-				if(cookieValue.compareTo(userActualCookie) == 0)
-				{
-					//User is using their own Cookie: Not Complete
-					htmlOutput = new String("<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete") + "</h2>"
-							+ "<p>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete.message") + "<p>");					
-				}
-				else
-				{
-					//User submitted something different from their cookie
-					boolean notUsersTokenButValid = validToken(userId, cookieValue, applicationRoot);
-					if(notUsersTokenButValid)
+				if (theToken != null) {
+					String cookieValue = theToken.getValue();
+					
+					log.debug("User Submitted Cookie: " + cookieValue);
+					log.debug("Stored Cookie Value  : " + userActualCookie);
+					
+					if(cookieValue.compareTo(userActualCookie) == 0)
 					{
-						log.debug("Valid Cookie of another User Dectected");
-						// Get key and add it to the output
-						String userKey = Hash.generateUserSolution(levelResult, (String)ses.getAttribute("userName"));
-						htmlOutput = "<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.complete") + "</h2>" +
-								"<p>" +
-								bundle.getString("securityMisconfig.servlet.stealTokens.youDidIt") + " " +
-								"<a>" + userKey + "</a>" +
-								"</p>";
+						//User is using their own Cookie: Not Complete
+						htmlOutput = new String("<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete") + "</h2>"
+								+ "<p>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete.message") + "<p>");					
 					}
 					else
 					{
-						htmlOutput = new String("<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete") + "</h2>"
-								+ "<p>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete.yourToken") + "<p>");					
+						//User submitted something different from their cookie
+						boolean notUsersTokenButValid = validToken(userId, cookieValue, applicationRoot);
+						if(notUsersTokenButValid)
+						{
+							log.debug("Valid Cookie of another User Dectected");
+							// Get key and add it to the output
+							String userKey = Hash.generateUserSolution(levelResult, (String)ses.getAttribute("userName"));
+							htmlOutput = "<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.complete") + "</h2>" +
+									"<p>" +
+									bundle.getString("securityMisconfig.servlet.stealTokens.youDidIt") + " " +
+									"<a>" + userKey + "</a>" +
+									"</p>";
+						}
+						else
+						{
+							htmlOutput = new String("<h2 class='title'>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete") + "</h2>"
+									+ "<p>" + bundle.getString("securityMisconfig.servlet.stealTokens.notComplete.yourToken") + "<p>");					
+						}
 					}
+				}else {
+					htmlOutput = new String("<h2 class='title'>Token Bugado</h2>"
+							+ "<p>Token nulo!!!<p>");	
 				}
 			}
 			catch(Exception e)
