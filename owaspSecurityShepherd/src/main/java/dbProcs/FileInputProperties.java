@@ -6,7 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
+
+import utils.FileUtils;
 
 /** 
  * Locates the database Properties File for Database manipulation methods. This file contains the application sign on credentials for the database.	
@@ -36,12 +40,18 @@ public class FileInputProperties
 	 * @param filename The file to read
 	 * @param Property The name of the property to be found
 	 * @return The value of the specified property to be found
+	 * @throws IllegalAccessException 
 	 */
 	@SuppressWarnings("deprecation")
-	public static String readfile(String filename, String Property) 
+	public static String readfile(String filename, String Property) throws IllegalAccessException 
 	{
 		//log.debug("Debug: Properties filename: "+filename);
-		File file = new File(filename);
+		String fname = FilenameUtils.normalize(filename);
+		if (!FileUtils.validateFileAccess(fname)) {
+			throw new IllegalAccessException("Acesso inválido.");
+		}
+		
+		File file = new File(fname);
 		String temp = "";
 	    String result = "NO RESULT";
 	    FileInputStream fis = null;

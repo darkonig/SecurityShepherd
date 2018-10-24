@@ -287,7 +287,6 @@ public class Setter
 			theProperties = new String("databaseConnectionURL=core"+					
 					"\ndatabaseUsername=" + userName +
 					"\ndatabasePassword=" + password);
-			writer.write(theProperties.getBytes());
 			writer.close();
 			return true;
 		} 
