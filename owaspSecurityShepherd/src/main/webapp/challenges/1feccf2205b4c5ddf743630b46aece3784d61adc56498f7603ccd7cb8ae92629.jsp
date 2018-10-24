@@ -70,7 +70,7 @@ if (request.getSession() != null)
 				<br />
 				<br />
 				<h2 class="title"><%= bundle.getString("challenge.superSecurePayments") %></h2>
-				<form id="leForm" action="javascript:;" autocomplete="off">
+				<form id="leForm" action="javascript:;" autocomplete="off" method="POST">
 					<table>
 					<tr><td colspan="2">
 						<%= bundle.getString("challenge.form.instruction") %>
