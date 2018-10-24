@@ -75,14 +75,17 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 				String htmlOutput = new String("Your csrf Token for this Challenge is: ");
 				String userId = request.getParameter("userId").toString();
 				
-				Connection conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeSix");
+				Connection conn = null;
+				PreparedStatement callstmnt = null;
+				ResultSet rs = null;
 				try
 				{
+					conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeSix");
 					log.debug("Preparing setCsrfChallengeSixToken call");
-					PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfchallengesix.csrfTokens WHERE userId LIKE ?");
+					callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfchallengesix.csrfTokens WHERE userId LIKE ?");
 					callstmnt.setString(1, userId);
 					log.debug("Executing setCsrfChallengeSixTokenQuery");
-					ResultSet rs = callstmnt.executeQuery();
+					rs = callstmnt.executeQuery();
 					int i = 0;
 					while(rs.next())
 					{
@@ -96,6 +99,17 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 				{
 					log.debug("Could not retrieve Challenge CSRF Tokens: " + e.toString());
 					htmlOutput = csrfGenerics.getString("error.noToken");
+				}
+				finally {
+					if (rs != null && !rs.isClosed()) {
+						rs.close();
+					}
+					if (callstmnt != null && !callstmnt.isClosed()) {
+						callstmnt.close();
+					}
+					if (conn != null && !conn.isClosed()) {
+						conn.close();
+					}
 				}
 				out.write(htmlOutput);
 			}
