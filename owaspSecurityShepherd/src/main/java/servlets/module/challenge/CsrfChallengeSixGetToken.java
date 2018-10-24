@@ -104,8 +104,8 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 					if (rs != null && !rs.isClosed()) {
 						rs.close();
 					}
-					if (prepstmt != null && !prepstmt.isClosed()) {
-						prepstmt.close();
+					if (callstmnt != null && !callstmnt.isClosed()) {
+						callstmnt.close();
 					}
 					if (conn != null && !conn.isClosed()) {
 						conn.close();
