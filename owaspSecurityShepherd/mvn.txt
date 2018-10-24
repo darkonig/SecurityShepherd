@@ -1,0 +1,7 @@
+Script execução do SCAN
+
+mvn com.fortify.sca.plugins.maven:sca-maven-plugin:clean
+
+mvn com.fortify.sca.plugins.maven:sca-maven-plugin:translate
+
+mvn com.fortify.sca.plugins.maven:sca-maven-plugin:scan
