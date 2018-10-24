@@ -248,9 +248,9 @@ else	//IF the  user doesnt need to change their pass, just post up the get Start
 		<div class="errorMessage">
 			<form id="changePassword" method="POST" action="passwordChange">
 			<table align="center">
-				<tr><td>Current Password:</td><td><input type="password" name="currentPassword" /></td></tr>
-				<tr><td>New Password:</td><td><input type="password" name="newPassword" /></td></tr>
-				<tr><td>Password Confirmation:</td><td><input type="password" name="passwordConfirmation" /></td></tr>
+				<tr><td>Current Password:</td><td><input type="password" name="currentPassword" autocomplete="off" /></td></tr>
+				<tr><td>New Password:</td><td><input type="password" name="newPassword" autocomplete="off" /></td></tr>
+				<tr><td>Password Confirmation:</td><td><input type="password" name="passwordConfirmation" autocomplete="off" /></td></tr>
 				<tr><td colspan="2"><center><input type="submit" id="changePasswordSubmit" value = "Change Password"/></center></td></tr>
 			</table>
 			<input type="hidden" name="csrfToken" value="<%=csrfToken%>" />

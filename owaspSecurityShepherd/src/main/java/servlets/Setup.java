@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -51,7 +51,9 @@ public class Setup extends HttpServlet {
 			String dbAuth = request.getParameter("dbauth");
 			String dbOverride = request.getParameter("dboverride");
 
-			String auth = new String(Files.readAllBytes(Paths.get(Constants.SETUP_AUTH)));
+			Path path = utils.FileUtils.getSetupPath();
+			
+			String auth = new String(Files.readAllBytes(path));
 
 			StringBuffer dbProp = new StringBuffer();
 			dbProp.append("databaseConnectionURL=jdbc:mysql://" + dbHost + ":" + dbPort + "/");
@@ -68,7 +70,9 @@ public class Setup extends HttpServlet {
 			if (!auth.equals(dbAuth)) {
 				htmlOutput = bundle.getString("generic.text.setup.authentication.failed");
 			} else {
-				Files.write(Paths.get(Constants.DBPROP), dbProp.toString().getBytes(), StandardOpenOption.CREATE);	
+				Path dbpath = utils.FileUtils.getDbProp();
+				
+				Files.write(dbpath, dbProp.toString().getBytes(), StandardOpenOption.CREATE);	
 				if (Database.getDatabaseConnection(null) == null) {
 					htmlOutput = bundle.getString("generic.text.setup.connection.failed");
 				} else {
@@ -86,7 +90,7 @@ public class Setup extends HttpServlet {
 						success = true;
 					} catch (InstallationException e) {
 						htmlOutput = bundle.getString("generic.text.setup.failed") + ": " +  e.getMessage();
-						FileUtils.deleteQuietly(new File(Constants.DBPROP));
+						Files.delete(utils.FileUtils.getDbProp());
 					}
 					//Clean up File as it is not needed anymore. Will Cause a new one to be generated next time too
 					removeAuthFile();
@@ -123,9 +127,9 @@ public class Setup extends HttpServlet {
 
 	private static void generateAuth() {
 		try {
-			if (!Files.exists(Paths.get(Constants.SETUP_AUTH), LinkOption.NOFOLLOW_LINKS)) {
+			if (!Files.exists(utils.FileUtils.getSetupPath(), LinkOption.NOFOLLOW_LINKS)) {
 				UUID randomUUID = UUID.randomUUID();
-				Files.write(Paths.get(Constants.SETUP_AUTH), randomUUID.toString().getBytes(), StandardOpenOption.CREATE);
+				Files.write(utils.FileUtils.getSetupPath(), randomUUID.toString().getBytes(), StandardOpenOption.CREATE);
 				log.info("genrated UUID " + randomUUID + " in " + Constants.SETUP_AUTH);
 			}
 		} catch (IOException e) {
@@ -134,11 +138,14 @@ public class Setup extends HttpServlet {
 		}
 	}
 	
-	private static void removeAuthFile() {
-		if (!Files.exists(Paths.get(Constants.SETUP_AUTH), LinkOption.NOFOLLOW_LINKS)) {
+	private static void removeAuthFile() throws IllegalAccessException {
+		Path path = utils.FileUtils.getSetupPath();
+		if (!Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
 			log.info("Could not find " + Constants.SETUP_AUTH);
 		} else {
-			FileUtils.deleteQuietly(new File(Constants.SETUP_AUTH));
+			try {
+				Files.delete(utils.FileUtils.getSetupPath());
+			} catch (IOException e) {}
 		}
 	}
 
