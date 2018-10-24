@@ -3,6 +3,7 @@ package servlets.module.challenge;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -75,6 +76,9 @@ public class SqlInjectionEmail extends HttpServlet
 			out.print(getServletInfo());
 			String htmlOutput = new String();
 			
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				String userIdentity = request.getParameter("userIdentity");
@@ -85,11 +89,13 @@ public class SqlInjectionEmail extends HttpServlet
 					String ApplicationRoot = getServletContext().getRealPath("");
 					log.debug("Servlet root = " + ApplicationRoot );
 					
+					conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeEmail");
 					log.debug("Getting Connection to Database");
-					Connection conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeEmail");
-					Statement stmt = conn.createStatement();
+					String query = "SELECT * FROM customers WHERE customerAddress = ?";
+					stmt = conn.prepareStatement(query);
+					stmt.setString(1, userIdentity);
 					log.debug("Gathering result set");
-					ResultSet resultSet = stmt.executeQuery("SELECT * FROM customers WHERE customerAddress = '" + userIdentity + "'");
+					resultSet = stmt.executeQuery();
 					
 					int i = 0;
 					htmlOutput = "<h2 class='title'>" + bundle.getString("response.searchResults")+ "</h2>";
@@ -127,6 +133,21 @@ public class SqlInjectionEmail extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				log.fatal(levelName + " - " + e.toString());
+			}finally {
+				try {
+					if(resultSet != null) {
+						resultSet.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+					if(stmt != null) {
+						stmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);

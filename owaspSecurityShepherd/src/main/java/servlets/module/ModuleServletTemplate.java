@@ -3,6 +3,7 @@ package servlets.module;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -139,15 +141,19 @@ extends HttpServlet
 	{
 		
 		String result = new String();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
 		try 
 		{
 			//You will need to make a schema in the database/moduleSchemas.sql file, and define a user which can access it.
 			//The details of this user need to be entered in a properties file in WEB-INF/challenges
 			//The Name of that user need to be entered in the following funciton;
-			Connection conn = Database.getChallengeConnection(applicationRoot, "nameOfPropertiesFile.properties");
-			Statement stmt;
-			stmt = conn.createStatement();
-			ResultSet resultSet = stmt.executeQuery("SELECT * FROM tb_users WHERE username = '" + username + "'");
+			conn = Database.getChallengeConnection(applicationRoot, "nameOfPropertiesFile.properties");
+			String query = "SELECT * FROM tb_users WHERE username = ?";
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, username);
+			resultSet = stmt.executeQuery();
 			log.debug("Opening Result Set from query");
 			for(int i = 0; resultSet.next(); i++)
 			{
@@ -164,6 +170,21 @@ extends HttpServlet
 		catch (Exception e)
 		{
 			log.fatal(bundle.getString("example.error") + ": " + Encode.forHtml(e.toString())); //Html Encode Error to prevent XSS
+		}finally {
+			try {
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
 		}
 		return result;
 	}

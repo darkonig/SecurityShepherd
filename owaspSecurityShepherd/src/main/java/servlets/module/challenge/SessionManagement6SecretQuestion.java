@@ -202,6 +202,10 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 						log.debug("subEmail = " + subEmail);
 
 						String ApplicationRoot = getServletContext().getRealPath("");
+						
+						Connection conn = null;
+						PreparedStatement stmt = null;
+						ResultSet rs = null;
 						try
 						{
 							if(subEmail.length() < 10)
@@ -211,10 +215,15 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 							}
 							else
 							{
-								Connection conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalSix");
+								conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalSix");
 								log.debug("Getting Secret Question");
-								PreparedStatement callstmt = conn.prepareStatement("SELECT secretQuestion FROM users WHERE userAddress = \"" + subEmail +"\"");
-								ResultSet rs = callstmt.executeQuery();
+								
+								
+								String query = "SELECT secretQuestion FROM users WHERE userAddress = ?";
+								stmt = conn.prepareStatement(query);
+								stmt.setString(1, subEmail);
+								rs = stmt.executeQuery();
+								
 								if(rs.next())
 								{
 									log.debug("'Valid' User Detected");
@@ -235,6 +244,21 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 							log.debug(levelName + " SQL Error: " + e.toString());
 							log.debug("Outputting error to user");
 							htmlOutput = new String(e.toString());
+						}finally {
+							try {
+								if(rs != null) {
+									rs.close();
+								}
+								
+								if(conn != null) {
+									conn.close();
+								}
+								if(stmt != null) {
+									stmt.close();
+								}
+							} catch (Exception e) {
+								log.error("Error close connections", e);
+							}
 						}
 					}
 					else

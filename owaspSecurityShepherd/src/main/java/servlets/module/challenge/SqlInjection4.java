@@ -3,6 +3,7 @@ package servlets.module.challenge;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -77,6 +78,9 @@ public class SqlInjection4 extends HttpServlet
 			out.print(getServletInfo());
 			String htmlOutput = new String();
 			
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				String theUserName = request.getParameter("theUserName");
@@ -84,17 +88,19 @@ public class SqlInjection4 extends HttpServlet
 				theUserName = SqlFilter.levelFour(theUserName);
 				log.debug("Filtered to " + theUserName);
 				String thePassword = request.getParameter("thePassword");
-				log.debug("thePassword Submitted - " + thePassword);
 				thePassword = SqlFilter.levelFour(thePassword);
-				log.debug("Filtered to " + thePassword);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
 				
 				log.debug("Getting Connection to Database");
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeFour");
-				Statement stmt = conn.createStatement();
+				conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeFour");
+				
+				String query = "SELECT userName FROM users WHERE userName = ? AND userPassword = ?";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, theUserName);
+				stmt.setString(2, thePassword);
 				log.debug("Gathering result set");
-				ResultSet resultSet = stmt.executeQuery("SELECT userName FROM users WHERE userName = '" + theUserName + "' AND userPassword = '" + thePassword + "'");
+				resultSet = stmt.executeQuery();
 		
 				int i = 0;
 				htmlOutput = "<h2 class='title'>" + bundle.getString("response.loginResults")+ "</h2>";
@@ -130,6 +136,21 @@ public class SqlInjection4 extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				log.fatal(levelName + " - " + e.toString());
+			}finally {
+				try {
+					if(resultSet != null) {
+						resultSet.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+					if(stmt != null) {
+						stmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);

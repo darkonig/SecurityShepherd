@@ -72,6 +72,9 @@ public class SqlInjection5CouponCheck extends HttpServlet
 			String htmlOutput = new String();
 			String applicationRoot = getServletContext().getRealPath("");
 			
+			Connection conn = null;
+			PreparedStatement prepstmt = null;
+			ResultSet coupons = null;
 			try
 			{
 				String couponCode = request.getParameter("couponCode");
@@ -80,10 +83,13 @@ public class SqlInjection5CouponCheck extends HttpServlet
 					couponCode = new String();
 				
 				htmlOutput = new String("");
-				Connection conn = Database.getChallengeConnection(applicationRoot, "SqlInjectionChallenge5ShopCoupon");
-				log.debug("Looking for Coupons Insecurely");
-				PreparedStatement prepstmt = conn.prepareStatement("SELECT itemId, perCentOff, itemName FROM coupons JOIN items USING (itemId) WHERE couponCode = '" + couponCode + "';");
-				ResultSet coupons = prepstmt.executeQuery();
+				
+				
+				String query = "SELECT itemId, perCentOff, itemName FROM coupons JOIN items USING (itemId) WHERE couponCode = ?;";
+				prepstmt = conn.prepareStatement(query);
+				prepstmt.setString(1, couponCode);
+				coupons = prepstmt.executeQuery();
+				
 				try
 				{
 					if(coupons.next())
@@ -102,8 +108,22 @@ public class SqlInjection5CouponCheck extends HttpServlet
 				{
 					log.debug("Could Not Find Coupon: " + e.toString());
 					
+				}finally {
+					try {
+						if(coupons != null) {
+							coupons.close();
+						}
+						
+						if(conn != null) {
+							conn.close();
+						}
+						if(prepstmt != null) {
+							prepstmt.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
+					}
 				}
-				conn.close();
 			}
 			catch(Exception e)
 			{

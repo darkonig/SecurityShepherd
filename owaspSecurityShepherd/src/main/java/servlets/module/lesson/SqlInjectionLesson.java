@@ -3,6 +3,7 @@ package servlets.module.lesson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -128,12 +129,19 @@ extends HttpServlet
 	{
 		
 		String[][] result = new String[10][3];
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
 		try 
 		{
-			Connection conn = Database.getSqlInjLessonConnection(ApplicationRoot);
-			Statement stmt;
-			stmt = conn.createStatement();
-			ResultSet resultSet = stmt.executeQuery("SELECT * FROM tb_users WHERE username = '" + username + "'");
+			conn = Database.getSqlInjLessonConnection(ApplicationRoot);
+			
+			String query = "SELECT * FROM tb_users WHERE username = ?";
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, username);
+			resultSet = stmt.executeQuery();
+			
 			log.debug("Opening Result Set from query");
 			for(int i = 0; resultSet.next(); i++)
 			{
@@ -153,6 +161,21 @@ extends HttpServlet
 		catch (Exception e)
 		{
 			log.fatal("Error: " + e.toString());
+		}finally {
+			try {
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
 		}
 		return result;
 	}

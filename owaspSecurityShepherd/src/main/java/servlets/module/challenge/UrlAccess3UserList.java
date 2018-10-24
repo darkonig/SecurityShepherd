@@ -74,6 +74,9 @@ public class UrlAccess3UserList extends HttpServlet
 			out.print(getServletInfo());
 			String htmlOutput = new String();
 			
+			Connection conn = null;
+			PreparedStatement callstmt = null;
+			ResultSet rs = null;
 			try
 			{
 				Cookie userCookies[] = request.getCookies();
@@ -97,12 +100,14 @@ public class UrlAccess3UserList extends HttpServlet
 					currentUser = decodedCookie;
 				}
 				String ApplicationRoot = getServletContext().getRealPath("");
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "UrlAccessThree");
-				PreparedStatement callstmt;
-				callstmt = conn.prepareStatement("SELECT userName FROM users WHERE userRole = \"admin\" OR userName = \"" + currentUser + "\";");
-				log.debug("Getting User List");
-				htmlOutput = new String();
-				ResultSet rs = callstmt.executeQuery();
+				
+				conn = Database.getChallengeConnection(ApplicationRoot, "UrlAccessThree");
+				
+				String query = "SELECT userName FROM users WHERE userRole = \"admin\" OR userName = ?;";
+				callstmt = conn.prepareStatement(query);
+				callstmt.setString(1, currentUser);
+				rs = callstmt.executeQuery();
+				
 				while(rs.next())
 				{
 					htmlOutput += Encode.forHtml(rs.getString(1)) + "<br>";
@@ -116,6 +121,21 @@ public class UrlAccess3UserList extends HttpServlet
 			{
 				htmlOutput = new String(errors.getString("error.funky"));
 				log.fatal(levelName + " - " + e.toString());
+			}finally {
+				try {
+					if(rs != null) {
+						rs.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+					if(callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);

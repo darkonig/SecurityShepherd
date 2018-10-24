@@ -3,6 +3,7 @@ package servlets.module.challenge;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,6 +72,9 @@ public class SqlInjectionStoredProcedure extends HttpServlet
 			out.print(getServletInfo());
 			String htmlOutput = new String();
 			
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				String userIdentity = request.getParameter("userIdentity");
@@ -78,10 +82,13 @@ public class SqlInjectionStoredProcedure extends HttpServlet
 				String ApplicationRoot = getServletContext().getRealPath("");
 				
 				log.debug("Getting Connection to Database");
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeStoredProc");
-				//CallableStatement callstmt = conn.prepareCall("CALL findUser('" + userIdentity + "');");
-				Statement stmt = conn.createStatement();
-				ResultSet resultSet = stmt.executeQuery("CALL findUser('" + userIdentity + "');");
+				conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeStoredProc");
+				
+				
+				String query = "CALL findUser(?);";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, userIdentity);
+				resultSet = stmt.executeQuery();
 				
 				int i = 0;
 				htmlOutput = "<h2 class='title'>" + bundle.getString("response.searchResults")+ "</h2>";
@@ -114,6 +121,21 @@ public class SqlInjectionStoredProcedure extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				log.fatal(levelName + " - " + e.toString());
+			}finally {
+				try {
+					if(resultSet != null) {
+						resultSet.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+					if(stmt != null) {
+						stmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);

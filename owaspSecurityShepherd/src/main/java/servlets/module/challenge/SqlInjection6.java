@@ -74,6 +74,10 @@ public class SqlInjection6 extends HttpServlet
 			String htmlOutput = new String();
 			String applicationRoot = getServletContext().getRealPath("");
 			
+			
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet users = null;
 			try
 			{
 				String userPin = (String) request.getParameter("pinNumber");
@@ -82,11 +86,14 @@ public class SqlInjection6 extends HttpServlet
 				log.debug("userPin scrubbed - " + userPin);
 				userPin = java.net.URLDecoder.decode(userPin.replaceAll("\\\\\\\\x", "%"), "UTF-8"); //Decode \x encoding 
 				log.debug("searchTerm decoded to - " + userPin);
-				Connection conn = Database.getChallengeConnection(applicationRoot, "SqlChallengeSix");
+				
+				conn = Database.getChallengeConnection(applicationRoot, "SqlChallengeSix");
 				log.debug("Looking for users");
-				PreparedStatement prepstmt = 
-						conn.prepareStatement("SELECT userName FROM users WHERE userPin = '" + userPin + "'");
-				ResultSet users = prepstmt.executeQuery();
+				
+				String query = "SELECT userName FROM users WHERE userPin = ?";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, userPin);
+				users = stmt.executeQuery();
 				try
 				{
 					if(users.next())
@@ -125,6 +132,21 @@ public class SqlInjection6 extends HttpServlet
 				catch(Exception e2)
 				{
 					log.error("Failed to Pause: " + e2.toString());
+				}
+			}finally {
+				try {
+					if(users != null) {
+						users.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+					if(stmt != null) {
+						stmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
 				}
 			}
 			log.debug("*** SQLi C6 End ***");
