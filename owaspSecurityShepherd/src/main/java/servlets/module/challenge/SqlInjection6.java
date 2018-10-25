@@ -51,6 +51,9 @@ public class SqlInjection6 extends HttpServlet
 	public static String levelHash = "d0e12e91dafdba4825b261ad5221aae15d28c36c7981222eb59f7fc8d8f212a2";
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection6.class);
+	
+	private static Object LOCK = new Object();
+	
 	/**
 	 * This controller makes an insecure call to a MySQL interpreter. 
 	 * User Input is first filtered for UTF-8 attacks and afterwards is decoded from \xHEX format to UTF-8 before sent to the interpreter
@@ -113,7 +116,7 @@ public class SqlInjection6 extends HttpServlet
 					SaveLogs.saveLog("Error", e);
 					try
 					{
-						Thread.sleep(1000);
+						LOCK.wait(1000);
 					}
 					catch(Exception e1)
 					{
@@ -128,7 +131,7 @@ public class SqlInjection6 extends HttpServlet
 				htmlOutput += "<p>" + bundle.getString("response.badRequest")+ "</p>";
 				try
 				{
-					Thread.sleep(1000);
+					LOCK.wait(1000);
 				}
 				catch(Exception e2)
 				{

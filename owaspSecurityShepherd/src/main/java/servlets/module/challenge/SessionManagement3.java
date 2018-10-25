@@ -82,6 +82,10 @@ public class SessionManagement3 extends HttpServlet
 			
 			String htmlOutput = new String();
 			log.debug(levelName + " Servlet Accessed");
+			Connection conn = null;
+			PreparedStatement callstmt = null;
+			ResultSet resultSet = null;
+			ResultSet resultSet2 = null;
 			try
 			{
 				log.debug("Getting Challenge Parameters");
@@ -101,30 +105,31 @@ public class SessionManagement3 extends HttpServlet
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
 				
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalThree");
+				conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalThree");
 				log.debug("Checking credentials");
-				PreparedStatement callstmt;
 				
 				log.debug("Committing changes made to database");
 				callstmt = conn.prepareStatement("COMMIT");
 				callstmt.execute();
+				callstmt.close();
 				log.debug("Changes committed.");
 				
 				callstmt = conn.prepareStatement("SELECT userName, userAddress, userRole FROM users WHERE userName = ?");
 				callstmt.setString(1, subName);
 				log.debug("Executing findUser");
-				ResultSet resultSet = callstmt.executeQuery();
+				resultSet = callstmt.executeQuery();
 				if(resultSet.next())
 				{
 					log.debug("User found");
 					if(resultSet.getString(3).equalsIgnoreCase("admin"))
 					{
+						callstmt.close();
 						log.debug("Admin Detected");
 						callstmt = conn.prepareStatement("SELECT userName, userAddress, userRole FROM users WHERE userName = ? AND userPassword = SHA(?)");
 						callstmt.setString(1, subName);
 						callstmt.setString(2, subPass);
 						log.debug("Executing authUser");
-						ResultSet resultSet2 = callstmt.executeQuery();
+						resultSet2 = callstmt.executeQuery();
 						if(resultSet2.next())
 						{
 							log.debug("Successful Admin Login");
@@ -163,6 +168,28 @@ public class SessionManagement3 extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				SaveLogs.saveLog("Error", e);
+			}
+			finally {
+				try {
+					if (callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+				try {
+					if (resultSet2 != null) {
+						resultSet2.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			}
 		}
 		else

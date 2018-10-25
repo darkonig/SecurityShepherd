@@ -49,6 +49,8 @@ public class SqlInjection5VipCheck extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5VipCheck.class);
 	
+	private static Object LOCK = new Object();
+	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
 	{
@@ -131,7 +133,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 			}
 			try
 			{
-				Thread.sleep(1000);
+				LOCK.wait(1000);
 			}
 			catch(Exception e)
 			{

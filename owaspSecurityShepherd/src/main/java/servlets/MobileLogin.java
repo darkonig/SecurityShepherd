@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 
 import dbProcs.Getter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.UserKicker;
 
@@ -42,6 +43,9 @@ public class MobileLogin extends HttpServlet
 { 
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(MobileLogin.class);
+	
+	private static Object LOCK = new Object();
+	
 	/** 
 	 * Initiated by login.jsp. Once this post request has been completely processed, the user will be logged in, the account will be one count closer to been temporarily been locked or will be locked out temporarily.
 	 * This method takes the credentials submitted and determines if they are correct. If they are correct, a session is prepared for the user and they are assigned a CSRF token.
@@ -123,11 +127,11 @@ public class MobileLogin extends HttpServlet
 				//Lagging Response
 				try 
 				{
-				    Thread.sleep(2000);
+					LOCK.wait(1000);
 				}
 				catch(InterruptedException ex)
 				{
-				    Thread.currentThread().interrupt();
+					SaveLogs.saveLog("MobileLogin",ex);
 				}
 			   out.write("ERROR: Could not Authenticate");
 			   return;

@@ -45,6 +45,9 @@ public class PoorValidation1 extends HttpServlet
 	public static String levelHash = "ca0e89caf3c50dbf9239a0b3c6f6c17869b2a1e2edc3aa6f029fd30925d66c7e";
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(PoorValidation1.class);
+	
+	private static Object LOCK = new Object();
+	
 	/**
 	 * Shopping cart addition algorithm does not check for negative numbers on amounts
 	 */
@@ -104,11 +107,11 @@ public class PoorValidation1 extends HttpServlet
 			}
 			try
 			{
-				Thread.sleep(1000);
+				LOCK.wait(1000);
 			}
 			catch(Exception e)
 			{
-				SaveLogs.saveLog("Error", e);
+				SaveLogs.saveLog("PoorValidation",e);
 			}
 			out.write(htmlOutput);
 		}

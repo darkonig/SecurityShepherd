@@ -243,6 +243,7 @@ public class Setter
 			conn = Database.getCoreConnection(ApplicationRoot);
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed' WHERE " + webModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
+			prepstmt.close();
 			log.debug("Web Levels have been closed");
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open' WHERE " + mobileModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
@@ -285,6 +286,7 @@ public class Setter
 			conn = Database.getCoreConnection(ApplicationRoot);
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open' WHERE " + webModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
+			prepstmt.close();
 			log.debug("Web Levels have been opened");
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed' WHERE " + mobileModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
@@ -431,6 +433,7 @@ public class Setter
 			{
 				log.debug("No CSRF token Found for Challenge 4... Creating");
 			}
+			callstmnt.close();
 			rs.close();
 			
 			String whatToDo = new String();
@@ -499,6 +502,7 @@ public class Setter
 			{
 				log.debug("No CSRF token Found for Challenge 7... Creating");
 			}
+			callstmnt.close();
 			rs.close();
 			
 			String whatToDo = new String();
@@ -950,6 +954,7 @@ public class Setter
 		String result = null;
 		Connection conn = null;
 		CallableStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
 			conn = Database.getCoreConnection(ApplicationRoot);
@@ -958,7 +963,7 @@ public class Setter
 			callstmnt.setString(1, playerId);
 			callstmnt.setString(2, classId);
 			log.debug("Executing playerUpdateClass");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			resultSet.next();
 			result = resultSet.getString(1);
 		}
@@ -971,6 +976,11 @@ public class Setter
 			try {
 				if (callstmnt != null) {
 					callstmnt.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
 				}
 			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
@@ -996,6 +1006,7 @@ public class Setter
 		String result = null;
 		Connection conn = null;
 		CallableStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
 			conn = Database.getCoreConnection(ApplicationRoot);
@@ -1003,7 +1014,7 @@ public class Setter
 			callstmnt = conn.prepareCall("call playerUpdateClassToNull(?)");
 			callstmnt.setString(1, playerId);
 			log.debug("Executing playerUpdateClassToNull");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			resultSet.next();
 			result = resultSet.getString(1);
 		}
@@ -1016,6 +1027,11 @@ public class Setter
 			try {
 				if (callstmnt != null) {
 					callstmnt.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
 				}
 			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
@@ -1142,6 +1158,7 @@ public class Setter
 		String result = null;
 		Connection conn = null;
 		CallableStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
 			conn = Database.getCoreConnection(ApplicationRoot);
@@ -1150,7 +1167,7 @@ public class Setter
 			callstmnt.setString(1, playerId);
 			callstmnt.setString(2, newRole);
 			log.debug("Executing userUpdateRole");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			resultSet.next();
 			result = resultSet.getString(1);
 		}
@@ -1163,6 +1180,11 @@ public class Setter
 			try {
 				if (callstmnt != null) {
 					callstmnt.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
 				}
 			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
