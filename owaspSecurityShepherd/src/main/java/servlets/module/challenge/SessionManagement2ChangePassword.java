@@ -65,7 +65,6 @@ public class SessionManagement2ChangePassword extends HttpServlet
 		//Translation Stuff
 		Locale locale = new Locale(Validate.validateLanguage(request.getSession()));
 		ResourceBundle errors = ResourceBundle.getBundle("i18n.servlets.errors", locale);
-		ResourceBundle bundle = ResourceBundle.getBundle("i18n.servlets.challenges.sessionManagement.sessionManagement2", locale);
 		
 		if(Validate.validateSession(ses))
 		{
@@ -74,7 +73,7 @@ public class SessionManagement2ChangePassword extends HttpServlet
 			PrintWriter out = response.getWriter();  
 			out.print(getServletInfo());
 			
-			String htmlOutput = new String();
+			
 			log.debug(levelName + " Servlet accessed");
 			try
 			{
@@ -89,28 +88,41 @@ public class SessionManagement2ChangePassword extends HttpServlet
 				String ApplicationRoot = getServletContext().getRealPath("");
 				
 				String newPassword = Hash.randomString();
+				Connection conn = null;
+				PreparedStatement callstmt = null;
 				try
 				{
-					Connection conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalTwo");
+					conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalTwo");
 					log.debug("Checking credentials");
-					PreparedStatement callstmt = conn.prepareStatement("UPDATE users SET userPassword = SHA(?) WHERE userAddress = ?");
+					callstmt = conn.prepareStatement("UPDATE users SET userPassword = SHA(?) WHERE userAddress = ?");
 					callstmt.setString(1, newPassword);
 					callstmt.setString(2, subEmail);
 					log.debug("Executing resetPassword");
 					callstmt.execute();
 					log.debug("Statement executed");
-					
+					callstmt.close();
 					log.debug("Committing changes made to database");
 					callstmt = conn.prepareStatement("COMMIT");
 					callstmt.execute();
 					log.debug("Changes committed.");
 					
-					htmlOutput = Encode.forHtml(newPassword);
 					Database.closeConnection(conn);
 				}
 				catch(SQLException e)
 				{
 					SaveLogs.saveLog("Error", e);
+				}
+				finally {
+					try {
+						if (callstmt != null) {
+							callstmt.close();
+						}
+					} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+					} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 				}
 			}
 			catch(Exception e)
