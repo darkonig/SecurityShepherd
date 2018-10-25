@@ -56,7 +56,7 @@ if (request.getSession() != null)
 		{
 			userClass = Encode.forHtml(ses.getAttribute("userClass").toString());
 		}
-		String userId = Encode.forHtml(ses.getAttribute("userStamp").toString());
+		String userId = StringEscapeUtils.escapeHtml4(Encode.forHtml(ses.getAttribute("userStamp").toString()));
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

@@ -79,7 +79,7 @@ public class SqlInjectionEscaping extends HttpServlet
 			ResultSet resultSet = null;
 			try
 			{
-				String aUserId = request.getParameter("aUserId");
+				String aUserId = StringEscapeUtils.escapeHtml4(request.getParameter("aUserId"));
 				log.debug("User Submitted - " + aUserId);
 				aUserId = aUserId.replaceAll("'", "\\\\'"); //Replace ' with \'
 				log.debug("Escaped to - " + aUserId);

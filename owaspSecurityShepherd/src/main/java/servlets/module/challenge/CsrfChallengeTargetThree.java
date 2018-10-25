@@ -69,7 +69,7 @@ public class CsrfChallengeTargetThree extends HttpServlet
 			{
 				ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 				log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
-				String plusId = request.getParameter("userid");
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userid"));
 				log.debug("User Submitted - " + plusId);
 				String csrfParam = null;
 				if(request.getParameter("csrfToken") != null)
@@ -92,7 +92,7 @@ public class CsrfChallengeTargetThree extends HttpServlet
 						log.debug("Attempting to Increment ");
 						String moduleHash = CsrfChallengeThree.getLevelHash();
 						String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, moduleHash);
-						result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
+						result = StringEscapeUtils.escapeHtml4(Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId));
 					}
 					else
 					{
