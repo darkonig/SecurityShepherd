@@ -169,7 +169,7 @@ public class FindXSS
 					}
 					if(!validUrl)
 					{
-						log.debug("Invalid Url ", e);
+						log.debug("Invalid Url ");
 					}
 					else
 					{

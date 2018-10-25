@@ -90,8 +90,8 @@ public class CsrfChallengeTargetOne extends HttpServlet
 					{
 						try{
 							log.error("The user "+ plusId + " could not be found.");
-						}catch(NumberFormatException) {
-							log.error("The user could not be found.");
+						}catch(NumberFormatException e) {
+							log.error("The user could not be found.", e);
 						}
 					}
 				}

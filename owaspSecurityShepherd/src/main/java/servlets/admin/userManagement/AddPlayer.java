@@ -171,11 +171,8 @@ public class AddPlayer extends HttpServlet
 				}
 				catch (Exception e)
 				{
-<<<<<<< HEAD
 					log.error("Create New Class Error", e);
-=======
 					e.printStackTrace();
->>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd
 					out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 							"An error Occurred! Please try again." +
 							"</strong></p></div>");
