@@ -16,12 +16,12 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
+import dbProcs.Getter;
+import dbProcs.Setter;
 import utils.FeedbackStatus;
 import utils.Hash;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
-import dbProcs.Setter;
 
 /**
  * Control class that returns a feedback form for users if they submit the correct solution

@@ -17,10 +17,11 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Cross Site Request Forgery Challenge Target SON - Does not return Result key
@@ -119,7 +120,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 	}
 	

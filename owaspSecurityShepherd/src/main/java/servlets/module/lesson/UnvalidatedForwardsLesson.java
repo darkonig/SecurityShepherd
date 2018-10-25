@@ -18,12 +18,12 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Getter;
 import utils.FindXSS;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
 /**
  * Unvalidated Redirects and Forwards Lesson
  * <br/><br/>
@@ -122,7 +122,7 @@ public class UnvalidatedForwardsLesson extends HttpServlet
 					}
 					catch(MalformedURLException e)
 					{
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 						validUrl = false;
 						validSolution = false;
 						validAttack = false;

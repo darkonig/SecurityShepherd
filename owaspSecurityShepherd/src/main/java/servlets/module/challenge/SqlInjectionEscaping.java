@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -20,10 +19,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * SQL Injection Escape Challenge - Does not use User specific keys
@@ -117,7 +116,7 @@ public class SqlInjectionEscaping extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>SQLException</p>";
 			}
@@ -138,7 +137,7 @@ public class SqlInjectionEscaping extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("Outputting HTML");

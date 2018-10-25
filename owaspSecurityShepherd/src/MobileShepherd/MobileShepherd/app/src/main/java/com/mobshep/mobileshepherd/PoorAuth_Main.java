@@ -94,13 +94,13 @@ public class PoorAuth_Main extends Activity {
 			writer.write(content + EOL);
 			writer.write(date + EOL);
 		} catch (Exception e) {
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}

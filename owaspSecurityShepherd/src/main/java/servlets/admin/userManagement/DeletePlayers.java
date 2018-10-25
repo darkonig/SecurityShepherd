@@ -15,9 +15,10 @@ import org.owasp.encoder.Encode;
 
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
-import utils.Validate;
 import utils.UserKicker;
+import utils.Validate;
 
 /**
  * The delete players server side functionality is hanled by this control class
@@ -127,7 +128,7 @@ public class DeletePlayers extends HttpServlet{
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					out.print("<h3 class=\"title\">Player Deletion Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

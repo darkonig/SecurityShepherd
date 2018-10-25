@@ -57,7 +57,7 @@ public class Insecure_Data_Storage extends MainActivity implements NavigationVie
         try {
             InsertData("Admin","Battery777");
         } catch (IOException e) {
-            e.printStackTrace();
+            SaveLogs.saveLog("Error", e);
         }
         setTitle(R.string.ids);
         setContentView(R.layout.ids_layout);

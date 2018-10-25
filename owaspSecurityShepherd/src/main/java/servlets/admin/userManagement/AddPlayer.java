@@ -1,9 +1,7 @@
 package servlets.admin.userManagement;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +12,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.ShepherdLogManager;
+import utils.Validate;
 /**
  * The add players server side functionality is hanled by this control class
  * <br/><br/>

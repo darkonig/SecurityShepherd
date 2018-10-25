@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import utils.FileUtils;
+import utils.SaveLogs;
 
 /** 
  * Locates the database Properties File for Database manipulation methods. This file contains the application sign on credentials for the database.	
@@ -85,12 +86,12 @@ public class FileInputProperties
 	    } 
 	    catch (FileNotFoundException e) 
 	    {
-	    	e.printStackTrace();
+	    	SaveLogs.saveLog("Error", e);
 	    	result = result +  e.toString();
 	    } 
 	    catch (IOException e) 
 	    {
-	    	e.printStackTrace();
+	    	SaveLogs.saveLog("Error", e);
 	    	result = result + e.toString();
 	    }
 	    finally {

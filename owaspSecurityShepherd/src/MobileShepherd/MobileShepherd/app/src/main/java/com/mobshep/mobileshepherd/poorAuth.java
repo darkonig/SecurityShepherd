@@ -156,13 +156,13 @@ public class poorAuth extends Activity implements OnClickListener {
 			writer.write(content + EOL);
 			writer.write(EOL);
 		} catch (Exception e) {
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}

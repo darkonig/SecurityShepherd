@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Cross Site Request Forgery challenge target One - Does not return result key

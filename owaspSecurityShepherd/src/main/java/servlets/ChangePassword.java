@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -109,7 +110,7 @@ public class ChangePassword extends HttpServlet
 							}
 							catch (Exception e)
 							{
-								e.printStackTrace();
+								SaveLogs.saveLog("Error", e);
 								response.sendRedirect("login.jsp");
 							}
 						}
@@ -144,7 +145,7 @@ public class ChangePassword extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		log.debug("*** END ChangePassword ***");
 		response.sendRedirect("index.jsp");

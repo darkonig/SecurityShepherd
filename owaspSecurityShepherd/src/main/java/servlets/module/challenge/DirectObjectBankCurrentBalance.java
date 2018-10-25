@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -80,7 +81,7 @@ public class DirectObjectBankCurrentBalance extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("login.error.couldNotGetBalance"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			catch(Exception e)
 			{

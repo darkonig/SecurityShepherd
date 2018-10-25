@@ -17,12 +17,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Database;
+import dbProcs.Getter;
 import utils.Hash;
 import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
-import dbProcs.Getter;
 /**
  * Level : Broken Crypto 4
  * <br><br>

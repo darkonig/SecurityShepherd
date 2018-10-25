@@ -16,9 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Insecure Direct Object Reference Bank Challenge Registration Function
@@ -92,7 +93,7 @@ public class DirectObjectBankRegistration extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("register.error"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			catch(Exception e)
 			{
@@ -105,14 +106,14 @@ public class DirectObjectBankRegistration extends HttpServlet
 						conn.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 				try {
 					if (callstmt != null) {
 						callstmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}

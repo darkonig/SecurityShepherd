@@ -13,12 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Getter;
+import dbProcs.Setter;
 import utils.ShepherdLogManager;
 import utils.UserKicker;
 import utils.Validate;
-import dbProcs.Getter;
-import dbProcs.Setter;
 
 /**
  * Control class of the "UnSuspend User" functionality

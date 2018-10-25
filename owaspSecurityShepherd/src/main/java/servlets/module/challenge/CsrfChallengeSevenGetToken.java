@@ -18,10 +18,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Cross Site Request Forgery Challenge Seven - Does not return result Key
@@ -98,7 +98,7 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					htmlOutput = csrfGenerics.getString("error.noToken");
 				}
 				finally {
@@ -107,21 +107,21 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 							rs.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (conn != null) {
 							conn.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (callstmnt != null) {
 							callstmnt.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 				}
 				out.write(htmlOutput);

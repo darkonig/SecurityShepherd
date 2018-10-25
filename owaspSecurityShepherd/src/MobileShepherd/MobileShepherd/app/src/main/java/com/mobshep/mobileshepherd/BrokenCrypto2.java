@@ -67,9 +67,9 @@ public class BrokenCrypto2 extends MainActivity implements NavigationView.OnNavi
 			try{
 				copyKey(getBaseContext().getAssets().open("key1"), new FileOutputStream(destinationPath1));
 			}catch(FileNotFoundException e){
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}catch(IOException e){
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 						
@@ -85,9 +85,9 @@ public class BrokenCrypto2 extends MainActivity implements NavigationView.OnNavi
 				try{
 					copyKey(getBaseContext().getAssets().open("key2"), new FileOutputStream(destinationPath2));
 				}catch(FileNotFoundException e){
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}catch(IOException e){
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 				
@@ -204,7 +204,7 @@ public class BrokenCrypto2 extends MainActivity implements NavigationView.OnNavi
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -225,7 +225,7 @@ public class BrokenCrypto2 extends MainActivity implements NavigationView.OnNavi
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -246,7 +246,7 @@ public class BrokenCrypto2 extends MainActivity implements NavigationView.OnNavi
 				try {
 					Thread.sleep(11000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {

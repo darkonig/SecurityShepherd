@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 /**
@@ -98,7 +99,7 @@ public class PoorValidation2 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>" + bundle.getString("poorValidation.badOrder") + "</p>";
 			}
 			try
@@ -107,7 +108,7 @@ public class PoorValidation2 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			out.write(htmlOutput);
 		}

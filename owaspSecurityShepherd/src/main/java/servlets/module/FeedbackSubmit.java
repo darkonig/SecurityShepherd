@@ -15,11 +15,12 @@ import org.apache.log4j.Logger;
 import org.jsoup.parser.Parser;
 import org.owasp.encoder.Encode;
 
-import utils.Hash;
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.Hash;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Marks modules as completed and stores feedback
@@ -207,7 +208,7 @@ public class FeedbackSubmit extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					htmlOutput = new String("<h2 class=\"title\">Feedback Submission Failure</h2><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

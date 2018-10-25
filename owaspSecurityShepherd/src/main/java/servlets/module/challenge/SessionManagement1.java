@@ -16,6 +16,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -141,7 +142,7 @@ public class SessionManagement1 extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 	}
 }

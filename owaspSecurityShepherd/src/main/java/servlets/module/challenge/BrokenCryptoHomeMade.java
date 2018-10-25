@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -169,7 +170,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						}
 						catch(Exception e)
 						{
-							e.printStackTrace();
+							SaveLogs.saveLog("Error", e);
 							log.error("BrokenCrypto:" +e.getMessage());
 							htmlOutput += "<p>" + bundle.getString("result.failed") + "</p>";
 						}

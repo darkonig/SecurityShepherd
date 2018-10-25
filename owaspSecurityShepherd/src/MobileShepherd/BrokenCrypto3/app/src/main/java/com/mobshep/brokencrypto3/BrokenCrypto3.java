@@ -43,9 +43,9 @@ public class BrokenCrypto3 extends ActionBarActivity {
                 copyDatabase(getBaseContext().getAssets().open("key.txt"),
                         new FileOutputStream(destinationPath));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             }
 
         }
@@ -195,9 +195,9 @@ public class BrokenCrypto3 extends ActionBarActivity {
                 copyKey(getBaseContext().getAssets().open("key"),
                         new FileOutputStream(destinationPath));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             }
         }
     }

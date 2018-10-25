@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 
 import org.apache.log4j.Logger;
 
+import utils.SaveLogs;
+
 /**  
  * Used to create database connections using the FileInputProperties.readfile method to gather property information
  * Initiated by Getter.java, Setter.java
@@ -42,7 +44,7 @@ public class Database
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 	}
 	
@@ -81,7 +83,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   e.printStackTrace();
+		   SaveLogs.saveLog("Error", e);
 	   }
 	   return conn;
 	}
@@ -119,7 +121,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   e.printStackTrace();
+		   SaveLogs.saveLog("Error", e);
 	   }
 	   return conn;
 	}
@@ -154,7 +156,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   e.printStackTrace();
+		   SaveLogs.saveLog("Error", e);
 	   }
 	   return null;
 	}
@@ -186,7 +188,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   e.printStackTrace();
+		   SaveLogs.saveLog("Error", e);
 	   }
 	   return null;
 	}

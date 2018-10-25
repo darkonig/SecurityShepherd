@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Level : SQL Injection 5
@@ -104,14 +104,14 @@ public class SqlInjection5VipCheck extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					htmlOutput += "<p> " + bundle.getString("response.checkFailed")+ "</p>";
 				}
 				conn.close();
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p> " + bundle.getString("response.checkFailed")+ "</p>";
 			}finally {
 				try {
@@ -126,7 +126,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 						prepstmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			try
@@ -135,7 +135,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			out.write(htmlOutput);
 		}

@@ -67,9 +67,9 @@ public class BrokenCrypto1 extends Activity {
 				copyKey(getBaseContext().getAssets().open("desKey"),
 						new FileOutputStream(destinationPath));
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 
 		}
@@ -90,7 +90,7 @@ public class BrokenCrypto1 extends Activity {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -111,7 +111,7 @@ public class BrokenCrypto1 extends Activity {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -132,7 +132,7 @@ public class BrokenCrypto1 extends Activity {
 				try {
 					Thread.sleep(7000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {

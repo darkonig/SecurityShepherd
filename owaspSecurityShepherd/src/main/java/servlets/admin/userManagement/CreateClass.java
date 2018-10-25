@@ -13,10 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Setter;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Setter;
 
 /**
  * This class is the control structure of the Create class vulnerability

@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Session Management Challenge Two - pwd Reset Servlet
@@ -110,7 +110,7 @@ public class SessionManagement2ChangePassword extends HttpServlet
 				}
 				catch(SQLException e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			catch(Exception e)

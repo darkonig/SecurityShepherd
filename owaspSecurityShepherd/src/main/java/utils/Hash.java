@@ -88,7 +88,7 @@ public class Hash
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		return toReturn;
 	}
@@ -109,7 +109,7 @@ public class Hash
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		return byteArray;
 	}
@@ -133,7 +133,7 @@ public class Hash
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		return result;
 	}

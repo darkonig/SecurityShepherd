@@ -11,10 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.UserKicker;
-import dbProcs.Getter;
 
 /**
  * Control class for the authentication procedure.
@@ -134,7 +135,7 @@ public class Login extends HttpServlet
 		{
 			String loginFailed = "Incorrect User name or Password";
 			ses.setAttribute("loginFailed", loginFailed);
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		log.debug("**** End servlets.Login ***");
 		

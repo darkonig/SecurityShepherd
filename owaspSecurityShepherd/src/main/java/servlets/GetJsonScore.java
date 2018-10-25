@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
 import servlets.admin.moduleManagement.GetFeedback;
 import utils.ScoreboardStatus;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
 
 /**
  * This control class returns a JSON array containing Scoreboard data for a class defined in utils.ScoreboardStatus

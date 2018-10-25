@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -16,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * SQL Injection Lesson - Does not use User Specific Key
@@ -172,19 +170,20 @@ extends HttpServlet
 			log.error(bundle.getString("example.error") + ": General Error"); //Html Encode Error to prevent XSS
 		}finally {
 			try {
-				if(resultSet != null) {
+				if (resultSet != null) {
 					resultSet.close();
 				}
-				
-				if(conn != null) {
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (conn != null) {
 					conn.close();
 				}
-				if(stmt != null) {
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (stmt != null) {
 					stmt.close();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		return result;
 	}

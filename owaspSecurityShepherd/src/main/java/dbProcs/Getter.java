@@ -15,6 +15,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.owasp.encoder.Encode;
 
+import utils.SaveLogs;
 import utils.ScoreboardStatus;
 
 /** 
@@ -155,7 +156,7 @@ public class Getter
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -164,28 +165,28 @@ public class Getter
 					callstmt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (conn != null) {
 					conn.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (loginAttempt != null) {
 					loginAttempt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (userFind != null) {
 					userFind.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		log.debug("$$$ End authUser $$$");
@@ -221,7 +222,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -230,21 +231,21 @@ public class Getter
 					callstmnt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (conn != null) {
 					conn.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		log.debug("*** END checkPlayerResult ***");
@@ -278,7 +279,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			userFound = false;
 		}
 		finally {
@@ -286,17 +287,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (userFind != null) {
 					userFind.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END findPlayerById ***");
 		return userFound;
@@ -337,24 +338,24 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getAllModuleInfo ***");
 		return modules;
@@ -429,24 +430,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (challenges != null) {
 					challenges.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getChallenges() ***");
 		return output;
@@ -475,7 +476,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = 0;
 		}
 		finally {
@@ -483,17 +484,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getClassCount");
 		return result;
@@ -519,7 +520,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -527,17 +528,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (result != null) {
 					result.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getClassInfo");
 		return result;
@@ -570,7 +571,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -578,17 +579,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getClassInfo");
 		return result;
@@ -648,29 +649,29 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			htmlOutput = "<p>" + bundle.getString("error.occurred ") + "</p>";
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getCsrfForum ***");
 		return htmlOutput;
@@ -730,29 +731,29 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			htmlOutput = "<p>" + bundle.getString("error.occurred") + "</p>";
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getCsrfForum ***");
 		return htmlOutput;
@@ -820,7 +821,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -828,17 +829,17 @@ public class Getter
 				if (callstmnt != null) {
 					callstmnt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getFeedback ***");
 		return result;
@@ -941,24 +942,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getIncrementalChallenges() ***");
 		return output;
@@ -1057,24 +1058,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getIncrementalChallengesWithoutScript() ***");
 		return output;
@@ -1231,12 +1232,12 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1244,17 +1245,17 @@ public class Getter
 				if (callstmnt != null) {
 					callstmnt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		//log.debug("*** END getJsonScore ***");
 		return result;
@@ -1318,24 +1319,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (lessons != null) {
 					lessons.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getLesson() ***");
 		return output;
@@ -1382,7 +1383,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			log.error("moduleID = " + moduleId);
 			log.error("userID = " + userId);
 		}
@@ -1391,17 +1392,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleAddress() ***");
 		return output;
@@ -1431,7 +1432,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			theCategory = null;
 		}
 		finally {
@@ -1439,17 +1440,17 @@ public class Getter
 				if (prepstmt != null) {
 					prepstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (moduleFind != null) {
 					moduleFind.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleCategory ***");
 		return theCategory;
@@ -1480,7 +1481,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1488,17 +1489,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleHash ***");
 		return result;
@@ -1530,7 +1531,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1538,17 +1539,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleIdFromHash ***");
 		return result;
@@ -1582,7 +1583,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			theKeyType = true;
 		}
 		finally {
@@ -1590,17 +1591,17 @@ public class Getter
 				if (prepstmt != null) {
 					prepstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (moduleFind != null) {
 					moduleFind.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleKeyType ***");
 		return theKeyType;
@@ -1632,7 +1633,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1640,17 +1641,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleNameLocaleKey ***");
 		return result;
@@ -1682,7 +1683,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			moduleFound = null;
 		}
 		finally {
@@ -1690,17 +1691,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (moduleFind != null) {
 					moduleFind.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleResult ***");
 		return moduleFound;
@@ -1734,7 +1735,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1742,17 +1743,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleResultFromHash ***");
 		return result;
@@ -1787,24 +1788,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModulesInOptionTags() ***");
 		return output;
@@ -1839,24 +1840,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModulesInOptionTags() ***");
 		return output;
@@ -1894,7 +1895,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -1902,17 +1903,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getModuleSolution ***");
 		return result;
@@ -1965,24 +1966,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		return output;
 	}
@@ -2017,24 +2018,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (modules != null) {
 					modules.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		return output;
 	}
@@ -2077,7 +2078,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2085,17 +2086,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getPlayersByClass");
 		return result;
@@ -2145,7 +2146,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2153,17 +2154,17 @@ public class Getter
 				if (callstmnt != null) {
 					callstmnt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getProgress ***");
 		return result;
@@ -2215,12 +2216,12 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2228,17 +2229,17 @@ public class Getter
 				if (callstmnt != null) {
 					callstmnt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getProgressJSON ***");
 		return result;
@@ -2382,24 +2383,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (levels != null) {
 					levels.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		return levelMasterList;
 	}
@@ -2429,7 +2430,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = new String();
 		}
 		finally {
@@ -2437,17 +2438,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getUserClass ***");
 		return result;
@@ -2478,7 +2479,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2486,17 +2487,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getUserIdFromName ***");
 		return result;
@@ -2527,7 +2528,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2535,17 +2536,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END getUserName ***");
 		return result;
@@ -2586,7 +2587,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = false;
 		}
 		finally {
@@ -2594,17 +2595,17 @@ public class Getter
 				if (callstmnt != null) {
 					callstmnt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END isCsrfLevelComplete ***");
 		return result;
@@ -2635,24 +2636,24 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		finally {
 			try {
 				if (prepStmt != null) {
 					prepStmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (rs != null) {
 					rs.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		return result;
 	}
@@ -2677,7 +2678,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = null;
 		}
 		finally {
@@ -2685,17 +2686,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (result != null) {
 					result.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END adminGetAll ***");
 		return result;
@@ -2728,7 +2729,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			userFound = false;
 		}
 		finally {
@@ -2736,17 +2737,17 @@ public class Getter
 				if (callstmt != null) {
 					callstmt.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (conn != null) {
 					conn.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			try {
 				if (userFind != null) {
 					userFind.close();
 				}
-			} catch (Exception e) { log.error("Error close connections", e); }
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 		}
 		log.debug("*** END findAdminById ***");
 		return userFound;

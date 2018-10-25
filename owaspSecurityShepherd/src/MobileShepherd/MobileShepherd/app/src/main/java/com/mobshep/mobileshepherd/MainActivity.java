@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
                 try {
                     startActivity(intentURI);
                 }catch (IllegalStateException e) {
-                    e.printStackTrace();
+                    SaveLogs.saveLog("Error", e);
                     Snackbar.make(null, "Invalid URL entered.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity
                 try {
                     startActivity(intentURI);
                 }catch (IllegalStateException e) {
-                    e.printStackTrace();
+                    SaveLogs.saveLog("Error", e);
                     Snackbar.make(null, "Invalid URL entered.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }

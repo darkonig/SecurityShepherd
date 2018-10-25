@@ -61,9 +61,9 @@ public class poorAuth2_Main extends Activity {
                 copyCache(getBaseContext().getAssets().open("usedAuthCodes"),
                         new FileOutputStream(destinationPath));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             }
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, authCodes);

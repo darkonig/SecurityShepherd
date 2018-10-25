@@ -49,7 +49,7 @@ public class XssFilter
 			} 
 			catch (MalformedURLException e) 
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				input = howToMakeAUrlUrl;
 			}
 		}
@@ -79,7 +79,7 @@ public class XssFilter
 			} 
 			catch (MalformedURLException e) 
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				input = howToMakeAUrlUrl;
 			}
 		}

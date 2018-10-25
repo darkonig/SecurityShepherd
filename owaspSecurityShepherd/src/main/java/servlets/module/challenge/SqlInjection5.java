@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 /**
  * Level : SQL Injection 5
  * <br><br>
@@ -129,7 +129,7 @@ public class SqlInjection5 extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				conn.close();
 				
@@ -151,7 +151,7 @@ public class SqlInjection5 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>" + bundle.getString("response.orderFailed")+ "</p>";
 			}
 			try
@@ -160,7 +160,7 @@ public class SqlInjection5 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			out.write(htmlOutput);
 		}

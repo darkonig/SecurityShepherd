@@ -148,7 +148,7 @@ public class CSInjection extends MainActivity implements OnClickListener, Naviga
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 
 			if (CheckName.contentEquals("") || CheckPass.contentEquals("") || CheckPass.contentEquals("A3B922DF010PQSI827")) {

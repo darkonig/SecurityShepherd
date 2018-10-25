@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
-import utils.Hash;
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Database;
 import dbProcs.Getter;
+import utils.Hash;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Session Management Challenge Six
@@ -182,7 +182,7 @@ public class SessionManagement6 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		else

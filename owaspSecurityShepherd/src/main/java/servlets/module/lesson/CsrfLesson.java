@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
 import dbProcs.Getter;
 import utils.FindXSS;
 import utils.Hash;

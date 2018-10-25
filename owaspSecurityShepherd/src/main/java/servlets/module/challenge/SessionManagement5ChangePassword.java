@@ -22,6 +22,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -130,7 +131,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 					} 
 					catch (ParseException e) 
 					{
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 						errorMessage += StringEscapeUtils.escapeHtml4(bundle.getString("changePass.badTokenData") + ": " + e.toString());
 					}
 					
@@ -197,7 +198,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		else

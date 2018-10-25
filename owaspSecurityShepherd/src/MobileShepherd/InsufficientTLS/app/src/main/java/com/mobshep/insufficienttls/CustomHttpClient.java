@@ -73,7 +73,7 @@ public class CustomHttpClient {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    SaveLogs.saveLog("Error", e);
                 }
             }
         }
@@ -112,7 +112,7 @@ public class CustomHttpClient {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    SaveLogs.saveLog("Error", e);
                 }
             }
         }

@@ -16,11 +16,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Getter;
 import utils.ModulePlan;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
 
 /**
  * Class used to return a fresh incremental menu upon completion of a module in incremental mode.

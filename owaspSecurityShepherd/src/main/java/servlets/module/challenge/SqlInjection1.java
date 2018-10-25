@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
 import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -118,7 +119,7 @@ public class SqlInjection1 extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>SQLException</p>";
 			}
@@ -139,7 +140,7 @@ public class SqlInjection1 extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("Outputting HTML");

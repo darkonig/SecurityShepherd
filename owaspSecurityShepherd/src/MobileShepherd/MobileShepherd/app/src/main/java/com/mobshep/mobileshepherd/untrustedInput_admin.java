@@ -30,9 +30,9 @@ public class untrustedInput_admin extends Activity {
                 Snackbar.make(v, JSONParse.execute().get(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             } catch (ExecutionException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             }
         }
 

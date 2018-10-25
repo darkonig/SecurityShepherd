@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
+import utils.ModuleBlock;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import utils.ModuleBlock;
-import dbProcs.Getter;
 
 /**
  * Class to manage interaction of an optional blocking module. This is used to prevent users from getting ahead of themselfs. By deafult this is not enabled

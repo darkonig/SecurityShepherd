@@ -17,12 +17,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
-import utils.Hash;
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Database;
 import dbProcs.Getter;
+import utils.Hash;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 /**
  * Level : SQL Injection 7
  * <br><br>
@@ -102,14 +102,14 @@ public class SqlInjection7 extends HttpServlet
 					catch(Exception e)
 					{
 						htmlOutput = "<h3>" + bundle.getString("response.incorrectCreds")+ "</h3><p>" + bundle.getString("response.carefulNow")+ "</p>";
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 						try
 						{
 							Thread.sleep(1000);
 						}
 						catch(Exception e1)
 						{
-							e.printStackTrace();
+							SaveLogs.saveLog("Error", e);
 						}
 					}
 					conn.close();
@@ -123,7 +123,7 @@ public class SqlInjection7 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>" + bundle.getString("response.badRequest")+ "</p>";
 				try
 				{
@@ -131,7 +131,7 @@ public class SqlInjection7 extends HttpServlet
 				}
 				catch(Exception e2)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}finally {
 				try {
@@ -146,7 +146,7 @@ public class SqlInjection7 extends HttpServlet
 						prepstmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("*** " + levelName + " End ***");

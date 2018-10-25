@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import utils.ModuleBlock;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import utils.ModuleBlock;
 
 /**
  * Class to remove an optional blocking module that had been enabled.

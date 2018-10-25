@@ -24,6 +24,7 @@ import org.owasp.encoder.Encode;
 import dbProcs.Database;
 import dbProcs.Getter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -131,7 +132,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 				}
 				catch(SQLException e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				log.debug("Outputting HTML");
 				out.write(htmlOutput);
@@ -241,7 +242,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 						}
 						catch(SQLException e)
 						{
-							e.printStackTrace();
+							SaveLogs.saveLog("Error", e);
 							log.debug("Outputting error to user");
 							htmlOutput = StringEscapeUtils.escapeHtml4(e.toString());
 						}finally {
@@ -257,7 +258,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 									stmt.close();
 								}
 							} catch (Exception e) {
-								e.printStackTrace();
+								SaveLogs.saveLog("Error", e);
 							}
 						}
 					}
@@ -278,7 +279,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		else

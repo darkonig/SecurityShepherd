@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Setter;
 import utils.OpenRegistration;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -156,7 +157,7 @@ public class Register extends HttpServlet
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				ses.setAttribute("errorMessage", "An error Occurred. Please try again");
 				response.sendRedirect("register.jsp");
 			}

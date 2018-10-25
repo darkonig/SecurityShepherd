@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
 
 /**
  * This control class is responsible for the server operation in the Get Progress function

@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -172,7 +173,7 @@ public class UrlAccess3 extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 	}
 }

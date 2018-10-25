@@ -13,12 +13,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Getter;
+import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.UserKicker;
 import utils.Validate;
-import dbProcs.Getter;
-import dbProcs.Setter;
 
 /**
  * Control class of the "Suspend User" functionality
@@ -125,7 +125,7 @@ public class SuspendUser extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					out.print("<h3 class=\"title\">" + functionName + " Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

@@ -14,7 +14,6 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
 import dbProcs.Getter;
 import servlets.Register;
 import utils.ShepherdLogManager;

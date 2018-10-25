@@ -6,13 +6,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-import org.apache.commons.text.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.w3c.tidy.Tidy;
 
 /**
@@ -165,7 +165,7 @@ public class FindXSS
 					}
 					catch(MalformedURLException e)
 					{
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 					}
 					if(!validUrl)
 					{
@@ -204,7 +204,7 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			validAttack = false;
 		}
 		catch(Exception e)
@@ -250,7 +250,7 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			validAttack = false;
 		}
 		catch(Exception e)
@@ -287,7 +287,7 @@ public class FindXSS
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		// log.debug("String Tidied To: " + tidyHtml);
 		

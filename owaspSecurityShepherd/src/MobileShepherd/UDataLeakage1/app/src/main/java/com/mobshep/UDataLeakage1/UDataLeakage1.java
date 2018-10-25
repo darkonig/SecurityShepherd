@@ -67,7 +67,7 @@ public class UDataLeakage1 extends ActionBarActivity implements View.OnClickList
         try {
             saveStaticImage();
         } catch (IOException e) {
-            e.printStackTrace();
+            SaveLogs.saveLog("Error", e);
         }
     }
 
@@ -205,7 +205,7 @@ public class UDataLeakage1 extends ActionBarActivity implements View.OnClickList
                         Toast.makeText(getApplicationContext(), "Message saved!", Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        SaveLogs.saveLog("Error", e);
                     }
 
                 }
@@ -268,9 +268,9 @@ public class UDataLeakage1 extends ActionBarActivity implements View.OnClickList
                 copyImages(getBaseContext().getAssets().open("Log0b10cb9b9244ce1e1cdc34"),
                         new FileOutputStream(destinationPath));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                SaveLogs.saveLog("Error", e);
             }
 
         }

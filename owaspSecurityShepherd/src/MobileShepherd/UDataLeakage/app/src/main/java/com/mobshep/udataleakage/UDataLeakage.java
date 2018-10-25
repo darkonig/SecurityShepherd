@@ -67,9 +67,9 @@ String destinationDir = "/data/data/" +getPackageName() + "/files/";
 			try{
 				copyKey(getBaseContext().getAssets().open("Tue Jul 08 172618 EDT 2014"), new FileOutputStream(destinationPath));
 			}catch(FileNotFoundException e){
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}catch(IOException e){
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			
 		}
@@ -125,13 +125,13 @@ String destinationDir = "/data/data/" +getPackageName() + "/files/";
 			writer.write(content + EOL);
 			writer.write(date + EOL);
 		} catch (Exception e) {
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}

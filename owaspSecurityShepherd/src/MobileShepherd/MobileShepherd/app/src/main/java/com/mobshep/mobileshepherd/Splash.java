@@ -37,7 +37,7 @@ public class Splash extends Activity {
 				try {
 					sleep(2000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				} finally
 
 				{

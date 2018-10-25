@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import dbProcs.Constants;
 import dbProcs.Database;
 import utils.InstallationException;
+import utils.SaveLogs;
 import utils.Validate;
 
 public class Setup extends HttpServlet {
@@ -107,7 +107,7 @@ public class Setup extends HttpServlet {
 		catch (Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 		out.close();
 	}
@@ -133,7 +133,7 @@ public class Setup extends HttpServlet {
 			}
 		} catch (IOException e) {
 			log.fatal("Unable to generate auth");
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class Setup extends HttpServlet {
 			psProcToexecute.executeUpdate(data);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			throw new InstallationException(e);
 		}
 	}
@@ -180,7 +180,7 @@ public class Setup extends HttpServlet {
 			psProcToexecute.executeUpdate(data);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			throw new InstallationException(e);
 		}
 	}

@@ -77,7 +77,7 @@ public class BrokenCrypto extends Activity {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -99,7 +99,7 @@ public class BrokenCrypto extends Activity {
 				try {
 					Thread.sleep(4000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -120,7 +120,7 @@ public class BrokenCrypto extends Activity {
 				try {
 					Thread.sleep(6000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -141,7 +141,7 @@ public class BrokenCrypto extends Activity {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {
@@ -162,7 +162,7 @@ public class BrokenCrypto extends Activity {
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 				handler.post(new Runnable() {
 					public void run() {

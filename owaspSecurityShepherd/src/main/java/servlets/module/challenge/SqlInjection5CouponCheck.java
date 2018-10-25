@@ -17,9 +17,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Level : SQL Injection Challenge 5 <br>
@@ -107,45 +108,45 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 							coupons.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (conn != null) {
 							conn.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (prepstmt != null) {
 							prepstmt.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (conn != null) {
 							conn.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("Error", e);
 					}
 					try {
 						if (prepstmt != null) {
 							prepstmt.close();
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput = "" + bundle.getString("errors.occured") + ": GeneralException";
 			}
 			try {
 				Thread.sleep(1000);
 			} catch (Exception e) {
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			out.write(htmlOutput);
 		} else {

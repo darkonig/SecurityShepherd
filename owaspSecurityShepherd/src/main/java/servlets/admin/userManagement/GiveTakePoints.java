@@ -13,11 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Control class of the "Give Take Points" functionality
@@ -130,7 +130,7 @@ public class GiveTakePoints extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					out.print("<h3 class=\"title\">" + functionName + " Failure</h3><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

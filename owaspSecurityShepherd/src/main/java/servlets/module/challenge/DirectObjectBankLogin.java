@@ -19,11 +19,11 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Insecure Direct Object Reference Bank Challenge
@@ -111,7 +111,7 @@ public class DirectObjectBankLogin extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("login.error.couldNotGetBalance"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			catch(Exception e)
 			{
@@ -124,21 +124,21 @@ public class DirectObjectBankLogin extends HttpServlet
 						resultSet.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 				try {
 					if (conn != null) {
 						conn.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 				try {
 					if (callstmt != null) {
 						callstmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}
@@ -275,21 +275,21 @@ public class DirectObjectBankLogin extends HttpServlet
 					rs.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (conn != null) {
 					conn.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 			try {
 				if (callstmt != null) {
 					callstmt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		return toReturn;

@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -19,10 +18,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * SQL Injection Stored Procedure Challenge - Does not use user specific keys
@@ -113,7 +112,7 @@ public class SqlInjectionStoredProcedure extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>SQLException</p>";
 			}
@@ -134,7 +133,7 @@ public class SqlInjectionStoredProcedure extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("Outputting HTML");

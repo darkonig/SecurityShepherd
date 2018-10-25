@@ -20,6 +20,7 @@ import org.owasp.encoder.Encode;
 
 import dbProcs.Database;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 /**
@@ -109,21 +110,21 @@ public class SqlInjection6 extends HttpServlet
 				catch(Exception e)
 				{
 					htmlOutput = "<h3>" + bundle.getString("response.incorrectCreds")+ "</h3><p>" + bundle.getString("response.carefulNow")+ "</p>";
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 					try
 					{
 						Thread.sleep(1000);
 					}
 					catch(Exception e1)
 					{
-						e.printStackTrace();
+						SaveLogs.saveLog("Error", e);
 					}
 				}
 				conn.close();
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 				htmlOutput += "<p>" + bundle.getString("response.badRequest")+ "</p>";
 				try
 				{
@@ -131,7 +132,7 @@ public class SqlInjection6 extends HttpServlet
 				}
 				catch(Exception e2)
 				{
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}finally {
 				try {
@@ -146,7 +147,7 @@ public class SqlInjection6 extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("*** SQLi C6 End ***");

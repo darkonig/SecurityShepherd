@@ -17,12 +17,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
-import utils.Hash;
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Database;
 import dbProcs.Getter;
+import utils.Hash;
+import utils.SaveLogs;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Session Management Challenge Two
@@ -145,7 +145,7 @@ public class SessionManagement2 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 		}
 		else

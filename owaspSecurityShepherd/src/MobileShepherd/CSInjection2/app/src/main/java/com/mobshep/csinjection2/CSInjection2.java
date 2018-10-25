@@ -113,7 +113,7 @@ public class CSInjection2 extends Activity implements OnClickListener {
                     }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    SaveLogs.saveLog("Error", e);
                 }
 
                 if (Name.contentEquals("")

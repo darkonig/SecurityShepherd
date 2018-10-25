@@ -21,6 +21,7 @@ import dbProcs.Database;
 import dbProcs.Getter;
 import dbProcs.Setter;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -175,7 +176,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			result = false;
 		}
 		Database.closeConnection(conn);

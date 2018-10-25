@@ -19,8 +19,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
 import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -120,7 +120,7 @@ public class UrlAccess3UserList extends HttpServlet
 			catch(Exception e)
 			{
 				htmlOutput = new String(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}finally {
 				try {
 					if(rs != null) {
@@ -134,7 +134,7 @@ public class UrlAccess3UserList extends HttpServlet
 						callstmt.close();
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 			log.debug("Outputting HTML");

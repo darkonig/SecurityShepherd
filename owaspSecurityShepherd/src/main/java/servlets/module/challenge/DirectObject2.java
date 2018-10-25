@@ -18,10 +18,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Insecure Direct Object Reference Challenge Two
@@ -108,7 +108,7 @@ public class DirectObject2 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			finally {
 				try {
@@ -116,21 +116,21 @@ public class DirectObject2 extends HttpServlet
 						resultSet.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 				try {
 					if (conn != null) {
 						conn.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 				try {
 					if (prepstmt != null) {
 						prepstmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					SaveLogs.saveLog("Error", e);
 				}
 			}
 		}

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Database;
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -132,7 +133,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("securityMisconfig.servlet.stealTokens.notComplete.yourToken"));
-				e.printStackTrace();
+				SaveLogs.saveLog("Error", e);
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);
@@ -174,7 +175,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			throw e;
 		}
 		conn.close();
@@ -220,7 +221,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			SaveLogs.saveLog("Error", e);
 			throw e;
 		}
 		conn.close();
