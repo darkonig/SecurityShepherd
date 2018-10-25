@@ -62,8 +62,8 @@ String ApplicationRoot = getServletContext().getRealPath("");
 	<form action="javascript:;" id="leForm" method="POST">
 		<table align="center">
 			<tr><td><p>Database URL:</p></td><td><input type="text" id="databaseURL" value=""/></td></tr>
-			<tr><td><p>Username:</p></td><td><input type="text" id="databaseUsername" autocomplete="off" /></td></tr>
-			<tr><td><p>Password:</p></td><td><input type="password" id="databasePassword" autocomplete="off" /></td></tr>
+			<tr><td><p>Username:</p></td><td><input type="text" id="bancoDeDadosNomeUsuario" autocomplete="off" /></td></tr>
+			<tr><td><p>Password:</p></td><td><input type="password" id="bancoDeDadosSenha" autocomplete="off" /></td></tr>
 			<tr><td colspan="2" align="center">
 				<input type="submit" id="submitButton" value="Set Core Database Data"/>
 			</td></tr>
@@ -78,8 +78,8 @@ String ApplicationRoot = getServletContext().getRealPath("");
 		$("#resultsDiv").hide("fast");
 		$("#loadingSign").show("fast");
 		var url = $("#databaseURL").val();
-		var username = $("#databaseUsername").val();
-		var password = $("#databasePassword").val();
+		var username = $("#bancoDeDadosNomeUsuario").val();
+		var password = $("#bancoDeDadosSenha").val();
 		$("#submitButton").hide("fast");
 		$("#theStep").slideUp("fast", function(){
 			var ajaxCall = $.ajax({
@@ -88,8 +88,8 @@ String ApplicationRoot = getServletContext().getRealPath("");
 				url: "changeCoreDatabase",
 				data: {
 					databaseUrl: url,
-					databaseUsername: username,
-					databasePassword: password,
+					bancoDeDadosNomeUsuario: username,
+					bancoDeDadosSenha: password,
 					csrfToken: "<%= csrfToken %>"
 				},
 				async: false

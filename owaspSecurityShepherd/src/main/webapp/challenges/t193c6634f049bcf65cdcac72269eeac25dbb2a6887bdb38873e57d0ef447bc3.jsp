@@ -72,12 +72,12 @@ String i18nLevelName = bundle.getString("challenge.challengeName");
 					<div id="resultsDiv">
 						<table>
 							<tr><td>
-								<%= bundle.getString("challenge.form.userName") %>
+								<%= bundle.getString("challenge.form.nomeUsuario") %>
 							</td><td>
 								<input type="text" id="subUserName"/>
 							</td></tr>
 							<tr><td>
-								<%= bundle.getString("challenge.form.password") %>
+								<%= bundle.getString("challenge.form.senha") %>
 							</td><td>
 								<input type="password" id="subUserPassword" autocomplete="off"/>
 							</td></tr>

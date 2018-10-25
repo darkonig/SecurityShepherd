@@ -62,9 +62,9 @@ public class Setup extends HttpServlet {
 			dbProp.append("\n");
 			dbProp.append("databaseSchema=core");
 			dbProp.append("\n");
-			dbProp.append("databaseUsername=" + dbUser);
+			dbProp.append("bancoDeDadosNomeUsuario=" + dbUser);
 			dbProp.append("\n");
-			dbProp.append("databasePassword=" + dbPass);
+			dbProp.append("bancoDeDadosSenha=" + dbPass);
 			dbProp.append("\n");
 
 			if (!auth.equals(dbAuth)) {

@@ -286,8 +286,8 @@ public class Setter
 			siteProperties = new File(applicationRoot + "/WEB-INF/coreDatabase.properties");
 			writer = new DataOutputStream(new FileOutputStream(siteProperties,false));
 			theProperties = new String("databaseConnectionURL=core"+					
-					"\ndatabaseUsername=" + userName +
-					"\ndatabasePassword=" + password);
+					"\nbancoDeDadosNomeUsuario=" + userName +
+					"\nbancoDeDadosSenha=" + password);
 			writer.close();
 			return true;
 		} 

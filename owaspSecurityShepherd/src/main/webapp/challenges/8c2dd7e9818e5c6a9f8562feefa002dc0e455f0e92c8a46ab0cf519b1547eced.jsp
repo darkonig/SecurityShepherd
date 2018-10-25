@@ -81,7 +81,7 @@
 						<input style="width: 400px;" id="subEmail" type="text" autocomplete="off"/>
 					</td></tr>
 					<tr><td>
-						<%= bundle.getString("challenge.form.password") %> 
+						<%= bundle.getString("challenge.form.senha") %> 
 					</td><td>
 						<input style="width: 400px;" id="subPass" type="password" autocomplete="off"/>
 					</td></tr>

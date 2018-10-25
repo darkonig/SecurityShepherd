@@ -74,8 +74,8 @@ public class Database
 		   //Add DB Schema to the end of the connectionURL
 		   connectionURL= connectionURL + FileInputProperties.readfile(props, "databaseConnectionURL");
 		   //log.debug("Connection URL: " + connectionURL);
-		   String username=FileInputProperties.readfile(props, "databaseUsername");
-		   String password=FileInputProperties.readfile(props, "databasePassword");
+		   String username=FileInputProperties.readfile(props, "bancoDeDadosNomeUsuario");
+		   String password=FileInputProperties.readfile(props, "bancoDeDadosSenha");
 		   
 		   conn = DriverManager.getConnection(connectionURL,username,password);
 	   }
@@ -111,8 +111,8 @@ public class Database
 		   
 		   //log.debug("Reading Prop File");
 		   connectionURL= connectionURL + FileInputProperties.readfile(props, "databaseSchema");
-		   String username=FileInputProperties.readfile(props, "databaseUsername");
-		   String password=FileInputProperties.readfile(props, "databasePassword");
+		   String username=FileInputProperties.readfile(props, "bancoDeDadosNomeUsuario");
+		   String password=FileInputProperties.readfile(props, "bancoDeDadosSenha");
 		   
 		   //log.debug("Creating Connection to DB");
 		   conn = DriverManager.getConnection(connectionURL,username,password);
@@ -147,8 +147,8 @@ public class Database
 			   connectionURL += "?allowMultiQueries=yes";
 		   }
 		   
-		   String username=FileInputProperties.readfile(props, "databaseUsername");
-		   String password=FileInputProperties.readfile(props, "databasePassword");
+		   String username=FileInputProperties.readfile(props, "bancoDeDadosNomeUsuario");
+		   String password=FileInputProperties.readfile(props, "bancoDeDadosSenha");
 		   
 		  return DriverManager.getConnection(connectionURL,username,password);
 	   }
@@ -179,8 +179,8 @@ public class Database
 		   props = ApplicationRoot+"/WEB-INF/classes/lessons/SqlInjLesson.properties";
 		   
 		   connectionURL= connectionURL + FileInputProperties.readfile(props, "databaseConnectionURL");
-		   String username=FileInputProperties.readfile(props, "databaseUsername");
-		   String password=FileInputProperties.readfile(props, "databasePassword");
+		   String username=FileInputProperties.readfile(props, "bancoDeDadosNomeUsuario");
+		   String password=FileInputProperties.readfile(props, "bancoDeDadosSenha");
 		   
 		   return DriverManager.getConnection(connectionURL,username,password);
 	   }

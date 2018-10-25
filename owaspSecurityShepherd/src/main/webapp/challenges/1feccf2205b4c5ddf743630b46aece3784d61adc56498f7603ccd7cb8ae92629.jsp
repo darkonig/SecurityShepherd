@@ -76,12 +76,12 @@ if (request.getSession() != null)
 						<%= bundle.getString("challenge.form.instruction") %>
 					</td></tr>
 					<tr><td>
-						<%= bundle.getString("challenge.form.userName") %> 
+						<%= bundle.getString("challenge.form.nomeUsuario") %> 
 					</td><td>
 						<input style="width: 200px;" id="theUserName" type="text" autocomplete="off"/>
 					</td></tr>
 					<tr><td>
-						<%= bundle.getString("challenge.form.password") %> 
+						<%= bundle.getString("challenge.form.senha") %> 
 					</td><td>
 						<input style="width: 200px;" id="thePassword" type="password" autocomplete="off"/>
 					</td></tr>
