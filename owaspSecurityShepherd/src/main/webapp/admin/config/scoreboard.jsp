@@ -136,7 +136,7 @@ if (request.getSession() != null) //Session If
 						type: "POST",
 						url: "EnableScoreboard",
 						data: {
-							classId: "<%= Register.getDefaultClass() %>",
+							classId: "",
 							restricted: "true",
 							csrfToken: theCsrfToken
 						},
