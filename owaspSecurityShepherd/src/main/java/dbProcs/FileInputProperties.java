@@ -97,17 +97,17 @@ public class FileInputProperties
 	    	if (fis != null) {
 	    		try {
 	    		fis.close();
-	    		}catch (Exception e) {}
+	    		}catch (Exception e) { log.error(e); }
 	    	}
 	    	if (bis != null) {
 	    		try {
 	    			bis.close();
-	    		}catch (Exception e) {}
+	    		}catch (Exception e) { log.error(e); }
 	    	}
 	    	if (dis != null) {
 	    		try {
 	    			dis.close();
-	    		}catch (Exception e) {}
+	    		}catch (Exception e) { log.error(e); }
 	    	}
 	    }
 	    return result;

@@ -88,7 +88,7 @@ if (request.getSession() != null)
 				<%= bundle.getString("challenge.withTheseParameters") %> <a>userId = <%= bundle.getString("challenge.userIdExample") %></a> & <a>csrfToken = <%= bundle.getString("challenge.yourCsrfTokenCamelCase") %></a>
 				<br/>
 				<br/>
-				<%= bundle.getString("challenge.whereIdIsUserBeenIncremented.1") %> <%= bundle.getString("challenge.userIdExample") %> <%= bundle.getString("challenge.whereIdIsUserBeenIncremented.2") %> <%=bundle.getString("challenge.yourIdIs") %> <%= userId %> <%=bundle.getString("challenge.yourCsrfTokenIs") %> <a><%= csrfChal4Token %></a><%= bundle.getString("challenge.yourIdIs.1") %>
+				<%= StringEscapeUtils.escapeHtml4(bundle.getString("challenge.whereIdIsUserBeenIncremented.1")) %> <%= StringEscapeUtils.escapeHtml4(bundle.getString("challenge.userIdExample")) %> <%= bundle.getString("challenge.whereIdIsUserBeenIncremented.2") %> <%=bundle.getString("challenge.yourIdIs") %> <%= userId %> <%=bundle.getString("challenge.yourCsrfTokenIs") %> <a><%= csrfChal4Token %></a><%= bundle.getString("challenge.yourIdIs.1") %>
 				<br/>
 				<br/>
 				<%= bundle.getString("challenge.useForumForIframe") %>
