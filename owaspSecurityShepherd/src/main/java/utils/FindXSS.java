@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.w3c.tidy.Tidy;
 
@@ -234,7 +234,7 @@ public class FindXSS
 			log.debug("theAttack Port: " + theAttack.getPort());
 			log.debug("theAttack Path: " + theAttack.getPath());
 			log.debug("theAttack Query: " + theAttack.getQuery());
-			boolean validPath = theAttack.getPath().toLowerCase().endsWith(csrfAttackPath.toLowerCase());
+			boolean validPath = StringEscapeUtils.unescapeHtml4(theAttack.getPath()).toLowerCase().endsWith(csrfAttackPath.toLowerCase());
 			if(!validPath)
 				log.debug("Invalid Solution: Bad Path submitted. Expected:" + csrfAttackPath.toLowerCase());
 			else

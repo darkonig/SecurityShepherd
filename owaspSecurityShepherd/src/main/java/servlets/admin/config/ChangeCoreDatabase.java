@@ -72,10 +72,9 @@ public class ChangeCoreDatabase extends HttpServlet
 					log.debug("Getting Parameters");
 					String url = Validate.validateParameter(request.getParameter("databaseUrl"), 256);
 					log.debug("URL = " + url);
-					String userName = Validate.validateParameter(request.getParameter("databaseUsername"), 256);
+					char[] userName = Validate.validateParameter(request.getParameter("databaseUsername"), 256).toCharArray();
 					log.debug("userName = " + userName);
-					String password = Validate.validateParameter(request.getParameter("databasePassword"), 256);
-					log.debug("password = NOTSHOWN");
+					char[] password = Validate.validateParameter(request.getParameter("databasePassword"), 256);
 					
 					boolean validData = !url.isEmpty() && !userName.isEmpty() && !password.isEmpty();
 					if(Setter.setCoreDatabaseInfo(ApplicationRoot, url, userName, password))
