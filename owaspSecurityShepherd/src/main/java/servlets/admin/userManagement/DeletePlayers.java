@@ -127,7 +127,7 @@ public class DeletePlayers extends HttpServlet{
 				}
 				catch (Exception e)
 				{
-					log.error("Delete Player Error: " + e.toString());
+					log.error("Delete Player Error ", e);
 					out.print("<h3 class=\"title\">Player Deletion Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

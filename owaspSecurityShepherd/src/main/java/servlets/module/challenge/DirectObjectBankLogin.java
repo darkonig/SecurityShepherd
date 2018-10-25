@@ -110,12 +110,12 @@ public class DirectObjectBankLogin extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("login.error.couldNotGetBalance"));
-				log.fatal(levelName + " SQL Error - " + e.toString());
+				log.error(levelName + " SQL Error - ", e);
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				log.error(levelName + " - ", e);
 			}
 		}
 		else

@@ -109,7 +109,7 @@ public class ChangePassword extends HttpServlet
 							}
 							catch (Exception e)
 							{
-								log.error("Cant Log the user out because they dont have a valid CSRF token : " + e.toString());
+								log.error("Cant Log the user out because they dont have a valid CSRF token ", e);
 								response.sendRedirect("login.jsp");
 							}
 						}
@@ -144,7 +144,7 @@ public class ChangePassword extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.fatal("ChangePassword Error: " + e.toString());
+			log.error("ChangePassword Error", e);
 		}
 		log.debug("*** END ChangePassword ***");
 		response.sendRedirect("index.jsp");

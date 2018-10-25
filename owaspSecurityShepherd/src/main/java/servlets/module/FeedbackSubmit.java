@@ -205,7 +205,7 @@ public class FeedbackSubmit extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Feedback Submission Error: " + e.toString());
+					log.error("Feedback Submission Error ", e);
 					htmlOutput = new String("<h2 class=\"title\">Feedback Submission Failure</h2><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

@@ -165,11 +165,11 @@ public class FindXSS
 					}
 					catch(MalformedURLException e)
 					{
-						log.error("Invalid URL: " + e.toString());
+						log.error("Invalid URL ", e);
 					}
 					if(!validUrl)
 					{
-						log.debug("Invalid Url: " + tempMessage);
+						log.debug("Invalid Url ", e);
 					}
 					else
 					{
@@ -204,12 +204,12 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted: " + e.toString());
+			log.debug("Invalid URL Submitted ", e);
 			validAttack = false;
 		}
 		catch(Exception e)
 		{
-			log.error("FindCSRF Failed: " + e.toString());
+			log.error("FindCSRF Failed ", e);
 			validAttack = false;
 		}
 		return validAttack;
@@ -250,12 +250,12 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted: " + e.toString());
+			log.debug("Invalid URL Submitted ", e);
 			validAttack = false;
 		}
 		catch(Exception e)
 		{
-			log.error("FindCSRF Failed: " + e.toString());
+			log.error("FindCSRF Failed ", e);
 			validAttack = false;
 		}
 		return validAttack;

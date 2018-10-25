@@ -172,7 +172,7 @@ public class AddPlayer extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Create New Class Error: " + e.toString());
+					log.error("Create New Class Error", e);
 					out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 							"An error Occurred! Please try again." +
 							"</strong></p></div>");

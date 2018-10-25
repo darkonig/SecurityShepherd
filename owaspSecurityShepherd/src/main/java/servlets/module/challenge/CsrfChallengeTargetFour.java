@@ -117,7 +117,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 						}
 						else
 						{
-							log.error("UserId '" + plusId + "' could not be found in system.");
+								log.error("The user id could not be found.");
 						}
 					}
 					else
@@ -171,7 +171,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("CSRF4 Token Check Failure: " + e.toString());
+			log.error("CSRF4 Token Check Failure ", e);
 			result = false;
 		}
 		Database.closeConnection(conn);

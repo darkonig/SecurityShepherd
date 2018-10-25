@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.Hash;
@@ -78,7 +79,7 @@ public class BrokenCrypto4 extends HttpServlet
 				log.debug("rageAmount - " + rageAmount);
 				int notBadAmount = validateAmount(Integer.parseInt(request.getParameter("notBadAmount")));
 				log.debug("notBadAmount - " + notBadAmount);
-				String couponCode = request.getParameter("couponCode");
+				String couponCode = StringEscapeUtils.escapeHtml4(request.getParameter("couponCode"));
 				log.debug("couponCode - " + couponCode);
 				
 				//Working out costs
@@ -131,7 +132,7 @@ public class BrokenCrypto4 extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					log.debug("Could Not Find Coupon: " + e.toString());
+					log.error("Could Not Find Coupon", e);
 				}
 				finally {
 					if (prepstmt != null && !prepstmt.isClosed()) {
@@ -160,7 +161,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.debug("Didn't complete order: " + e.toString());
+				log.error("Didn't complete order", e);
 				htmlOutput += "<p>" + bundle.getString("insecureCyrptoStorage.4.orderFailed") + "</p>";
 			}
 			
@@ -170,7 +171,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause: " + e.toString());
+				log.error("Failed to Pause ", e);
 			}
 			out.write(htmlOutput);
 		}

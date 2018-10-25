@@ -97,7 +97,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 					}
 					else
 					{
-						log.error("UserId '" + plusId + "' could not be found.");
+							log.error("The user id could not be found.");
 					}
 				}
 				
@@ -118,7 +118,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			log.fatal(levelName + " - " + e.toString());
+			log.error(levelName + " - ", e);
 		}
 	}
 	
