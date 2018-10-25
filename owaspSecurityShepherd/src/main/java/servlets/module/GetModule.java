@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -71,11 +72,11 @@ public class GetModule extends HttpServlet
 					String ApplicationRoot = getServletContext().getRealPath("");
 					
 					log.debug("Getting Parameters");
-					String moduleId = (String)request.getParameter("moduleId");;
+					String moduleId = StringEscapeUtils.escapeHtml4((String)request.getParameter("moduleId"));
 					log.debug("moduleId = " + moduleId.toString());
 					
 					log.debug("Getting session parameters");
-					String userId = (String)ses.getAttribute("userStamp");
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					log.debug("userId = " + userId);
 					
 					//Validation

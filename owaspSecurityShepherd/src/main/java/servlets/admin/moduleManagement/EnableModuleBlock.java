@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -58,7 +59,7 @@ public class EnableModuleBlock extends HttpServlet
 		Object tokenParmeter = request.getParameter("csrfToken");
 		if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 		{
-			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
+			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), StringEscapeUtils.escapeHtml4(ses.getAttribute("userName").toString()));
 			if(Validate.validateTokens(tokenCookie, tokenParmeter))
 			{
 				boolean notNull = false;
@@ -68,7 +69,7 @@ public class EnableModuleBlock extends HttpServlet
 					String applicationRoot = getServletContext().getRealPath("");
 					
 					log.debug("Getting Parameters");
-					String moduleId = (String)request.getParameter("moduleId");;
+					String moduleId = StringEscapeUtils.escapeHtml4((String)request.getParameter("moduleId"));
 					log.debug("moduleId = " + moduleId.toString());
 					String blockedMessage = Validate.validateParameter(request.getParameter("blockedMessage"), 500);
 					
