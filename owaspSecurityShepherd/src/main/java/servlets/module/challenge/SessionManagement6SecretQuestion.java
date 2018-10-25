@@ -16,16 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
+import dbProcs.Getter;
 import utils.Hash;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
-import dbProcs.Getter;
 
 /**
  * Session Management Challenge Six - Security Question
@@ -243,7 +243,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 						{
 							e.printStackTrace();
 							log.debug("Outputting error to user");
-							htmlOutput = new String(e.toString());
+							htmlOutput = StringEscapeUtils.escapeHtml4(e.toString());
 						}finally {
 							try {
 								if(rs != null) {

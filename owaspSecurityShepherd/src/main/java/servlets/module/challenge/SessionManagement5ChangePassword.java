@@ -17,12 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.log4j.Logger;
 
+import dbProcs.Database;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Session Management Challenge Five - Change pwd
@@ -130,7 +131,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 					catch (ParseException e) 
 					{
 						e.printStackTrace();
-						errorMessage += bundle.getString("changePass.badTokenData") + ": " + e.toString();
+						errorMessage += StringEscapeUtils.escapeHtml4(bundle.getString("changePass.badTokenData") + ": " + e.toString());
 					}
 					
 					if(tokenLife < 10 && tokenLife >= 0)
@@ -171,7 +172,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 					{
 						if(!errorMessage.isEmpty())
 						{
-							htmlOutput = "<p><font colour='red'><b>" + errorMessage + "</b></font</p>";
+							htmlOutput = "<p><font colour='red'><b>" + StringEscapeUtils.escapeHtml4(errorMessage) + "</b></font</p>";
 						}
 						else if(tokenLife >= 10)
 						{

@@ -155,11 +155,11 @@ extends HttpServlet
 		{
 			e.printStackTrace();
 			result[0][0] = "error";
-			result[0][1] = Encode.forHtml(e.toString());
+			result[0][1] = "SQLException";
 		}
 		catch (Exception e)
 		{
-			log.fatal("Error: " + e.toString());
+			log.erro("Error: GeneralException");
 		}finally {
 			try {
 				if(resultSet != null) {

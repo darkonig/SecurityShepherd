@@ -140,7 +140,7 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				htmlOutput = "" + bundle.getString("errors.occured") + "" + Encode.forHtml(e.toString());
+				htmlOutput = "" + bundle.getString("errors.occured") + ": GeneralException";
 			}
 			try {
 				Thread.sleep(1000);

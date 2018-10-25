@@ -120,7 +120,7 @@ public class SqlInjection1 extends HttpServlet
 			{
 				e.printStackTrace();
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
-					"<p>" + Encode.forHtml(e.toString()) + "</p>";
+					"<p>SQLException</p>";
 			}
 			catch(Exception e)
 			{
