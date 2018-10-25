@@ -58,7 +58,7 @@ String i18nLevelName = bundle.getString("title.csrfJson");
 		{
 			userClass = Encode.forHtml(ses.getAttribute("userClass").toString());
 		}
-		String userId = Encode.forHtml(ses.getAttribute("userStamp").toString());
+		String userId = StringEscapeUtils.escapeHtml4(Encode.forHtml(ses.getAttribute("userStamp").toString()));
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -90,7 +90,7 @@ String i18nLevelName = bundle.getString("title.csrfJson");
 				<%= bundle.getString("challenge.useForumForIframe") %>
 				<% 
 				String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, levelHash));	
-				if (Getter.isCsrfLevelComplete(ApplicationRoot, moduleId, userId)) 
+				if (StringEscapeUtils.escapeHtml4(Getter.isCsrfLevelComplete(ApplicationRoot, moduleId, userId))) 
 				{ %>
 					<h2 class='title'><%= bundle.getString("result.challengeCompleted") %></h2>
 					<p>

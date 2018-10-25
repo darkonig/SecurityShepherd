@@ -87,13 +87,13 @@ if (request.getSession() != null)
 				<br/>
 				<%= bundle.getString("challenge.useForumForIframe") %>
 				<% 
-				String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, levelHash);	
-				if (Getter.isCsrfLevelComplete(ApplicationRoot, moduleId, userId)) 
+				String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, levelHash));	
+				if (StringEscapeUtils.escapeHtml4(Getter.isCsrfLevelComplete(ApplicationRoot, moduleId, userId))) 
 				{ %>
 					<h2 class='title'><%= bundle.getString("result.challengeCompleted") %></h2>
 					<p>
 					<%= bundle.getString("result.congratsTheKeyIs") %> 
-					<b> <a><%=	Hash.generateUserSolution(Getter.getModuleResult(ApplicationRoot, moduleId), (String)ses.getAttribute("userName")) %></a></b><br/><br/>
+					<b> <a><%=	Hash.generateUserSolution(StringEscapeUtils.escapeHtml4(Getter.getModuleResult(ApplicationRoot, moduleId)), StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"))) %></a></b><br/><br/>
 				<% } %>				
 				<form id="leForm" action="javascript:;">
 					<table>
