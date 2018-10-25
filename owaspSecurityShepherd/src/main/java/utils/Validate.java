@@ -7,6 +7,7 @@ import javax.mail.internet.InternetAddress;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -199,7 +200,7 @@ public class Validate
 	public static String makeValidUrl(String theUrl)
 	{
 		theUrl = theUrl.toLowerCase();
-		if (!theUrl.startsWith("http"))
+		if (!StringEscapeUtils.unescapeHtml4(theUrl).startsWith("http"))
 		{
 			theUrl = "http" + theUrl;
 			log.debug("Transformed to: " + theUrl);

@@ -3,6 +3,7 @@ package utils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -38,7 +39,7 @@ public class XssFilter
 	public static String anotherBadUrlValidate (String input)
 	{
 		String howToMakeAUrlUrl = new String("https://www.google.com/search?q=What+does+a+HTTP+link+look+like");
-		input = input.toLowerCase();
+		input = StringEscapeUtils.unescapeHtml4(input.toLowerCase());
 		if (input.startsWith("http"))
 		{
 			try 

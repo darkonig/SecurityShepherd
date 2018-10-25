@@ -270,7 +270,7 @@ public class Setter
 	 * @param pwd The pwd of the database user
 	 * @return Boolean value depicting the success of the method
 	 */
-	public static boolean setCoreDatabaseInfo(String applicationRoot, String url, String userName, String password)
+	public static boolean setCoreDatabaseInfo(String applicationRoot, String url, char[] userName, char[] password)
 	{
 		DataOutputStream writer = null;
 		try 

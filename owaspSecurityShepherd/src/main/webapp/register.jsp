@@ -103,6 +103,7 @@ if(ses.getAttribute("errorMessage") != null)
 			%>
 			<div id="badData"></div>
 			<form id="leForm" action="javascript:;" method="post">
+
 				<div align="center">
 				<br/>
 				<table>
