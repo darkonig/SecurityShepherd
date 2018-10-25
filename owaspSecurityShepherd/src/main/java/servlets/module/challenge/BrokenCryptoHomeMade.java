@@ -202,39 +202,31 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						Locale locale = new Locale(Validate.validateLanguage(request.getSession()));
 						ResourceBundle bundle = ResourceBundle.getBundle("i18n.servlets.challenges.insecureCryptoStorage.insecureCryptoStorage", locale);
 						out.print(getServletInfo());
-						try
+						String name = new String();
+						if(request.getParameter("name") != null)
 						{
-							String name = new String();
-							if(request.getParameter("name") != null)
-							{
-								name = request.getParameter("name").toString();
-							}
-							if(name.length() < 4)
-							{
-								htmlOutput = bundle.getString("insecureCyrptoStorage.homemade.nameTooShort");
-							}
-							else
-							{
-								for(int i = 0; i < BrokenCryptoHomeMade.challenges.size(); i++)
-								{
-									htmlOutput += "<tr><td>"+BrokenCryptoHomeMade.challenges.get(i).get(0)+"</td>";
-									htmlOutput += "<td>"+ BrokenCryptoHomeMade.challenges.get(i).get(1) + "</td>";
-									if(!BrokenCryptoHomeMade.challenges.get(i).get(0).equalsIgnoreCase("This Challenge"))
-									{
-										htmlOutput += "<td>" + BrokenCryptoHomeMade.generateUserSolution(BrokenCryptoHomeMade.challenges.get(i).get(1), name) + "</td>";
-									}
-									else
-									{
-										htmlOutput += "<td></td>";
-									}
-									htmlOutput += "</tr>";
-								}
-							}
+							name = request.getParameter("name").toString();
 						}
-						catch(Exception e)
+						if(name.length() < 4)
 						{
-							log.debug("Exception: " + e.toString());
-							htmlOutput += "<p>" + bundle.getString("result.failed") + "</p>";
+							htmlOutput = bundle.getString("insecureCyrptoStorage.homemade.nameTooShort");
+						}
+						else
+						{
+							for(int i = 0; i < BrokenCryptoHomeMade.challenges.size(); i++)
+							{
+								htmlOutput += "<tr><td>"+BrokenCryptoHomeMade.challenges.get(i).get(0)+"</td>";
+								htmlOutput += "<td>"+ BrokenCryptoHomeMade.challenges.get(i).get(1) + "</td>";
+								if(!BrokenCryptoHomeMade.challenges.get(i).get(0).equalsIgnoreCase("This Challenge"))
+								{
+									htmlOutput += "<td>" + BrokenCryptoHomeMade.generateUserSolution(BrokenCryptoHomeMade.challenges.get(i).get(1), name) + "</td>";
+								}
+								else
+								{
+									htmlOutput += "<td></td>";
+								}
+								htmlOutput += "</tr>";
+							}
 						}
 					}
 				}
@@ -313,8 +305,6 @@ public class BrokenCryptoHomeMade extends HttpServlet
 	public static String decryptUserSpecificSolution(String userNameKey, String encryptedSolution)
 		throws GeneralSecurityException, Exception 
 	{
-		try
-		{
 			String key = createUserSpecificEncryptionKey(userNameKey);
 			byte[] raw = key.getBytes(Charset.forName("US-ASCII"));
 			if (raw.length != 16)
@@ -326,11 +316,6 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(new byte[16]));
 			byte[] original = cipher.doFinal(Base64.decodeBase64(encryptedSolution));
 			return new String(original, Charset.forName("US-ASCII"));
-		}
-		catch (Exception e)
-		{
-			throw new Exception("Decryption Failure: Could not Craft User Key or Ciphertext was Bad");
-		}
 	}
 	
 	/**

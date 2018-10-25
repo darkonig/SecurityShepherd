@@ -57,10 +57,10 @@ public class Getter
 	private static int admiralCap = 999; //everything above Major is Admiral
 	
 	/**
-	 * This method hashes the user submitted password and sends it to the database.
+	 * This method hashes the user submitted pwd and sends it to the database.
 	 * The database does the rest of the work, including Brute Force prevention.
 	 * @param userName The submitted user name to be used in authentication process
-	 * @param password The submitted password in plain text to be used in authentication
+	 * @param pwd The submitted pwd in plain text to be used in authentication
 	 * @return A string array made up of nothing or information to be consumed by the initiating authentication process.
 	 */
 	
@@ -104,7 +104,7 @@ public class Getter
 				try
 				{
 					loginAttempt.next();
-					goOn = true; //Valid password for user submitted
+					goOn = true; //Valid pwd for user submitted
 				}
 				catch (SQLException e)
 				{
@@ -121,7 +121,7 @@ public class Getter
 					result[1] = loginAttempt.getString(2); //userName
 					result[2] = loginAttempt.getString(3); //role
 					result[4] = loginAttempt.getString(6); //classId
-					if (loginAttempt.getBoolean(5)) //Checking for temp password flag, if true, index View will prompt to change
+					if (loginAttempt.getBoolean(5)) //Checking for temp pwd flag, if true, index View will prompt to change
 						result[3] = "true";
 					else
 						result[3] = "false";
