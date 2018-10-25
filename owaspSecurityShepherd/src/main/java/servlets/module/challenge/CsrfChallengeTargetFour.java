@@ -96,6 +96,9 @@ public class CsrfChallengeTargetFour extends HttpServlet
 				}
 				log.debug("Victom is - " + userId);
 				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
+				if (plusId != null) {
+					plusId = plusId.trim();
+				}
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = request.getParameter("csrfToken").trim();
 				log.debug("csrfToken Submitted - '" + csrfToken + "'");
