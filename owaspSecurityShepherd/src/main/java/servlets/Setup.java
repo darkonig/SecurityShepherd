@@ -140,7 +140,7 @@ public class Setup extends HttpServlet {
 	private static void removeAuthFile() throws IllegalAccessException {
 		Path path = utils.FileUtils.getSetupPath();
 		if (!Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
-			log.info("Could not find " + Constants.SETUP_AUTH);
+			log.info("Could not find SETUP AUTH");
 		} else {
 			try {
 				Files.delete(utils.FileUtils.getSetupPath());
