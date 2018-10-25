@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -92,7 +93,7 @@ public class CsrfChallengeTargetThree extends HttpServlet
 						log.debug("Attempting to Increment ");
 						String moduleHash = CsrfChallengeThree.getLevelHash();
 						String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, moduleHash);
-						result = StringEscapeUtils.escapeHtml4(Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId));
+						result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
 					}
 					else
 					{

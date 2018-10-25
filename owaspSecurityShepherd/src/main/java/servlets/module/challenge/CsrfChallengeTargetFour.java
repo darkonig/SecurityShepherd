@@ -114,7 +114,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 							
 							log.debug("Attempting to Increment ");
 							String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, moduleHash));
-							result = StringEscapeUtils.escapeHtml4(Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId));
+							result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
 						}
 						else
 						{
