@@ -10,4 +10,9 @@ public class SaveLogs
 	{
 		// implementar gravacao no bigdata
 	}
+	
+	public static void saveDebug(String log)
+	{
+		// implementar gravacao no bigdata
+	}
 }
