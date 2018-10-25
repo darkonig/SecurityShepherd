@@ -87,7 +87,7 @@ if (request.getSession() != null)
 						<form id="loginForm" action="javascript:;" method="post">
 							<table>
 								<tr><td><%= bundle.getString("loginForm.holder") %> </td><td><input type="text" id="loginAccountHolder" autocomplete="off"></td></tr>
-								<tr><td><%= bundle.getString("loginForm.password") %> </td><td><input type="password" id="loginAccountPassword" autocomplete="off"></td></tr>
+								<tr><td><%= bundle.getString("loginform.senha") %> </td><td><input type="password" id="loginAccountPassword" autocomplete="off"></td></tr>
 								<tr><td colspan="2"><input type="submit" value="<%= bundle.getString("loginForm.signIn") %>"></td></tr>
 							</table>
 						</form>
@@ -102,7 +102,7 @@ if (request.getSession() != null)
 						<form id="registrationForm" action="javascript:;" method="post">
 							<table>
 								<tr><td><%= bundle.getString("loginForm.holder") %> </td><td><input type="text" id="registrationAccountHolder" autocomplete="off"></td></tr>
-								<tr><td><%= bundle.getString("loginForm.password") %> </td><td><input type="password" id="registrationAccountPassword" autocomplete="off"></td></tr>
+								<tr><td><%= bundle.getString("loginform.senha") %> </td><td><input type="password" id="registrationAccountPassword" autocomplete="off"></td></tr>
 								<tr><td colspan="2"><input type="submit" value="<%= bundle.getString("register.createAccount") %>"></td></tr>
 							</table>
 						</form>

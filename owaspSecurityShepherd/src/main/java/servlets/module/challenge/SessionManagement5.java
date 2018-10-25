@@ -169,16 +169,16 @@ public class SessionManagement5 extends HttpServlet
 	
 	private static String makeTable (String userAddress, ResourceBundle bundle)
 	{
-		return "<table>" + userAddress + "<tr><td>" + bundle.getString("form.userName") + "</td><td><input type='text' id='subUserName'/></td></tr>" +
-				"<tr><td>" + bundle.getString("form.password") + "</td><td><input type='password' id='subUserPassword'/></td></tr>" +
+		return "<table>" + userAddress + "<tr><td>" + bundle.getString("form.nomeUsuario") + "</td><td><input type='text' id='subUserName'/></td></tr>" +
+				"<tr><td>" + bundle.getString("form.senha") + "</td><td><input type='password' id='subUserPassword'/></td></tr>" +
 				"<tr><td colspan='2'><div id='submitButton'><input type='submit' value='" + bundle.getString("form.signIn") + "'/>" +
 				"</div></td></tr>" +
 				"</table>";
 	}
 	private static String makeTable (ResourceBundle bundle)
 	{
-		return "<table><tr><td>" + bundle.getString("form.userName") + "</td><td><input type='text' id='subUserName'/></td></tr>" +
-				"<tr><td>" + bundle.getString("form.password") + "</td><td><input type='password' id='subUserPassword'/></td></tr>" +
+		return "<table><tr><td>" + bundle.getString("form.nomeUsuario") + "</td><td><input type='text' id='subUserName'/></td></tr>" +
+				"<tr><td>" + bundle.getString("form.senha") + "</td><td><input type='password' id='subUserPassword'/></td></tr>" +
 				"<tr><td colspan='2'><div id='submitButton'><input type='submit' value='" + bundle.getString("form.signIn") + "'/>" +
 				"</div></td></tr>" +
 				"</table>";

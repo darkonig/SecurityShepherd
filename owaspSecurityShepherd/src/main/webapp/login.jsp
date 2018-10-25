@@ -89,7 +89,7 @@ if(ses.getAttribute("loginFailed") != null)
 				<form name="loginForm" method="POST" action="login">
 					<table>
 						<tr><td><p><fmt:message key="generic.text.username" />:</td><td><input type="text" name="login" value="" autocomplete="OFF" autofocus/></p></td></tr>
-						<tr><td><p><fmt:message key="generic.text.password" />:&nbsp;&nbsp;&nbsp;&nbsp;
+						<tr><td><p><fmt:message key="generic.text.senha" />:&nbsp;&nbsp;&nbsp;&nbsp;
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											</td><td><input type="password" name="pwd" autocomplete="OFF"/><br /></td></tr>

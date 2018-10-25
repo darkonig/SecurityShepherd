@@ -193,8 +193,8 @@ public class SessionManagement6 extends HttpServlet
 	
 	private static String makeTable (String userAddress, ResourceBundle bundle)
 	{
-		return "<table>" + userAddress + "<tr><td>" + bundle.getString("form.userName") + "</td><td><input type='text' id='subName'/></td></tr>" +
-				"<tr><td>" + bundle.getString("form.password") + "</td><td><input type='password' id='subPassword'/></td></tr>" +
+		return "<table>" + userAddress + "<tr><td>" + bundle.getString("form.nomeUsuario") + "</td><td><input type='text' id='subName'/></td></tr>" +
+				"<tr><td>" + bundle.getString("form.senha") + "</td><td><input type='password' id='subPassword'/></td></tr>" +
 				"<tr><td colspan='2'><div id='submitButton'><input type='submit' value='" + bundle.getString("form.signIn") + "'/>" +
 				"</div></td></tr>" +
 				"</table>";
