@@ -79,7 +79,7 @@ public class XssChallengeFour extends HttpServlet
 					String userPost = new String();
 					String searchTerm = request.getParameter("searchTerm");
 					log.debug("User Submitted - " + searchTerm);
-					if(!searchTerm.startsWith("http"))
+					if(!"http".startsWith(searchTerm))
 					{
 						searchTerm = "https://www.owasp.org/index.php/OWASP_Security_Shepherd";
 						userPost = "<a href=\"" + searchTerm + "\" alt=\"OWASP Security Shepherd\">" + searchTerm + "</a>";

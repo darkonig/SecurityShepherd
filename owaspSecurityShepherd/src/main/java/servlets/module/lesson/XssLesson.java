@@ -77,18 +77,21 @@ extends HttpServlet
 				Object tokenParmeter = request.getParameter("csrfToken");
 				if(Validate.validateTokens(tokenCookie, tokenParmeter))
 				{
+					String htmlOutput = new String();
 					String searchTerm = request.getParameter("searchTerm");
 					log.debug("User Submitted - " + searchTerm);
-					String htmlOutput = new String();
-					if(FindXSS.search(searchTerm))
-					{
-						log.debug("XSS Lesson Completed!");
-						htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
-								"<p>" + bundle.getString("result.youDidIt") + "<br />" +
-								"" + bundle.getString("result.resultKey") +
-								Hash.generateUserSolution(Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash), (String)ses.getAttribute("userName"));
+					if (searchTerm != null) {
+						if(FindXSS.search(searchTerm))
+						{
+							log.debug("XSS Lesson Completed!");
+							htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
+									"<p>" + bundle.getString("result.youDidIt") + "<br />" +
+									"" + bundle.getString("result.resultKey") +
+									Hash.generateUserSolution(Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash), (String)ses.getAttribute("userName"));
+						}
+						log.debug("Adding searchTerm to Html: " + searchTerm);
 					}
-					log.debug("Adding searchTerm to Html: " + searchTerm);
+					
 					htmlOutput += "<h2 class='title'>" + bundle.getString("response.searchResults") + "</h2>" +
 						"<p>" + bundle.getString("response.noResults") + " '" +
 						searchTerm +
