@@ -67,7 +67,7 @@ public class Setup extends HttpServlet {
 			dbProp.append("bancoDeDadosSenha=" + dbPass);
 			dbProp.append("\n");
 
-			if (!auth.equals(dbAuth)) {
+			if (auth != null && !auth.equals(dbAuth)) {
 				htmlOutput = bundle.getString("generic.text.setup.authentication.failed");
 			} else {
 				Path dbpath = utils.FileUtils.getDbProp();

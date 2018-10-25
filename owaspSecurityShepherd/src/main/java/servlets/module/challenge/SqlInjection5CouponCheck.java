@@ -48,6 +48,8 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5CouponCheck.class);
 
+	private static Object LOCK = new Object();
+	
 	/**
 	 * //TODO - JavaDoc
 	 */
@@ -144,7 +146,7 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 				htmlOutput = "" + bundle.getString("errors.occured") + ": GeneralException";
 			}
 			try {
-				Thread.sleep(1000);
+				LOCK.wait(1000);
 			} catch (Exception e) {
 				SaveLogs.saveLog("Error", e);
 			}

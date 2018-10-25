@@ -71,7 +71,7 @@ public class SecurityMisconfigLesson extends HttpServlet
 				log.debug("User Name - " + userName);
 				String userPass = request.getParameter("userPass");
 				log.debug("User Pass - " + userName);
-				boolean loggedIn = userName.contentEquals("admin") && userPass.contentEquals("password");
+				boolean loggedIn = userName != null && userPass != null && userName.contentEquals("admin") && userPass.contentEquals("password");
 				String htmlOutput = new String();
 				if(!loggedIn)
 				{

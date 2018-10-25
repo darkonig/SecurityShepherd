@@ -111,9 +111,7 @@ public class SessionManagement1 extends HttpServlet
 					boolean hackDetected = false;
 					hackDetected = !(request.getParameter("adminDetected") != null && request.getParameter("returnPassword") != null && request.getParameter("upgradeUserToAdmin") != null);
 					if(!hackDetected)
-						hackDetected = !(request.getParameter("adminDetected").toString().equalsIgnoreCase("false") &&
-										request.getParameter("adminDetected").toString().equalsIgnoreCase("false") &&
-										request.getParameter("adminDetected").toString().equalsIgnoreCase("false"));
+						hackDetected = !("false".equalsIgnoreCase(request.getParameter("adminDetected")));
 					
 					
 					if(!hackDetected)

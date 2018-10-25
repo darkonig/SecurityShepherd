@@ -123,13 +123,15 @@ public class SessionManagement8 extends HttpServlet
 					hackDetected = !(request.getParameter(redherringOne) != null && request.getParameter(redherringTwo) != null && request.getParameter(redherringThr) != null);
 					if(!hackDetected)
 					{
-						String paramOne = request.getParameter(redherringOne).toString();
-						String paramTwo = request.getParameter(redherringTwo).toString();
-						String paramThr = request.getParameter(redherringThr).toString();
+						String paramOne = request.getParameter(redherringOne);
+						String paramTwo = request.getParameter(redherringTwo);
+						String paramThr = request.getParameter(redherringThr);
 						log.debug("Param value of " + redherringOne + ":" + paramOne);
 						log.debug("Param value of " + redherringTwo + ":" + paramTwo);
 						log.debug("Param value of " + redherringThr + ":" + paramThr);
-						hackDetected = !(paramOne.equalsIgnoreCase("false") && paramTwo.equalsIgnoreCase("false") && paramThr.equalsIgnoreCase("false"));
+						hackDetected = !("false".equalsIgnoreCase(paramOne) 
+								&& "false".equalsIgnoreCase(paramTwo) 
+								&& "false".equalsIgnoreCase(paramThr));
 					}
 					if(!hackDetected)
 					{

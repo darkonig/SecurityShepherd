@@ -124,7 +124,11 @@ public class SessionManagement4 extends HttpServlet
 					{
 						log.debug("useSecurity: " + request.getParameter("useSecurity"));
 						log.debug("userId: " + request.getParameter("userId"));
-						hackDetected = !(request.getParameter("useSecurity").toString().equalsIgnoreCase("true"));
+						
+						String s = request.getParameter("useSecurity");
+						if (s != null) {
+							hackDetected = !("true".equalsIgnoreCase(s));	
+						}
 					}
 					else
 					{

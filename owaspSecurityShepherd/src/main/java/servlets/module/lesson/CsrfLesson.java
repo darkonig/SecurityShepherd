@@ -81,7 +81,10 @@ public class CsrfLesson extends HttpServlet
 				{
 					String falseId = (String) ses.getAttribute("falseId");
 					log.debug("falseId = " + falseId);
-					String messageForAdmin = request.getParameter("messageForAdmin").toLowerCase();
+					String messageForAdmin = request.getParameter("messageForAdmin");
+					if (messageForAdmin != null) {
+						messageForAdmin = messageForAdmin.toLowerCase();
+					}
 					log.debug("User Submitted - " + messageForAdmin);
 					
 					String htmlOutput = new String();

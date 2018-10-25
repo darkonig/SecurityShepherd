@@ -47,9 +47,11 @@ public class SetModuleStatus extends HttpServlet
 				if(request.getParameterValues("toOpen[]") != null)
 				{
 					String[] toOpen = request.getParameterValues("toOpen[]");
-					for(int i = 0; i < toOpen.length; i++) {
-						log.debug("toOpen = " + toOpen[i]);
-						Setter.setModuleStatusOpen(ApplicationRoot, toOpen[i]);
+					if (toOpen != null) {
+						for(int i = 0; i < toOpen.length; i++) {
+							log.debug("toOpen = " + toOpen[i]);
+							Setter.setModuleStatusOpen(ApplicationRoot, toOpen[i]);
+						}
 					}
 					
 					log.debug("Modules Opened");
@@ -59,10 +61,9 @@ public class SetModuleStatus extends HttpServlet
 					log.debug("Nothing to Open");
 				}
 				
-				if(request.getParameterValues("toClose[]") != null)
-				{
 				String[] toClose = request.getParameterValues("toClose[]");;
-
+				if(toClose != null)
+				{
 				for(int i = 0; i < toClose.length; i++) {
 					log.debug("toClose = " + toClose[i]);
 					Setter.setModuleStatusClosed(ApplicationRoot, toClose[i]);

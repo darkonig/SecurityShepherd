@@ -45,6 +45,9 @@ public class PoorValidation2 extends HttpServlet
 	public static String levelHash = "20e8c4bb50180fed9c1c8d1bf6af5eac154e97d3ce97e43257c76e73e3bbe5d5";
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(PoorValidation2.class);
+	
+	private static Object LOCK = new Object();
+	
 	/**
 	 * Shopping cart addition algorithm is vulnerable to integer overflow. If the cost is high enough, the final value will go negative.
 	 */
@@ -104,7 +107,7 @@ public class PoorValidation2 extends HttpServlet
 			}
 			try
 			{
-				Thread.sleep(1000);
+				LOCK.wait(1000);
 			}
 			catch(Exception e)
 			{

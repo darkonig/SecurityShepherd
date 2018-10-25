@@ -14,6 +14,7 @@ import org.owasp.encoder.Encode;
 
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 /**
@@ -74,23 +75,23 @@ public class AddPlayer extends HttpServlet
 					boolean validAddress = false;
 					boolean userValidate = false;
 					String[] classInfo = new String[2];
-						log.debug("Getting ApplicationRoot");
+						SaveLogs.saveDebug("Getting ApplicationRoot");
 						String ApplicationRoot = getServletContext().getRealPath("");					log.debug("Servlet root = " + ApplicationRoot );
 						
 						log.debug("Getting Parameters");
+						SaveLogs.saveDebug("Getting Parameters");
 						String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
-						log.debug("classId = " + classId);
+						SaveLogs.saveDebug("classId = " + classId);
 						String userName = StringEscapeUtils.escapeHtml4(request.getParameter("userName"));
-						log.debug("userName = " + userName);
+						SaveLogs.saveDebug("userName = " + userName);
 						String passWord = StringEscapeUtils.escapeHtml4(request.getParameter("passWord"));
-						log.debug("passWord retrieved");
+						SaveLogs.saveDebug("passWord retrieved");
 						String passWordConfirm = StringEscapeUtils.escapeHtml4(request.getParameter("passWordConfirm"));
-						log.debug("passWordConfirm retrieved");
+						SaveLogs.saveDebug("passWordConfirm retrieved");
 						String userAddress = Validate.validateParameter(request.getParameter("userAddress"), 128);
-						log.debug("userAddress = " + userAddress);
+						SaveLogs.saveDebug("userAddress = " + userAddress);
 						String userAddressCnf = Validate.validateParameter(request.getParameter("userAddressCnf"), 128);
-						log.debug("userAddressCnf = " + userAddressCnf);
-						
+						SaveLogs.saveDebug("userAddressCnf = " + userAddressCnf);
 						//Validation
 						notNull = (userName != null && passWord != null);
 						log.debug("Ensuring strings are not empty");

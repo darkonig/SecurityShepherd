@@ -74,12 +74,12 @@ public class DirectObjectLesson extends HttpServlet
 				log.debug("User Submitted - " + userName);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
-				if(userName.equalsIgnoreCase("guest"))
+				if("guest".equalsIgnoreCase(userName))
 				{
 					log.debug("Guest Profile Found");
 					htmlOutput = htmlGuest(bundle);
 				}
-				else if(userName.equalsIgnoreCase("admin"))
+				else if("admin".equalsIgnoreCase(userName))
 				{
 					// Get key and add it to the output
 					String userKey = Hash.generateUserSolution(levelResult, (String)ses.getAttribute("userName"));
