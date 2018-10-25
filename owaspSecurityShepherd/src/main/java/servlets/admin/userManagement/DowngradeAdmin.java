@@ -40,7 +40,7 @@ import dbProcs.Setter;
 public class DowngradeAdmin extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DowngradeAdmin.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DowngradeAdmin.class);
 	/**
 	 * Initiated by downgradeAdmins.jsp. This method downgrades a single admin to player at a time. Changing the actual role of the admin is handed by Setter.updateUserRole.
 	 * @param classId

@@ -39,7 +39,7 @@ import utils.Validate;
 public class EnableCheats extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableCheats.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableCheats.class);
 	
 	/**
 	 * If this functionality is validly called by an administrator, the cheat sheets will become or remain unavailable.

@@ -17,7 +17,7 @@ import testUtils.TestProperties;
  */
 
 public class DowngradeAdminsTest {
-	private static org.apache.log4j.Logger log = Logger.getLogger(DowngradeAdminsTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DowngradeAdminsTest.class);
 	private static String applicationRoot = new String();
 	private MockHttpServletRequest request;
     private MockHttpServletResponse response;

@@ -46,7 +46,7 @@ import dbProcs.Database;
 public class DirectObject2 extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObject2.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObject2.class);
 	private static String levelName = "Insecure Direct Object Reference Challenge Two";
 	public static String levelHash = "vc9b78627df2c032ceaf7375df1d847e47ed7abac2a4ce4cb6086646e0f313a4";
 	/**

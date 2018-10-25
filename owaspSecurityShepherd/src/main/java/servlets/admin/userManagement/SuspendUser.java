@@ -43,7 +43,7 @@ import dbProcs.Setter;
 public class SuspendUser extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SuspendUser.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SuspendUser.class);
 	private static String functionName = new String("Suspend User");
 	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 

@@ -33,7 +33,7 @@ import utils.FileUtils;
  */
 public class FileInputProperties 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(FileInputProperties.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(FileInputProperties.class);
 	
 	/**
 	 * Reads the properties file for a specific property and returns it as a string.

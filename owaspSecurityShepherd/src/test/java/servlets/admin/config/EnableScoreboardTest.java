@@ -16,7 +16,7 @@ import utils.ScoreboardStatus;
 
 public class EnableScoreboardTest 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboardTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboardTest.class);
 	private static String applicationRoot = new String();
 	private static String lang = "en_GB";
 	private MockHttpServletRequest request;

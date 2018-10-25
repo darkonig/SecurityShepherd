@@ -39,7 +39,7 @@ import utils.Validate;
 public class CsrfLessonTarget extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfLesson.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfLesson.class);
 	public void doGet (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
 	{

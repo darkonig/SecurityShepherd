@@ -19,7 +19,7 @@ import utils.Validate;
 public class OpenAllModules extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(OpenAllModules.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(OpenAllModules.class);
 	/**
 	 * Control class used to open all modules when called by an administrator
 	 * @param csrfToken The csrf protection token for this funciton

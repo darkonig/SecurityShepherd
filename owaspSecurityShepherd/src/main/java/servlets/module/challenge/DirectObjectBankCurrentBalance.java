@@ -41,7 +41,7 @@ import utils.Validate;
 public class DirectObjectBankCurrentBalance extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankCurrentBalance.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankCurrentBalance.class);
 	private static String levelName = "Insecure Direct Object Bank Challenge (Refresh Balance)";
 	public static String levelHash = "1f0935baec6ba69d79cfb2eba5fdfa6ac5d77fadee08585eb98b130ec524d00c";
 	/**

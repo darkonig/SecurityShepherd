@@ -46,7 +46,7 @@ import dbProcs.Getter;
 public class UnvalidatedForwardsLesson extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(UnvalidatedForwardsLesson.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(UnvalidatedForwardsLesson.class);
 	private static String levelName = "Unvalidated Redirects and Forwards Lesson";
 	private static String levelHash = "f15f2766c971e16e68aa26043e6016a0a7f6879283c873d9476a8e7e94ea736f";
 	

@@ -41,7 +41,7 @@ import dbProcs.Setter;
 public class CreateClass extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CreateClass.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CreateClass.class);
 	
 	/**
 	 * Initiated by createClass.jsp. Class is added to the system if valid data has been submitted. Otherwise no class is added to the core database schema.

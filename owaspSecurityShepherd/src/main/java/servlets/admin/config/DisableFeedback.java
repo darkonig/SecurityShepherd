@@ -40,7 +40,7 @@ import utils.Validate;
 public class DisableFeedback extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DisableFeedback.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DisableFeedback.class);
 	
 	/**
 	 * If this method is called by a valid administrator the FeebackStatus will be set to turn feedback on for all modules 

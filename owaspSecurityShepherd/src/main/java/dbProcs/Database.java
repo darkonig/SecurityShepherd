@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  */
 public class Database 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Database.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Database.class);
 	/**
 	 * This method is used by the application to close an open connection to a database server
 	 * @param conn The connection to close

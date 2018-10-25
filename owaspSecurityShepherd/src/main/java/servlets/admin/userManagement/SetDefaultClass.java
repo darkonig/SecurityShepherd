@@ -42,7 +42,7 @@ import utils.Validate;
 public class SetDefaultClass extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SetDefaultClass.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SetDefaultClass.class);
 
 	/** Initiated by assignPlayers.jsp. A number of players can be assigned to a new class. Changing the actual class of the player is handed by Setter.changePlayerClass
 	 * @param classId The identifier of the class to add the players to

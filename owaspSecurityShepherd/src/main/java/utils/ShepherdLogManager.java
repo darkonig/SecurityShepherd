@@ -5,7 +5,7 @@ import org.apache.log4j.MDC;
 
 public class ShepherdLogManager
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(ShepherdLogManager.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(ShepherdLogManager.class);
 	
 	public static void setRequestIp (Object theIp)
 	{

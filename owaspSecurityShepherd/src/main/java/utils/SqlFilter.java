@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
  */
 public class SqlFilter 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(SqlFilter.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlFilter.class);
 
 	public static String levelFour (String input)
 	{

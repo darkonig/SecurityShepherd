@@ -44,7 +44,7 @@ import dbProcs.Getter;
 public class RefreshMenu extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetModule.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetModule.class);
 	/**
 	 * This servlet returns a fresh version of the module menu bar. This is used when completing levels, changing the floor plan or when opening/closing challenges.
 	 * @param csrfToken

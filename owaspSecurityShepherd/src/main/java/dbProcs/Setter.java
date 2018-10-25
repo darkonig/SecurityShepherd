@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
  */
 public class Setter 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Setter.class);	
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Setter.class);	
 	/**
 	 * Database procedure just adds this. So this method just prepares the statement
 	 * @param ApplicationRoot

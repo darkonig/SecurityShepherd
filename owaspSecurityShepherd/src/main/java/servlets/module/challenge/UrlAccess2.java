@@ -44,7 +44,7 @@ public class UrlAccess2 extends HttpServlet
 {
 	//URL Access 2
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(UrlAccess2.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(UrlAccess2.class);
 	private static String levelName = "URL Access 2 (Guest)";
 	/**
 	 * This class is the User Level Function Call that works correctly from the level's view without manipulation

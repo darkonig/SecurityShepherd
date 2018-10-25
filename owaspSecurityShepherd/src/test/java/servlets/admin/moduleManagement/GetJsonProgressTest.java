@@ -20,7 +20,7 @@ import utils.InstallationException;
  */
 public class GetJsonProgressTest
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetJsonProgressTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetJsonProgressTest.class);
 	private static String applicationRoot = new String();
 	private static String lang = "en_GB";
 	private MockHttpServletRequest request;

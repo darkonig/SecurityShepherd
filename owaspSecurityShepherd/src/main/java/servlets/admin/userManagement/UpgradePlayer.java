@@ -42,7 +42,7 @@ import dbProcs.Setter;
 public class UpgradePlayer extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(UpgradePlayer.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(UpgradePlayer.class);
 	/**
 	 * Initiated by upgradePlayers.jsp. This method upgrades multiple players to administrators at a time. Changing the actual role of the player is handed by Setter.updateUserRole.
 	 * @param classId

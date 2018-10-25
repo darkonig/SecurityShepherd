@@ -48,7 +48,7 @@ public class UrlAccess2Admin extends HttpServlet
 {
 	//Sql Challenge 4
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(UrlAccess2Admin.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(UrlAccess2Admin.class);
 	private static String levelResult = "40b675e3d404c52b36abe31d05842b283975ec62e8"; 
 	private static String levelName = "URL Access 2 (Admin)";
 	

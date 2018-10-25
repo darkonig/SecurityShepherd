@@ -21,7 +21,7 @@ import utils.ModuleBlock;
  */
 public class EnableModuleBlockTest
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableModuleBlockTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableModuleBlockTest.class);
 	private static String applicationRoot = new String();
 	private static String lang = "en_GB";
 	private MockHttpServletRequest request;

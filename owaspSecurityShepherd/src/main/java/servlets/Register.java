@@ -39,7 +39,7 @@ import utils.Validate;
 public class Register extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(Register.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Register.class);
 	private static String defaultClass = new String();
 	/**
 	 * Initiated by register.jsp. If successful a player is added to the system, otherwise there is no change.

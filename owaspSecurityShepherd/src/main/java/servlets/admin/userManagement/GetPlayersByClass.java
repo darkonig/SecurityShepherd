@@ -42,7 +42,7 @@ import dbProcs.Getter;
 public class GetPlayersByClass extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetPlayersByClass.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetPlayersByClass.class);
 	
 	/**
 	 * Initiated by assignPlayers.jsp. This servlet returns options for inside html select
