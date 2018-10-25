@@ -76,7 +76,7 @@ public class Register extends HttpServlet
 				log.debug("Ensuring not a CSRF");
 				String paramToken = (String)request.getParameter("csrfToken");
 				String sessToken = (String)ses.getAttribute("csrfToken");
-				if(paramToken.compareTo(sessToken) == 0)
+				if(sessToken != null && paramToken != null && paramToken.compareTo(sessToken) == 0)
 				{
 					log.debug("Getting Registration Parameters");
 					String userName = (String)request.getParameter("userName");

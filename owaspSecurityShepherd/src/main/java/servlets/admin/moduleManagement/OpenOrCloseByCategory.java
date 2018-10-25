@@ -49,7 +49,12 @@ public class OpenOrCloseByCategory extends HttpServlet
 				boolean validData = false;
 				if (request.getParameter("openOrClose") != null)
 				{
-					openOrClose = request.getParameter("openOrClose").toString().toLowerCase();
+					openOrClose = request.getParameter("openOrClose");
+					if (openOrClose != null) {
+						openOrClose = openOrClose.toLowerCase();
+					} else {
+						openOrClose = "";
+					}
 					validData = (openOrClose.equalsIgnoreCase("open")) || (openOrClose.equalsIgnoreCase("closed"));
 				}
 				if(validData && request.getParameterValues("toOpenOrClose[]") != null)

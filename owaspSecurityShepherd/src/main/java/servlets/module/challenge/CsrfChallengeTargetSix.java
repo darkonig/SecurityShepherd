@@ -92,9 +92,15 @@ public class CsrfChallengeTargetSix extends HttpServlet
 				}
 				String userId = (String)ses.getAttribute("userStamp");
 				
-				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId"));
+				if (plusId != null) {
+					plusId = plusId.trim();
+				}
 				log.debug("User Submitted - " + plusId);
-				String csrfToken = request.getParameter("csrfToken").trim();;
+				String csrfToken = request.getParameter("csrfToken");
+				if (csrfToken != null) {
+					csrfToken = csrfToken.trim();
+				}
 				log.debug("csrfToken Submitted - " + csrfToken);
 				
 				if(!userId.equals(plusId))

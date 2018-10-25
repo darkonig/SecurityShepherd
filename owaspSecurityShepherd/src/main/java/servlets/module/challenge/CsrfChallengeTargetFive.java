@@ -95,7 +95,12 @@ public class CsrfChallengeTargetFive extends HttpServlet
 					plusId = plusId.trim();
 				}
 				log.debug("User Submitted - " + plusId);
-				String csrfToken = (String)request.getParameter("csrfToken").trim();;
+				String csrfToken = (String)request.getParameter("csrfToken");
+				
+				if (csrfToken != null) {
+					csrfToken = csrfToken.trim();
+				}
+				
 				log.debug("csrfToken Submitted - " + csrfToken);
 				
 				if(!userId.equals(plusId))
