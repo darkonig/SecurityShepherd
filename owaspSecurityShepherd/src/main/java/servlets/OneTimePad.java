@@ -23,7 +23,7 @@ package servlets;
  */
 public class OneTimePad {
 
-	  private static final String KEY = "SuperKalaFragalisticExpeAloDocious";
+	  private static final String SUPER_KALA = "SuperKalaFragalisticExpeAloDocious";
 	  
 	  /**
 	   * Encrypts the supplied string value using the default key
@@ -91,7 +91,7 @@ public class OneTimePad {
 	  private static byte[] xor(final byte[] input) 
 	  {
 	    final byte[] output = new byte[input.length];
-	    final byte[] secret = KEY.getBytes();
+	    final byte[] secret = SUPER_KALA.getBytes();
 	    int spos = 0;
 	    for (int pos = 0; pos < input.length; pos += 1) 
 	    {

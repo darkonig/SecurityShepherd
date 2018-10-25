@@ -69,7 +69,7 @@ if (request.getSession() != null)
 			<p> 
 				<%= bundle.getString("challenge.description") %>
 				<br />
-				<form id="leForm" action="javascript:;" method="POST">
+				<form id="leForm" action="javascript:;" method="post">
 					<div id="resultsDiv">
 						<table>
 							<tr><td>
