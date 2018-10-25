@@ -92,8 +92,8 @@ public class GetCheat extends HttpServlet
 			}
 			else
 			{
-				final String error_response = "CSRF Attack Detected: Made Against" + ses.getAttribute("userName");
-				log.error(error_response);
+				log.error("CSRF Attack Detected: Made Against a user");
+				log.debug("CSRF Attack Detected: Made Against" + ses.getAttribute("userName"));
 			}
 		}
 		else

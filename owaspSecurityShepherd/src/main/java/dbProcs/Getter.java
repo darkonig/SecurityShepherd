@@ -1070,8 +1070,8 @@ public class Getter
 		catch(Exception e)
 		{
 			log.error("Module Hash Retrieval: " + e.toString());
-			log.error("moduleID = " + moduleId);
-			log.error("userID = " + userId);
+			log.debug("moduleID = " + moduleId);
+			log.debug("userID = " + userId);
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModuleAddress() ***");
