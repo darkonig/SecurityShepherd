@@ -116,7 +116,7 @@ public class SqlInjectionEscaping extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				log.debug("SQL Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}
@@ -137,7 +137,7 @@ public class SqlInjectionEscaping extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("Outputting HTML");

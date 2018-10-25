@@ -48,7 +48,7 @@ public class SessionManagement8 extends HttpServlet
 	/**
 	 * Users must take advance of the broken session management in this application by modifying the tracking cookie "challengeRole" which is encoded in ATOM-128. They must modify this cookie to be equal to superuser to access the result key.
 	 * @param returnUserRole Red herring 
-	 * @param returnPassword Red herring 
+	 * @param returnpwd Red herring 
 	 * @param adminDetected Red herring 
 	 * @param challengeRole Cookie encoded ATOM-128 that manages who is signed in to the sub schema
 	 */

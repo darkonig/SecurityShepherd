@@ -63,14 +63,10 @@ if (Setup.isInstalled()) {
 	<script type="text/javascript" src="js/clipboard-js/clipboard-events.js"></script>
 	<div id="wrapper">
 		<jsp:include page="translation-select.jsp" />
-		<!-- start header -->
 		<div id="header">
 			<h1>Security Shepherd</h1>
 		</div>
-		<!-- end header -->
-		<!-- start page -->
 		<div id="page">
-			<!-- start content -->
 			<div id="content">
 				<div class="setupPage">
 					<h1 class="title" id="login_title"><fmt:message key="generic.text.setup.title" /></h1>
@@ -147,10 +143,8 @@ if (Setup.isInstalled()) {
 					<div id="resultResponse"></div>
 				</div>
 			</div>
-			<!-- end content -->
 		</div>
 	</div>
-	<!-- end page -->
 	<script>
 		jQuery.fn.center = function () 
 		{

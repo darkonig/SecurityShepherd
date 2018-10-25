@@ -17,131 +17,124 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
 import utils.ShepherdLogManager;
 import utils.Validate;
 import dbProcs.Database;
 
 /**
- * Level : SQL Injection Challenge 5
- * <br><br>
+ * Level : SQL Injection Challenge 5 <br>
+ * <br>
  * This file is part of the Security Shepherd Project.
  * 
- * The Security Shepherd project is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.<br/>
+ * The Security Shepherd project is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.<br/>
  * 
- * The Security Shepherd project is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.<br/>
+ * The Security Shepherd project is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.<br/>
  * 
- * You should have received a copy of the GNU General Public License
- * along with the Security Shepherd project.  If not, see <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU General Public License along with
+ * the Security Shepherd project. If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Mark Denihan
  *
  */
-public class SqlInjection5CouponCheck extends HttpServlet
-{
+public class SqlInjection5CouponCheck extends HttpServlet {
 	private static final String levelName = "SQLi C5 CouponCheck";
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5CouponCheck.class);
+
 	/**
 	 * //TODO - JavaDoc
 	 */
-	public void doPost (HttpServletRequest request, HttpServletResponse response) 
-	throws ServletException, IOException
-	{
-		//Setting IpAddress To Log and taking header for original IP if forwarded from proxy
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Setting IpAddress To Log and taking header for original IP if forwarded from
+		// proxy
 		ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"));
 		HttpSession ses = request.getSession(true);
-		
-		
-		//Translation Stuff
+
+		// Translation Stuff
 		Locale locale = new Locale(Validate.validateLanguage(request.getSession()));
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.servlets.challenges.sqli.sqli5", locale);
-		if(Validate.validateSession(ses))
-		{
-			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
+		if (Validate.validateSession(ses)) {
+			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"),
+					ses.getAttribute("userName").toString());
 			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
-			PrintWriter out = response.getWriter();  
+			PrintWriter out = response.getWriter();
 			out.print(getServletInfo());
-			
+
 			String htmlOutput = new String();
 			String applicationRoot = getServletContext().getRealPath("");
-			
+
 			Connection conn = null;
 			PreparedStatement prepstmt = null;
 			ResultSet coupons = null;
-			try
-			{
+			try {
 				String couponCode = request.getParameter("couponCode");
 				log.debug("couponCode - " + couponCode);
 				if (couponCode == null || couponCode.isEmpty())
 					couponCode = new String();
-				
+
 				htmlOutput = new String("");
-				
-				
+
+				conn = Database.getChallengeConnection(applicationRoot, "CryptoChallengeShop");
+
 				String query = "SELECT itemId, perCentOff, itemName FROM coupons JOIN items USING (itemId) WHERE couponCode = ?;";
 				prepstmt = conn.prepareStatement(query);
 				prepstmt.setString(1, couponCode);
 				coupons = prepstmt.executeQuery();
-				
-				try
-				{
-					if(coupons.next())
-					{
+
+				try {
+					if (coupons.next()) {
 						htmlOutput = new String("Valid Coupon for ");
 						log.debug("Found coupon for %" + coupons.getInt(2));
 						log.debug("For Item Name " + coupons.getString(3));
-						htmlOutput += "" + bundle.getString("response.percent")+ "" + coupons.getInt(2) + " " + bundle.getString("response.off")+ " " + Encode.forHtml(coupons.getString(3)) + " " + bundle.getString("response.items")+ "";
+						htmlOutput += "" + bundle.getString("response.percent") + "" + coupons.getInt(2) + " "
+								+ bundle.getString("response.off") + " " + Encode.forHtml(coupons.getString(3)) + " "
+								+ bundle.getString("response.items") + "";
+					} else {
+						htmlOutput = "" + bundle.getString("response.noCoupon") + "";
 					}
-					else
-					{
-						htmlOutput = "" + bundle.getString("response.noCoupon")+ "";
-					}
-				}
-				catch(Exception e)
-				{
+				} catch (Exception e) {
 					log.debug("Could Not Find Coupon: " + e.toString());
-					
-				}finally {
+
+				} finally {
 					try {
-						if(coupons != null) {
+						if (coupons != null) {
 							coupons.close();
-						}
-						
-						if(conn != null) {
-							conn.close();
-						}
-						if(prepstmt != null) {
-							prepstmt.close();
 						}
 					} catch (Exception e) {
 						log.error("Error close connections", e);
 					}
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
+					}
+					try {
+						if (prepstmt != null) {
+							prepstmt.close();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				htmlOutput = "" + bundle.getString("errors.occured") + "" + Encode.forHtml(e.toString());
 			}
-			catch(Exception e)
-			{
-				log.debug("Did complete Check: " + e.toString());
-				htmlOutput = "" + bundle.getString("errors.occured")+ "" + Encode.forHtml(e.toString());
-			}
-			try
-			{
+			try {
 				Thread.sleep(1000);
-			}
-			catch(Exception e)
-			{
-				log.error("Failed to Pause: " + e.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			out.write(htmlOutput);
-		}
-		else
-		{
+		} else {
 			log.error(levelName + " servlet accessed with no session");
 		}
 	}

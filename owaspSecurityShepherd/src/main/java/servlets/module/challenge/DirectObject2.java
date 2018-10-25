@@ -87,25 +87,25 @@ public class DirectObject2 extends HttpServlet
 				if(resultSet.next())
 				{
 					log.debug("Found user: " + resultSet.getString(1));
-					String userName = resultSet.getString(1);
-					String privateMessage = resultSet.getString(2);
-					htmlOutput = "<h2 class='title'>" + userName + "'s " + bundle.getString("response.message") + "</h2>" +
+					String userName = StringEscapeUtils.escapeHtml4(resultSet.getString(1));
+					String privateMessage = StringEscapeUtils.escapeHtml4(resultSet.getString(2));
+					htmlOutput = "<h2 class='title'>" + userName + "'s " + StringEscapeUtils.escapeHtml4(bundle.getString("response.message")) + "</h2>" +
 							"<p>" + privateMessage + "</p>";
 				}
 				else
 				{
 					log.debug("No Profile Found");
 					
-					htmlOutput = "<h2 class='title'>" + bundle.getString("response.notFound") + "</h2><p>" + bundle.getString("response.notFoundMessage.1") + " '" + Encode.forHtml(userId) + "' " + bundle.getString("response.notFoundMessage.2") + "</p>";
+					htmlOutput = "<h2 class='title'>" + StringEscapeUtils.escapeHtml4(bundle.getString("response.notFound")) + "</h2><p>" + bundle.getString("response.notFoundMessage.1") + " '" + Encode.forHtml(userId) + "' " + bundle.getString("response.notFoundMessage.2") + "</p>";
 				}
 				log.debug("Outputting HTML");
-				out.write(htmlOutput);
+				out.print(htmlOutput);
 				Database.closeConnection(conn);
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.error(levelName + " - ", e);
+				e.printStackTrace();
 			}
 		}
 		else

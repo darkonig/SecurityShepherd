@@ -19,7 +19,7 @@ import dbProcs.Getter;
 import dbProcs.Setter;
 
 /**
- * Control class of the "Update player password" functionality
+ * Control class of the "Update player pwd" functionality
  * <br/><br/>
  * This file is part of the Security Shepherd Project.
  * 

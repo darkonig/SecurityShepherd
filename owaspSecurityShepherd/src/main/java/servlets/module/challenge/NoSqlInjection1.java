@@ -88,7 +88,7 @@ public class NoSqlInjection1 extends HttpServlet
 			
 			String user;        // the user name
 			String database;    // the name of the database in which the user is defined
-			char[] password;    // the password as a character array
+			char[] password;    // the pwd as a character array
 			
 			try{
 			
@@ -150,7 +150,7 @@ public class NoSqlInjection1 extends HttpServlet
 				}
 				catch (MongoException e)
 				{
-					log.debug("MongoDb Error caught - " + e.toString());
+					e.printStackTrace();
 					htmlOutput += "<p>An error was detected!</p>" +
 						"<p>" + Encode.forHtml(e.toString()) + "</p>";
 				}
@@ -165,7 +165,7 @@ public class NoSqlInjection1 extends HttpServlet
 			}
 			catch (MongoException e)
 			{
-				log.debug("MongoDb Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>An error was detected!</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}

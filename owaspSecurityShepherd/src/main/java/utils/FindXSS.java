@@ -165,7 +165,7 @@ public class FindXSS
 					}
 					catch(MalformedURLException e)
 					{
-						log.error("Invalid URL ", e);
+						e.printStackTrace();
 					}
 					if(!validUrl)
 					{
@@ -204,7 +204,7 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted ", e);
+			e.printStackTrace();
 			validAttack = false;
 		}
 		catch(Exception e)
@@ -250,7 +250,7 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted ", e);
+			e.printStackTrace();
 			validAttack = false;
 		}
 		catch(Exception e)
@@ -287,7 +287,7 @@ public class FindXSS
 		}
 		catch(Exception e)
 		{
-			log.error("Could not Cloud Tidy Input/Output Streams: " + e.toString());
+			e.printStackTrace();
 		}
 		// log.debug("String Tidied To: " + tidyHtml);
 		

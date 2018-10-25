@@ -393,7 +393,7 @@ END
 -- DELIMITER ;
 ;
 -- -----------------------------------------------------
--- procedure userPasswordChange
+-- procedure userPwdChange
 -- -----------------------------------------------------
 
 USE `core`;
@@ -416,7 +416,7 @@ END
 -- DELIMITER ;
 ;
 -- -----------------------------------------------------
--- procedure userPasswordChangeAdmin
+-- procedure userPwdChangeAdmin
 -- -----------------------------------------------------
 
 USE `core`;

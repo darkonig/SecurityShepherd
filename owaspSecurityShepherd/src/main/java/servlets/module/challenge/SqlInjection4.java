@@ -57,7 +57,7 @@ public class SqlInjection4 extends HttpServlet
 	 * Users have to defeat SQL injection that blocks single quotes.
 	 * The input they enter is also been filtered.
 	 * @param theUserName User name used in database look up.
-	 * @param thePassword User password used in database look up
+	 * @param thepwd User pwd used in database look up
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
@@ -128,7 +128,7 @@ public class SqlInjection4 extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				log.debug("SQL Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}
@@ -149,7 +149,7 @@ public class SqlInjection4 extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("Outputting HTML");

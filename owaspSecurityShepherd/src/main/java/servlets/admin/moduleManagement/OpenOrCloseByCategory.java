@@ -56,9 +56,11 @@ public class OpenOrCloseByCategory extends HttpServlet
 				{
 					htmlOutput = "<h2 class='title'>Categories Set to " + Encode.forHtml(openOrClose) + "</h2>";
 					String[] toDo = request.getParameterValues("toOpenOrClose[]");
-					log.debug("toOpen = " + toDo.toString());
-					for(int i = 0; i < toDo.length; i++)
+					
+					for(int i = 0; i < toDo.length; i++) {
+						log.debug("toOpen = " + toDo[i]);
 						Setter.setModuleCategoryStatusOpen(ApplicationRoot, toDo[i], openOrClose);
+					}
 					log.debug("Categories have been set to " + openOrClose);
 					if(openOrClose.equalsIgnoreCase("open"))
 						htmlOutput += "<p>The categories selected have been opened and are now available to users to access.</p>";

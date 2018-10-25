@@ -55,7 +55,7 @@ public class SessionManagement7 extends HttpServlet
 	/**
 	 * Users must use this functionality to sign in as an administrator to retrieve the result key.
 	 * @param userName Sub schema user name
-	 * @param password Sub schema user password
+	 * @param pwd Sub schema user pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
@@ -123,7 +123,7 @@ public class SessionManagement7 extends HttpServlet
 						callstmt.execute();
 						log.debug("Changes committed.");
 						
-						//Filtering password for !, so that it is impossible for users to sign in
+						//Filtering pwd for !, so that it is impossible for users to sign in
 						subPass = subPass.replaceAll("!", "");
 						
 						callstmt = conn.prepareStatement("SELECT userName, userAddress FROM users WHERE userName = ? AND userPassword = SHA(?)");
@@ -179,7 +179,7 @@ public class SessionManagement7 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

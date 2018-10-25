@@ -61,15 +61,6 @@ if (request.getSession() != null)
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>OWASP Security Shepherd</title>
 
-		<!-- 
-			<fmt:message key="generic.text.commentMessage.1" /> 
-			<fmt:message key="generic.text.commentMessage.2" /> 
-			<fmt:message key="generic.text.commentMessage.3" /> 
-			<fmt:message key="generic.text.commentMessage.4" />
-			
-			<fmt:message key="generic.text.shepherdVersion" />
-		-->
-
 		<link href="css/theCss.css" rel="stylesheet" type="text/css" media="screen" />
 		<link href="css/theResponsiveCss.css" rel="stylesheet" type="text/css" media="screen">
 		<link href="css/jquery.mCustomScrollbar.min.css" rel="stylesheet" type="text/css" media="screen">
@@ -107,12 +98,6 @@ if (request.getSession() != null)
 					<div id="solutionDiv" style="display:none;"></div>
 				<% } %>
 			</div>
-			<!-- <fmt:message key="generic.text.commentMessage.1" /> 
-			<fmt:message key="generic.text.commentMessage.2" /> 
-			<fmt:message key="generic.text.commentMessage.3" /> 
-			<fmt:message key="generic.text.commentMessage.4" /> -->
-			<div id="contentDiv">
-				<!-- Ajax Div -->
 			</div>
 			<div id="theSidebarWrapper" class="sidebarWrapper" onmouseover="resizeSidebar()">
 				<div class="menuIcon">
@@ -207,7 +192,6 @@ if (request.getSession() != null)
 							<input id="searchModules" class="moduleSearchBox" type="search" placeholder="<fmt:message key="generic.text.searchModules" />...">
 						</div>
 						<div id="searchResults">
-							<!-- Results from module search go here -->
 						</div> 
 						<script>
 							function makeSearchList() {
@@ -252,12 +236,8 @@ if (request.getSession() != null)
 							});
 						</script>
 					</ul>
-					<!-- <fmt:message key="generic.text.commentMessage.1" /> 
-					<fmt:message key="generic.text.commentMessage.2" /> 
-					<fmt:message key="generic.text.commentMessage.3" /> 
-					<fmt:message key="generic.text.commentMessage.4" /> -->
-				</div> <!-- End of Sidebar -->
-			</div> <!-- End of Sidebar Wrapper -->
+				</div>
+			</div> 
 		</div>
 		</div>
 		<script>

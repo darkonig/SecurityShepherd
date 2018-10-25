@@ -130,7 +130,7 @@ public class GiveTakePoints extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error(functionName + " Error: " + e.toString());
+					e.printStackTrace();
 					out.print("<h3 class=\"title\">" + functionName + " Failure</h3><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

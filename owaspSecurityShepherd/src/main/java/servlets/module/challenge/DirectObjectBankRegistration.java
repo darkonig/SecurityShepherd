@@ -91,7 +91,7 @@ public class DirectObjectBankRegistration extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("register.error"));
-				log.error(levelName + " SQL Error - ", e);
+				e.printStackTrace();
 			}
 			catch(Exception e)
 			{

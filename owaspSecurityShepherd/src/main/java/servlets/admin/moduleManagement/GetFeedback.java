@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
@@ -61,7 +62,7 @@ public class GetFeedback extends HttpServlet
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 			if(Validate.validateTokens(tokenCookie, tokenParmeter))
 			{
-				String moduleId = Validate.validateParameter(request.getParameter("moduleId"), 64);
+				String moduleId = Validate.validateParameter(StringEscapeUtils.escapeHtml4(request.getParameter("moduleId")), 64);
 				log.debug("moduleId: " + moduleId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = Getter.getFeedback(ApplicationRoot, moduleId);

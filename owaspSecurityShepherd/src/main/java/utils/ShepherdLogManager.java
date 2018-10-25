@@ -29,7 +29,6 @@ public class ShepherdLogManager
 	public static void logEvent(Object theIp, String theForwardedIp, String theMessage)
 	{
 		setRequestIp(theIp, theForwardedIp);
-		log.debug(theMessage);
 	}
 	
 	/**
@@ -47,7 +46,6 @@ public class ShepherdLogManager
 		if (userName.isEmpty())
 			userName = new String("UnknownUser");
 		setRequestIp(theIp, theForwardedIp, userName);
-		log.debug(theMessage);
 	}
 	
 	/**

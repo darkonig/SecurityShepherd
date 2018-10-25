@@ -73,7 +73,6 @@ public class SetDefaultClass extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
 					String classId = (String)request.getParameter("classId");

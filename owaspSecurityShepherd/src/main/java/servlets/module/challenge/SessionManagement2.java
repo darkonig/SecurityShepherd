@@ -52,9 +52,9 @@ public class SessionManagement2 extends HttpServlet
 	private static String levelHash = "d779e34a54172cbc245300d3bc22937090ebd3769466a501a5e7ac605b9f34b7";
 	/**
 	 * The user attempts to use this function to sign into a sub schema. If they successfully sign in then they are able to retrieve the result key for the challenge
-	 * If they sign in with a correct user name but incorrect password then the email address of the user will be returned in a error message
+	 * If they sign in with a correct user name but incorrect pwd then the email address of the user will be returned in a error message
 	 * @param subName Sub schema user name
-	 * @param subName Sub schema user password
+	 * @param subName Sub schema user pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
@@ -145,7 +145,7 @@ public class SessionManagement2 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

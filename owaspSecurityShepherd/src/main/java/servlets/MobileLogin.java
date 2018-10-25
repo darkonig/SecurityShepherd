@@ -46,7 +46,7 @@ public class MobileLogin extends HttpServlet
 	 * Initiated by login.jsp. Once this post request has been completely processed, the user will be logged in, the account will be one count closer to been temporarily been locked or will be locked out temporarily.
 	 * This method takes the credentials submitted and determines if they are correct. If they are correct, a session is prepared for the user and they are assigned a CSRF token.
 	 * @param login User's User Name
-	 * @param pwd User's Password		
+	 * @param pwd User's pwd		
 	 */
 	@SuppressWarnings("unchecked")
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 

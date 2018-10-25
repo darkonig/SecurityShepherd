@@ -28,7 +28,7 @@ import dbProcs.Database;
  * 
  * This function is a shell to give the appearance that a token has been set for a user. 
  * A DB call is made to check if a user exists. If the user does exist the server returns an ok message 
- * claiming that the user has been emailed a URL with a token embedded for resetting their password. 
+ * claiming that the user has been emailed a URL with a token embedded for resetting their pwd. 
  * This in fact does not happen. User must find another way to sign in as an admin.
  * 
  * <br/><br/>
@@ -56,7 +56,7 @@ public class SessionManagement5SetToken extends HttpServlet
 	private static String levelName = "SessionManagement5SetToken";
 	public static String levelHash = SessionManagement5.levelHash;
 	/**
-	 * Used to apparently send a message to a user with a token to reset their password.
+	 * Used to apparently send a message to a user with a token to reset their pwd.
 	 * 
 	 * @param userName Sub schema user name
 	 */
@@ -125,7 +125,7 @@ public class SessionManagement5SetToken extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

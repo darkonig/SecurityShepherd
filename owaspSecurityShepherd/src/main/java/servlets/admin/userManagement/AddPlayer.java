@@ -47,8 +47,8 @@ public class AddPlayer extends HttpServlet
 	 * Adding of player to Core Database is handed by Setter.createUser
 	 * @param classId Class to add player to (ensure exists)
 	 * @param userName User's User Name
-	 * @param passWord 	User's Password
-	 * @param passWordConfirm Password Confirmation
+	 * @param pwd 	User's Pwd
+	 * @param pwdConfirm Pwd Confirmation
 	 * @param userAddress User's Email
 	 * @param userAddressCnf User's Email Confirmation
 	 * @param csrfToken
@@ -170,8 +170,7 @@ public class AddPlayer extends HttpServlet
 					}
 				}
 				catch (Exception e)
-				{
-					log.error("Create New Class Error", e);
+				{		
 					e.printStackTrace();
 					out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 							"An error Occurred! Please try again." +

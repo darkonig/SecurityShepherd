@@ -58,7 +58,7 @@ if(ses.getAttribute("ChangePassword") != null)
 
 int i = 0;
 
-//IF Change Password is True, Stick up a form
+//IF Change pwd is True, Stick up a form
 if(!changePassword)
 {
 %>

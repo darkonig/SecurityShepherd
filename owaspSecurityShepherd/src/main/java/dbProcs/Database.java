@@ -42,7 +42,7 @@ public class Database
 		}
 		catch(Exception e)
 		{
-			log.error("Error closing connection", e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class Database
 		   Class.forName(DriverType).newInstance();
 		   String connectionURL=FileInputProperties.readfile(props, "databaseConnectionURL");
 		   
-		   //Pull DB Schema, Schema User name and Schema Password from level specific properties File
+		   //Pull DB Schema, Schema User name and Schema pwd from level specific properties File
 		   
 		   props = new File(Database.class.getResource("/challenges/" + path + ".properties").getFile()).getAbsolutePath();
 		   log.debug("Level Properties File = " + path + ".properties");
@@ -81,7 +81,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.error("Unable to create database connection " + e);
+		   e.printStackTrace();
 	   }
 	   return conn;
 	}
@@ -107,7 +107,7 @@ public class Database
 		   Class.forName(DriverType).newInstance();
 		   String connectionURL=FileInputProperties.readfile(props, "databaseConnectionURL");
 		   
-		   //Pull Schema, User name and Password from SqlInjLesson.properties
+		   //Pull Schema, User name and pwd from SqlInjLesson.properties
 		   
 		   //log.debug("Reading Prop File");
 		   connectionURL= connectionURL + FileInputProperties.readfile(props, "databaseSchema");
@@ -119,7 +119,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection", e);
+		   e.printStackTrace();
 	   }
 	   return conn;
 	}
@@ -154,7 +154,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection: " + e);
+		   e.printStackTrace();
 	   }
 	   return null;
 	}
@@ -175,7 +175,7 @@ public class Database
 		   Class.forName(DriverType).newInstance();
 		   String connectionURL=FileInputProperties.readfile(props, "databaseConnectionURL");
 		   
-		   //Pull Schema, User name and Password from SqlInjLesson.properties
+		   //Pull Schema, User name and pwd from SqlInjLesson.properties
 		   props = ApplicationRoot+"/WEB-INF/classes/lessons/SqlInjLesson.properties";
 		   
 		   connectionURL= connectionURL + FileInputProperties.readfile(props, "databaseConnectionURL");
@@ -186,7 +186,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.error("Unable to create database connection ", e);
+		   e.printStackTrace();
 	   }
 	   return null;
 	}

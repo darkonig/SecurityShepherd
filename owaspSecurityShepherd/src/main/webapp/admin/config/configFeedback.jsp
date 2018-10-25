@@ -54,7 +54,6 @@ if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 	<p>You can configure Shepherd to force users to submit a feedback form before the module is marked as complete. This is used both to facilitate project improvements based on feedback submitted and for system administrators to collect "Reports of Understanding" from their students.
 	If you would like to submit the collected feedback to the Security Shepherd Project Development Team, please follow the steps <a href="https://github.com/markdenihan/owaspSecurityShepherd/wiki/How-to-Submit-Shepherd-DB-Stored-User-Feedback">found here</a>.</p>
 	
-	<!-- Enable Feedback Section -->
 	<div id="enableFeedback" <% if(FeedbackStatus.isEnabled()) {%>style="display: none;"<% } %>>
 		<h2 class="title">Enable Feedback</h2>
 		<p>Enable feedback to force users to submit feedback on each module before they can complete them</p>
@@ -64,7 +63,6 @@ if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 		<br>
 	</div>
 	
-	<!-- Disable feedback Section -->
 	<div id="disableFeedback" <% if(FeedbackStatus.isDisabled()) {%>style="display: none;"<% } %>>
 		<h2 class="title">Disable Feedback</h2>
 		<p>Disable feedback to allow users to complete modules without having to submit a feedback form</p>

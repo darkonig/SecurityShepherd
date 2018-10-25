@@ -59,7 +59,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("classCreate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END classCreate ***");
@@ -86,7 +86,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not close all modules: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END closeAllModules ***");
@@ -116,7 +116,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userBadSubmission Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -144,7 +144,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not open all modules: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusOpen ***");
@@ -195,7 +195,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not only open Mobile Levels: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END openOnlyMobileCategories ***");
@@ -224,7 +224,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not only open Web levels: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END openOnlyWebCategories ***");
@@ -254,7 +254,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("resetUserBadSubmission Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -276,7 +276,7 @@ public class Setter
 		{
 			//Update Database Settings
 			File siteProperties = new File(applicationRoot + "/WEB-INF/database.properties");
-			DataOutputStream writer = new DataOutputStream(new FileOutputStream(siteProperties,false));
+			writer = new DataOutputStream(new FileOutputStream(siteProperties,false));
 			String theProperties = new String("databaseConnectionURL=" + url +
 										"\nDriverType=org.gjt.mm.mysql.Driver");
 			writer.write(theProperties.getBytes());
@@ -292,8 +292,15 @@ public class Setter
 		} 
 		catch (IOException e) 
 		{
-			log.error("Could not update Core Database Info: " + e.toString());
+			e.printStackTrace();
 			return false;
+		}
+		finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				}catch(Exception e) { log.error(e); }
+			}
 		}
 	}
 	
@@ -340,7 +347,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("CsrfChallenge4 TokenUpdate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);		
 		return csrfToken;
@@ -392,7 +399,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("csrfChallenge7EnumTokens TokenUpdate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);		
 		return result;
@@ -421,7 +428,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not open/close category: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleCategoryStatusOpen ***");
@@ -451,7 +458,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleSetStatus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusClosed ***");
@@ -481,7 +488,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleSetStatus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusOpen ***");
@@ -514,7 +521,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute resultMessageSet: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setStoredMessage ***");
@@ -546,7 +553,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("suspendUser Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -577,7 +584,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("unSuspendUser Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -608,7 +615,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute resultMessagePlus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updateCsrfCounter ***");
@@ -618,8 +625,8 @@ public class Setter
 	/**
 	 * @param ApplicationRoot The current running context of the application
 	 * @param userName User name of the user
-	 * @param currentPassword User's current password
-	 * @param newPassword New password to use in update
+	 * @param currentpwd User's current pwd
+	 * @param newpwd New pwd to use in update
 	 * @return ResultSet that contains error details if not successful
 	 */
 	public static boolean updatePassword (String ApplicationRoot, String userName, String currentPassword, String newPassword)
@@ -641,7 +648,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updatePassword Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updatePassword ***");
@@ -649,10 +656,10 @@ public class Setter
 	}
 	
 	/**
-	 * Updates a player's password without needing the current password
+	 * Updates a player's pwd without needing the current pwd
 	 * @param ApplicationRoot Running context of the applicaiton
 	 * @param userId The user id of the user to update
-	 * @param newPassword The new password to assign to the user
+	 * @param newpwd The new pwd to assign to the user
 	 * @return
 	 */
 	public static boolean updatePasswordAdmin (String ApplicationRoot, String userId, String newPassword)
@@ -673,7 +680,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updatePasswordAdmin Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updatePasswordAdmin ***");
@@ -706,7 +713,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("playerUpdateClass Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -738,7 +745,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{ 	
-			log.error("updatePlayerClassToNull Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -780,7 +787,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userUpdateResult Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -813,7 +820,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updateUserPoints Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updateUserPoints ***");
@@ -846,7 +853,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userUpdateRole Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -916,7 +923,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.fatal("userCreate Failure: " + e.toString());
+			e.printStackTrace();
 			throw new SQLException(e);
 		}
 		Database.closeConnection(conn);
@@ -947,7 +954,7 @@ public class Setter
              }
          }
          catch(SQLException sqlEx) {
-             log.fatal("userDelete Failure: " + sqlEx.toString());
+        	 sqlEx.printStackTrace();
              throw new SQLException(sqlEx);
          }
          Database.closeConnection(conn);

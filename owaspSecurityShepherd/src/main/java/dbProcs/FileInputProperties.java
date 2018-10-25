@@ -85,13 +85,30 @@ public class FileInputProperties
 	    } 
 	    catch (FileNotFoundException e) 
 	    {
-	    	log.error("Error: Properties filename: can not be found ", e);
+	    	e.printStackTrace();
 	    	result = result +  e.toString();
 	    } 
 	    catch (IOException e) 
 	    {
-	    	log.error("Error: Properties filename: not be opened ", e);
+	    	e.printStackTrace();
 	    	result = result + e.toString();
+	    }
+	    finally {
+	    	if (fis != null) {
+	    		try {
+	    		fis.close();
+	    		}catch (Exception e) { log.error(e); }
+	    	}
+	    	if (bis != null) {
+	    		try {
+	    			bis.close();
+	    		}catch (Exception e) { log.error(e); }
+	    	}
+	    	if (dis != null) {
+	    		try {
+	    			dis.close();
+	    		}catch (Exception e) { log.error(e); }
+	    	}
 	    }
 	    return result;
 	  }

@@ -95,7 +95,7 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Could not retrieve Challenge CSRF Tokens " , e);
+					e.printStackTrace();
 					htmlOutput = csrfGenerics.getString("error.noToken");
 				}
 				finally {

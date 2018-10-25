@@ -121,7 +121,7 @@ public class UnvalidatedForwardsLesson extends HttpServlet
 					}
 					catch(MalformedURLException e)
 					{
-						log.error("Invalid URL: " + e.toString());
+						e.printStackTrace();
 						validUrl = false;
 						validSolution = false;
 						validAttack = false;

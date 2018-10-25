@@ -46,8 +46,8 @@ public class CreateNewAdmin extends HttpServlet
 	 * Initiated by createNewAdmin.jsp. This method adds administrators to the system if valid data is submitted, otherwise no admin will be added to the database.
 	 * Email is gathered for future functionality. Adding of the player to the core database is handed by Setter.playerCreate
 	 * @param userName User's User Name
-	 * @param passWord User's Password
-	 * @param passWordConfirm Password Confirmation
+	 * @param pwd User's pwd
+	 * @param pwdConfirm pwd Confirmation
 	 * @param userAddress User's Email
 	 * @param userAddressCnf User's Email Confirmation
 	 * @param csrfToken
@@ -155,7 +155,7 @@ public class CreateNewAdmin extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Create New Admin Error ", e);
+					e.printStackTrace();
 					out.print("<h3 class=\"title\">Admin Create Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

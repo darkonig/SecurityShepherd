@@ -87,14 +87,10 @@ if(ses.getAttribute("errorMessage") != null)
 <script type="text/javascript" src="js/jquery.js"></script>
 <div id="wrapper">
 <jsp:include page="translation-select.jsp" />
-<!-- start header -->
 <div id="header">
 	<h1>Security Shepherd</h1>
 </div>
-<!-- end header -->
-<!-- start page -->
 <div id="page">
-	<!-- start content -->
 	<div id="content">
 		<div class="post" id="registerDiv">
 			<h1 class="title"><fmt:message key="generic.text.register" /></h1>
@@ -145,12 +141,8 @@ if(ses.getAttribute("errorMessage") != null)
 		<div id="resultDiv"></div>
 		<div id="loadingSign" style="display: none"><p><h2 class="title">Enrolling Now</h2><p>Please wait as you are enrolled for your Security Shepherd account.</p></p></div>
 	</div>
-	<!-- end content -->
-	<!-- start sidebar -->
-	<!-- end sidebar -->
 </div>
 </div>
-<!-- end page -->
 <script>
 	jQuery.fn.center = function () 
 	{

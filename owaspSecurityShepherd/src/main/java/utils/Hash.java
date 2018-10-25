@@ -88,7 +88,7 @@ public class Hash
 			}
 			catch (Exception e)
 			{
-				log.error("Encrypt Failure: " + e.toString());
+				e.printStackTrace();
 			}
 		return toReturn;
 	}
@@ -109,7 +109,7 @@ public class Hash
 		}
 		catch(Exception e)
 		{
-			log.error("Random Number Error : " + e.toString());
+			e.printStackTrace();
 		}
 		return byteArray;
 	}
@@ -133,7 +133,7 @@ public class Hash
 		}
 		catch(Exception e)
 		{
-			log.error("Random Number Error : " + e.toString());
+			e.printStackTrace();
 		}
 		return result;
 	}

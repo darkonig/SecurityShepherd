@@ -93,14 +93,16 @@ public class BrokenCrypto4 extends HttpServlet
 				int perCentOffNotBad = 0; // Will search for coupons in DB and update this int
 				
 				htmlOutput = new String();
-				Connection conn = Database.getChallengeConnection(applicationRoot, "CryptoChallengeShop");
+				Connection conn = null;
 				PreparedStatement prepstmt = null;
+				ResultSet coupons = null;
 				try
 				{
 					log.debug("Looking for Coupons");
+					conn = Database.getChallengeConnection(applicationRoot, "CryptoChallengeShop");
 					prepstmt = conn.prepareStatement("SELECT itemId, perCentOff FROM coupons WHERE couponCode = ?");
 					prepstmt.setString(1, couponCode);
-					ResultSet coupons = prepstmt.executeQuery();
+					coupons = prepstmt.executeQuery();
 					
 					if(coupons.next())
 					{
@@ -135,11 +137,26 @@ public class BrokenCrypto4 extends HttpServlet
 					log.error("Could Not Find Coupon", e);
 				}
 				finally {
-					if (prepstmt != null && !prepstmt.isClosed()) {
-						prepstmt.close();
+					try {
+						if (coupons != null) {
+							coupons.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
 					}
-					if (conn != null && !conn.isClosed()) {
-						conn.close();
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
+					}
+					try {
+						if (prepstmt != null) {
+							prepstmt.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
 					}
 				}
 				
@@ -184,7 +201,8 @@ public class BrokenCrypto4 extends HttpServlet
 	private static int validateAmount (int amount)
 	{
 		if(amount < 0 || amount > 9000)
-			amount = 0;
+			return 0;
 		return amount;
 	}
+	
 }

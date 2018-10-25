@@ -89,7 +89,6 @@ extends HttpServlet
 				//Get Running Context of Application to make Database Call with
 				String applicationRoot = getServletContext().getRealPath("");
 				String output = doLevelSqlStuff(applicationRoot, aUserName, bundle);
-				log.debug("Logging in English. Going to Output " + output);
 				String htmlOutput = "<h2 class='title'>" + bundle.getString("module.example.header") + "</h2>";
 				if (output == null)
 				{
@@ -164,7 +163,7 @@ extends HttpServlet
 		} 
 		catch (SQLException e)
 		{
-			log.debug("SQL Error caught - " + e.toString());
+			e.printStackTrace();
 			result = bundle.getString("example.error") + ": " + Encode.forHtml(e.toString()); //Html Encode Error to prevent XSS
 		}
 		catch (Exception e)
@@ -183,7 +182,7 @@ extends HttpServlet
 					stmt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				e.printStackTrace();
 			}
 		}
 		return result;

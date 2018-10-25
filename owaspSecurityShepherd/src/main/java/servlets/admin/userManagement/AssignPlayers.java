@@ -78,7 +78,6 @@ public class AssignPlayers extends HttpServlet
 					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
 					String[] players = request.getParameterValues("players[]");
-					log.debug("players = " + players.toString());
 					
 					//Validation
 					notNull = (players != null);

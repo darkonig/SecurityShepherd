@@ -100,8 +100,8 @@ public class FeedbackSubmit extends HttpServlet
 					log.debug("additionalInfo = " + additionalInfo);
 					
 					log.debug("Getting session parameters");
-					String userId = (String)ses.getAttribute("userStamp");
-					String userName = (String)ses.getAttribute("userName");
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
+					String userName = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"));
 					log.debug("userId = " + userId);
 					
 					//Validation
@@ -205,7 +205,7 @@ public class FeedbackSubmit extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Feedback Submission Error ", e);
+					e.printStackTrace();
 					htmlOutput = new String("<h2 class=\"title\">Feedback Submission Failure</h2><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

@@ -25,7 +25,7 @@ import utils.Validate;
 import dbProcs.Database;
 
 /**
- * Session Management Challenge Five - Change Password
+ * Session Management Challenge Five - Change pwd
  * This is a level function - DOES NOT RETURN KEY
  * <br/><br/>
  * This file is part of the Security Shepherd Project.
@@ -53,10 +53,10 @@ public class SessionManagement5ChangePassword extends HttpServlet
 	private static String levelName = "Session Management Challenge Five (Change Password)";
 	// private static String levelResult = ""; //This Servlet does not return a result
 	/**
-	 * Function used by Session Management Challenge Five to change the password of the submitted user name. The function requires a valid token which is a base64'd timestamp. If the current time is within 10 minutes of the token, the function will execute 
-	 * @param userName User cookie used to store the user password to be reset
-	 * @param newPassword the password which to use to update an accounts password
-	 * @param resetPasswordToken Base64'd time stamp
+	 * Function used by Session Management Challenge Five to change the pwd of the submitted user name. The function requires a valid token which is a base64'd timestamp. If the current time is within 10 minutes of the token, the function will execute 
+	 * @param userName User cookie used to store the user pwd to be reset
+	 * @param newpwd the pwd which to use to update an accounts pwd
+	 * @param resetpwdToken Base64'd time stamp
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
@@ -129,7 +129,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 					} 
 					catch (ParseException e) 
 					{
-						log.error("Date Parsing Error: " + e.toString());
+						e.printStackTrace();
 						errorMessage += bundle.getString("changePass.badTokenData") + ": " + e.toString();
 					}
 					
@@ -196,7 +196,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - Change Password - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

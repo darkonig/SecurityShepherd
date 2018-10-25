@@ -76,31 +76,26 @@ if (request.getSession() != null)
 				<br />
 				<form id="leForm" action="javascript:;">
 					<table>
-					<!-- Header -->
 					<tr>
 						<th><%= bundle.getString("challenge.form.picture") %></th>
 						<th><%= bundle.getString("challenge.form.cost") %></th>
 						<th><%= bundle.getString("challenge.form.quantity") %></th>
 					</tr>
-					<!-- Rage Row -->
 					<tr>
 						<td><img width="50px" height="50px" src="<%= levelHash %>/rage.png"/></td>
 						<td><%= bundle.getString("challenge.form.45") %></td>
 						<td><input type="text" style="width: 40px" value="0" id="numberOfRage" autocomplete="off"/>
 					</tr>
-					<!-- NotBad Row -->
 					<tr>
 						<td><img width="50px" height="50px" src="<%= levelHash %>/notbad.jpeg"/></td>
 						<td><%= bundle.getString("challenge.form.15") %></td>
 						<td><input type="text" style="width: 40px" value="0" id="numberOfNotBad" autocomplete="off"/>
 					</tr>
-					<!-- Troll Row -->
 					<tr>
 						<td><img width="50px" height="50px" src="<%= levelHash %>/troll.png"/></td>
 						<td><%= bundle.getString("challenge.form.3000") %></td>
 						<td><input type="text" style="width: 40px" value="0" id="numberOfTroll" autocomplete="off"/>
 					</tr>
-					<!-- MeGusta Row -->
 					<tr>
 						<td><img width="50px" height="50px" src="<%= levelHash %>/megusta.png"/></td>
 						<td><%= bundle.getString("challenge.form.30") %></td>
