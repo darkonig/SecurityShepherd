@@ -1017,10 +1017,6 @@ if (request.getSession() != null)
 	            });
 			}
 		</script>
-		<!-- <fmt:message key="generic.text.commentMessage.1" /> 
-		<fmt:message key="generic.text.commentMessage.2" /> 
-		<fmt:message key="generic.text.commentMessage.3" /> 
-		<fmt:message key="generic.text.commentMessage.4" /> -->
 		<% if(Analytics.googleAnalyticsOn) { %><%= Analytics.googleAnalyticsScript %><% } %>
 		</body>
 		</html>

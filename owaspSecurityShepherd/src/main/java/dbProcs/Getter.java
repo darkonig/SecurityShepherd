@@ -1069,9 +1069,15 @@ public class Getter
 		}
 		catch(Exception e)
 		{
+<<<<<<< HEAD
 			e.printStackTrace();
 			log.error("moduleID = " + moduleId);
 			log.error("userID = " + userId);
+=======
+			log.error("Module Hash Retrieval: " + e.toString());
+			log.debug("moduleID = " + moduleId);
+			log.debug("userID = " + userId);
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModuleAddress() ***");

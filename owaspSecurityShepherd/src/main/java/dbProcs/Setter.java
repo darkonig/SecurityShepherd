@@ -267,11 +267,12 @@ public class Setter
 	 * @param applicationRoot The directory that the server is actually in
 	 * @param url The Url of the core Database
 	 * @param userName The user name of the database user
-	 * @param password The password of the database user
+	 * @param pwd The pwd of the database user
 	 * @return Boolean value depicting the success of the method
 	 */
 	public static boolean setCoreDatabaseInfo(String applicationRoot, String url, String userName, String password)
 	{
+		DataOutputStream writer = null;
 		try 
 		{
 			//Update Database Settings

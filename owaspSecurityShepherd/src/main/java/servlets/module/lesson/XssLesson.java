@@ -94,7 +94,7 @@ extends HttpServlet
 						searchTerm +
 						"'</p>";
 					log.debug("Outputting HTML");
-					out.write(htmlOutput);
+					out.write(StringEscapeUtils.escapeHtml4(htmlOutput));
 				}
 			}
 			else

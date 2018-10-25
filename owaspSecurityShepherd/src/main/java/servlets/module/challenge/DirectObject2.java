@@ -72,6 +72,9 @@ public class DirectObject2 extends HttpServlet
 			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 			PrintWriter out = response.getWriter();
 			out.print(getServletInfo());
+			Connection conn = null;
+			PreparedStatement prepstmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId[]"));
@@ -80,10 +83,10 @@ public class DirectObject2 extends HttpServlet
 				log.debug("Servlet root = " + ApplicationRoot );
 				String htmlOutput = new String();
 				
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "directObjectRefChalTwo");
-				PreparedStatement prepstmt = conn.prepareStatement("SELECT userName, privateMessage FROM users WHERE userId = ?");
+				conn = Database.getChallengeConnection(ApplicationRoot, "directObjectRefChalTwo");
+				prepstmt = conn.prepareStatement("SELECT userName, privateMessage FROM users WHERE userId = ?");
 				prepstmt.setInt(1, Integer.parseInt(userId));
-				ResultSet resultSet = prepstmt.executeQuery();
+				resultSet = prepstmt.executeQuery();
 				if(resultSet.next())
 				{
 					log.debug("Found user: " + resultSet.getString(1));
@@ -106,6 +109,29 @@ public class DirectObject2 extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				e.printStackTrace();
+			}
+			finally {
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (prepstmt != null) {
+						prepstmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 		}
 		else

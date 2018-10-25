@@ -101,7 +101,7 @@ public class XssChallengeFive extends HttpServlet
 							"<p>" + bundle.getString("response.linkPosted") + "</p> " +
 							userPost +
 							"</p>";
-					out.write(htmlOutput);
+					out.write(StringEscapeUtils.escapeHtml4(htmlOutput));
 				}
 			}
 		}

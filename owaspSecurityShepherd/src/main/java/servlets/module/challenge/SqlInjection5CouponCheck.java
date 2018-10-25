@@ -106,6 +106,23 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 						if (coupons != null) {
 							coupons.close();
 						}
+<<<<<<< HEAD
+=======
+					} catch (Exception e) {
+						log.error("Error close connections", e);
+					}
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
+					}
+					try {
+						if (prepstmt != null) {
+							prepstmt.close();
+						}
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 					} catch (Exception e) {
 						log.error("Error close connections", e);
 					}
@@ -125,13 +142,21 @@ public class SqlInjection5CouponCheck extends HttpServlet {
 					}
 				}
 			} catch (Exception e) {
+<<<<<<< HEAD
 				e.printStackTrace();
+=======
+				log.debug("Did complete Check: " + e.toString());
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 				htmlOutput = "" + bundle.getString("errors.occured") + "" + Encode.forHtml(e.toString());
 			}
 			try {
 				Thread.sleep(1000);
 			} catch (Exception e) {
+<<<<<<< HEAD
 				e.printStackTrace();
+=======
+				log.error("Failed to Pause: " + e.toString());
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 			}
 			out.write(htmlOutput);
 		} else {

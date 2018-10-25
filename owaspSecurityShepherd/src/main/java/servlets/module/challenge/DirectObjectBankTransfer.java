@@ -72,6 +72,8 @@ public class DirectObjectBankTransfer extends HttpServlet
 			boolean performTransfer = false;
 			String errorMessage = new String();
 			String applicationRoot = getServletContext().getRealPath("");
+			Connection conn = null;
+			CallableStatement callstmt = null;
 			try
 			{
 				String senderAccountNumber = StringEscapeUtils.escapeHtml4(request.getParameter("senderAccountNumber"));
@@ -113,15 +115,14 @@ public class DirectObjectBankTransfer extends HttpServlet
 				if(performTransfer)
 				{
 					log.debug("Valid Data Submitted, transfering Funds...");
-					Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-					CallableStatement callstmt = conn.prepareCall("CALL transferFunds(?, ?, ?)");
+					conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
+					callstmt = conn.prepareCall("CALL transferFunds(?, ?, ?)");
 					callstmt.setString(1, senderAccountNumber);
 					callstmt.setString(2, recieverAccountNumber);
 					callstmt.setFloat(3, tranferAmount);
 					callstmt.execute();
 					log.debug("Sucessfully ran Transfer Funds procedure.");
 					htmlOutput = bundle.getString("transfer.success");
-					Database.closeConnection(conn);
 				}
 				else
 				{
@@ -140,6 +141,22 @@ public class DirectObjectBankTransfer extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				e.printStackTrace();
+			}
+			finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 		}
 		else

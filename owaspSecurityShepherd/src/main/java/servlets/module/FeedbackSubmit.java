@@ -175,7 +175,9 @@ public class FeedbackSubmit extends HttpServlet
 							
 							log.error("Invoking Bad Submission procedure...");
 							Setter.incrementBadSubmission(ApplicationRoot, userId);
-							log.error(userName + " has been warned and potentially has lost points");
+							log.error("The user has been warned and potentially has lost points");
+							log.error("Username has been warned and potentially has lost points");
+							log.debug(userName + " has been warned and potentially has lost points");
 						}
 					}
 					else

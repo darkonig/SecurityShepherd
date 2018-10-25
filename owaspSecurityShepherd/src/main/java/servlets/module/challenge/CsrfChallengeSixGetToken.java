@@ -94,7 +94,11 @@ public class CsrfChallengeSixGetToken extends HttpServlet {
 					log.debug("Returned " + i + " CSRF Tokens for ID: " + userId);
 					conn.close();
 				} catch (Exception e) {
+<<<<<<< HEAD
 					e.printStackTrace();
+=======
+					log.error("Could not retrieve Challenge CSRF Tokens ", e);
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 					htmlOutput = csrfGenerics.getString("error.noToken");
 				} finally {
 					try {

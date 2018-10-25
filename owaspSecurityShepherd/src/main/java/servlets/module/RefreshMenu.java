@@ -76,7 +76,7 @@ public class RefreshMenu extends HttpServlet
 				{
 					
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String userId = (String)ses.getAttribute("userStamp");
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					if(ModulePlan.isIncrementalFloor())
 					{
 						log.debug("Returning CTF Menu");

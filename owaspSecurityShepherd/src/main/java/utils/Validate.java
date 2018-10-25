@@ -239,7 +239,8 @@ public class Validate
 						String role = (String) ses.getAttribute("userRole");
 						result = (role.compareTo("admin") == 0);
 						if(!result)
-							log.fatal("User " + userName + " Attempting Admin functions! (CSRF Tokens Not Checked)");
+							log.error("User Attempting Admin functions! (CSRF Tokens Not Checked)");
+							log.debug("User " + userName + " Attempting Admin functions! (CSRF Tokens Not Checked)");
 					} 
 					catch (Exception e) 
 					{
@@ -291,10 +292,12 @@ public class Validate
 						{
 							//Check CSRF Tokens of User to ensure they are not being CSRF'd into causing Unauthorised Access Alert
 							boolean validCsrfTokens = validateTokens(cookieToken, requestToken);
-							if(validCsrfTokens)
-								log.fatal("User account " + userName + " Attempting Admin functions! (With Valid CSRF Tokens)");
-							else
-								log.error("User account " + userName + " accessing admin function with bad CSRF Tokens");
+							if(validCsrfTokens) {
+								log.error("User account Attempting Admin functions! (With Valid CSRF Tokens)");
+								log.debug("User account " + userName + " Attempting Admin functions! (With Valid CSRF Tokens)");
+							}else
+								log.error("User account accessing admin function with bad CSRF Tokens");
+								log.debug("User account " + userName + " accessing admin function with bad CSRF Tokens");
 						}
 							
 					} 
@@ -441,9 +444,10 @@ public class Validate
 						//log.debug("Session holder is "+ses.getAttribute("userName").toString());
 						String role = (String) ses.getAttribute("userRole");
 						result = (role.compareTo("player") == 0 || role.compareTo("admin") == 0);
-						if(!result)
-							log.fatal("User Role Parameter Tampered. Role = " + role);
-						else
+						if(!result) {
+							log.error("User Role Parameter Tampered. Role");
+							log.debug("User Role Parameter Tampered. Role = " + role);
+						}else
 						{
 							String userName = ses.getAttribute("userName").toString();
 							//Has the user been suspended? Should they be kicked?
