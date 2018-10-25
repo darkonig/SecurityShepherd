@@ -57,7 +57,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 	public static String userNameKey = randomKeyLengthString();
 	private static String serverEncryptionKey = randomKeyLengthString();
 	private static String encryptionKeySalt = randomKeyLengthString();
-	private static org.apache.log4j.Logger log = Logger.getLogger(BrokenCryptoHomeMade.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(BrokenCryptoHomeMade.class);
 	public static List<List<String>> challenges = new ArrayList<List<String>>();
 	public static boolean initDone = false;
 	
@@ -168,7 +168,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						}
 						catch(Exception e)
 						{
-							log.debug("Exception: " + e.toString());
+							log.error("Exception", e);
 							htmlOutput += "<p>" + bundle.getString("result.failed") + "</p>";
 						}
 					}
@@ -305,7 +305,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		} 
 		catch (GeneralSecurityException e)
 		{
-			log.error("Could not decrypt user name: " + e.toString());
+			log.error("Could not decrypt user name", e);
 		}
 		return decryptedUserName;
 	}
@@ -375,7 +375,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("Random Number Error : " + e.toString());
+			log.error("Random Number Error", e);
 		}
 		return result;
 	}
@@ -410,7 +410,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("Encrypt Failure: " + e.toString());
+				log.error("Encrypt Failure", e);
 				toReturn = "Key Should be here! Please refresh the home page and try again!";;
 			}
 		return toReturn;
@@ -430,7 +430,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("Encrypt Failure: " + e.toString());
+				log.error("Encrypt Failure", e);
 			}
 		return forLog;
 	}

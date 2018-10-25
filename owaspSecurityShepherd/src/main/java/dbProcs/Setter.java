@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
  */
 public class Setter 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Setter.class);	
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Setter.class);	
 	/**
 	 * Database procedure just adds this. So this method just prepares the statement
 	 * @param ApplicationRoot
@@ -109,7 +109,7 @@ public class Setter
 		{
 			log.debug("Prepairing bad Submission call");
 			PreparedStatement callstmnt = conn.prepareCall("CALL userBadSubmission(?)");
-			callstmnt.setString(1, userId);
+			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing userBadSubmission statement on id '" + userId + "'");
 			callstmnt.execute();
 			result = true;
@@ -247,7 +247,7 @@ public class Setter
 		{
 			log.debug("Prepairing resetUserBadSubmission call");
 			PreparedStatement callstmnt = conn.prepareCall("CALL resetUserBadSubmission(?)");
-			callstmnt.setString(1, userId);
+			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing resetUserBadSubmission statement on id '" + userId + "'");
 			callstmnt.execute();
 			result = true;
@@ -321,7 +321,7 @@ public class Setter
 			boolean tokenExists = false;
 			log.debug("Preparing setSsrfChallengeFourToken call");
 			PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
-			callstmnt.setString(1, userId);
+			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing setCsrfChallengeFourToken");
 			ResultSet rs = callstmnt.executeQuery();
 			if(rs.next())
@@ -341,8 +341,8 @@ public class Setter
 			if(!tokenExists)
 				whatToDo = "INSERT INTO `csrfChallengeFour`.`csrfTokens` (`csrfTokenscol`, `userId`) VALUES (?, ?)";
 			callstmnt = conn.prepareStatement(whatToDo);
-			callstmnt.setString(1, csrfToken);
-			callstmnt.setString(2, userId);
+			callstmnt.setInt(1, Integer.parseInt(csrfToken));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			callstmnt.execute();
 			callstmnt.close();
 		}
@@ -371,7 +371,7 @@ public class Setter
 			boolean updateToken = false;
 			log.debug("Preparing setCsrfChallengeSevenToken call");
 			PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
-			callstmnt.setString(1, userId);
+			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing setCsrfChallengeSevenToken");
 			ResultSet rs = callstmnt.executeQuery();
 			if(rs.next())
@@ -392,8 +392,8 @@ public class Setter
 			else
 				whatToDo = "INSERT INTO `csrfChallengeEnumTokens`.`csrfTokens` (`csrfTokenscol`, `userId`) VALUES (?, ?)";
 			callstmnt = conn.prepareStatement(whatToDo);
-			callstmnt.setString(1, csrfToken);
-			callstmnt.setString(2, userId);
+			callstmnt.setInt(1, Integer.parseInt(csrfToken));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			callstmnt.execute();
 			result = true;
 			callstmnt.close();
@@ -511,11 +511,11 @@ public class Setter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call resultMessageSet(?, ?, ?)");
+			PreparedStatement callstmt = conn.prepareCall("call resultMessageSet(?, ?, ?)");
 			log.debug("Preparing resultMessageSet procedure");
-			callstmt.setString(1, message);
-			callstmt.setString(2, userId);
-			callstmt.setString(3, moduleId);
+			callstmt.setInt(1, Integer.parseInt(message));
+			callstmt.setInt(2, Integer.parseInt(userId));
+			callstmt.setInt(3, Integer.parseInt(moduleId));
 			callstmt.execute();
 			log.debug("Executed resultMessageSet");
 			result = true;
@@ -607,10 +607,10 @@ public class Setter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call resultMessagePlus(?, ?)");
+			PreparedStatement callstmt = conn.prepareCall("call resultMessagePlus(?, ?)");
 			log.debug("Preparing resultMessagePlus procedure");
-			callstmt.setString(1, moduleId);
-			callstmt.setString(2, userId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
+			callstmt.setInt(2, Integer.parseInt(userId));
 			callstmt.execute();
 			result = true;
 		}
@@ -774,9 +774,9 @@ public class Setter
 		try
 		{
 			log.debug("Preparing userUpdateResult call");
-			CallableStatement callstmnt = conn.prepareCall("call userUpdateResult(?, ?, ?, ?, ?, ?)");
-			callstmnt.setString(1, moduleId);
-			callstmnt.setString(2, userId);
+			PreparedStatement callstmnt = conn.prepareCall("call userUpdateResult(?, ?, ?, ?, ?, ?)");
+			callstmnt.setInt(1, Integer.parseInt(moduleId));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			callstmnt.setInt(3, before);
 			callstmnt.setInt(4, after);
 			callstmnt.setInt(5, difficulty);
@@ -887,8 +887,8 @@ public class Setter
 		try
 		{
 			log.debug("Executing userCreate procedure on Database");
-			CallableStatement callstmt = conn.prepareCall("call userCreate(?, ?, ?, ?, ?, ?)");
-			callstmt.setString(1, classId);
+			PreparedStatement callstmt = conn.prepareCall("call userCreate(?, ?, ?, ?, ?, ?)");
+			callstmt.setInt(1, Integer.parseInt(classId));
 			callstmt.setString(2, userName);
 			callstmt.setString(3, userPass);
 			callstmt.setString(4, userRole);

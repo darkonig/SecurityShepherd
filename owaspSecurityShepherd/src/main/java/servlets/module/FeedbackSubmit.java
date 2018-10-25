@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.parser.Parser;
 import org.owasp.encoder.Encode;
@@ -43,7 +44,7 @@ import dbProcs.Setter;
 public class FeedbackSubmit extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SolutionSubmit.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SolutionSubmit.class);
 	/**
 	 * Initiated by a dynamic form returned by servlets.module.SolutionSubmit.doPost() 
 	 * this method checks the existence of the submitted module identifier before ensuring that the submission is correct.
@@ -83,7 +84,7 @@ public class FeedbackSubmit extends HttpServlet
 					String ApplicationRoot = getServletContext().getRealPath("");
 					
 					log.debug("Getting Parameters");
-					String moduleId = (String)request.getParameter("moduleId");;
+					String moduleId = StringEscapeUtils.escapeHtml4(request.getParameter("moduleId"));
 					log.debug("moduleId = " + moduleId.toString());
 					
 					
@@ -204,7 +205,7 @@ public class FeedbackSubmit extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Feedback Submission Error: " + e.toString());
+					log.error("Feedback Submission Error ", e);
 					htmlOutput = new String("<h2 class=\"title\">Feedback Submission Failure</h2><br>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

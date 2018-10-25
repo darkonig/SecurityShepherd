@@ -37,7 +37,7 @@ import utils.ScoreboardStatus;
  */
 public class Getter 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Getter.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Getter.class);
 	/**
 	 * Used for scoreboards / progress bars
 	 */
@@ -175,9 +175,9 @@ public class Getter
 		try
 		{
 			log.debug("Preparing userCheckResult call");
-			CallableStatement callstmnt = conn.prepareCall("call userCheckResult(?, ?)");
-			callstmnt.setString(1, moduleId);
-			callstmnt.setString(2, userId);
+			PreparedStatement callstmnt = conn.prepareCall("call userCheckResult(?, ?)");
+			callstmnt.setInt(1, Integer.parseInt(moduleId));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			log.debug("Executing userCheckResult");
 			ResultSet resultSet = callstmnt.executeQuery();
 			resultSet.next();
@@ -280,9 +280,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleAllInfo(?, ?)");
-			callstmt.setString(1, "challenge");
-			callstmt.setString(2, userId);
+			PreparedStatement callstmt = conn.prepareCall("call moduleAllInfo('challenge', ?)");
+//			callstmt.setString(1, "challenge");
+			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleAllInfo ResultSet");
 			ResultSet challenges = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
@@ -404,8 +404,8 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call classFind(?)");
-			callstmt.setString(1, classId);
+			PreparedStatement callstmt = conn.prepareCall("call classFind(?)");
+			callstmt.setInt(1, Integer.parseInt(classId));
 			log.debug("Gathering classFind ResultSet");
 			ResultSet resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from classFind");
@@ -439,11 +439,10 @@ public class Getter
 		try
 		{
 			if(classId != null)
-			{
-				CallableStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
+			{PreparedStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
 				log.debug("Gathering resultMessageByClass ResultSet");
-				callstmt.setString(1, classId);
-				callstmt.setString(2, moduleId);
+				callstmt.setInt(1, Integer.parseInt(classId));
+				callstmt.setInt(2, Integer.parseInt(moduleId));
 				ResultSet resultSet = callstmt.executeQuery();
 				log.debug("resultMessageByClass executed");
 				
@@ -503,10 +502,10 @@ public class Getter
 		{
 			if(classId != null)
 			{
-				CallableStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
+				PreparedStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
 				log.debug("Gathering resultMessageByClass ResultSet");
-				callstmt.setString(1, classId);
-				callstmt.setString(2, moduleId);
+				callstmt.setInt(1, Integer.parseInt(classId));
+				callstmt.setInt(2,Integer.parseInt(moduleId));
 				ResultSet resultSet = callstmt.executeQuery();
 				log.debug("resultMessageByClass executed");
 				
@@ -563,8 +562,8 @@ public class Getter
 		try
 		{
 			log.debug("Preparing userUpdateResult call");
-			CallableStatement callstmnt = conn.prepareCall("call moduleFeedback(?)");
-			callstmnt.setString(1, moduleId);
+			PreparedStatement callstmnt = conn.prepareCall("call moduleFeedback(?)");
+			callstmnt.setInt(1, Integer.parseInt(moduleId));
 			log.debug("Executing moduleFeedback");
 			ResultSet resultSet = callstmnt.executeQuery();
 			int resultAmount = 0;
@@ -636,8 +635,8 @@ public class Getter
 		
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
-			callstmt.setString(1, userId);
+			PreparedStatement callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
+			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleIncrementalInfo ResultSet");
 			ResultSet modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleIncrementalInfo");
@@ -826,13 +825,13 @@ public class Getter
 		try
 		{
 			//Returns User's: Name, # of Completed modules and Score
-			CallableStatement callstmnt = null;
+			PreparedStatement callstmnt = null;
 			if(ScoreboardStatus.getScoreboardClass().isEmpty() && !ScoreboardStatus.isClassSpecificScoreboard())
 				callstmnt = conn.prepareCall("call totalScoreboard()"); //Open Scoreboard not based on a class
 			else
 			{
 				callstmnt = conn.prepareCall("call classScoreboard(?)"); //Class Scoreboard based on classId
-				callstmnt.setString(1, classId);
+				callstmnt.setInt(1, Integer.parseInt(classId));
 			}
 			//log.debug("Executing classScoreboard");
 			ResultSet resultSet = callstmnt.executeQuery();
@@ -987,8 +986,8 @@ public class Getter
 		try
 		{
 			//Get the lesson modules
-			CallableStatement callstmt = conn.prepareCall("call lessonInfo(?)");
-			callstmt.setString(1, userId);
+			PreparedStatement callstmt = conn.prepareCall("call lessonInfo(?)");
+			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering lessonInfo ResultSet for user " + userId);
 			ResultSet lessons = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
@@ -1050,9 +1049,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetHash(?, ?)");
-			callstmt.setString(1, moduleId);
-			callstmt.setString(2, userId);
+			PreparedStatement callstmt = conn.prepareCall("call moduleGetHash(?, ?)");
+			callstmt.setInt(1, Integer.parseInt(moduleId));
+			callstmt.setInt(2, Integer.parseInt(userId));
 			log.debug("Gathering moduleGetHash ResultSet");
 			ResultSet modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetHash");
@@ -1217,7 +1216,7 @@ public class Getter
 		{
 			CallableStatement callstmt = conn.prepareCall("call moduleGetNameLocale(?)");
 			log.debug("Gathering moduleGetNameLocale ResultSet");
-			callstmt.setString(1, moduleId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetNameLocale");
 			resultSet.next();
@@ -1245,9 +1244,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetResult(?)");
+			PreparedStatement callstmt = conn.prepareCall("call moduleGetResult(?)");
 			log.debug("Gathering moduleGetResult ResultSet");
-			callstmt.setString(1, moduleId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet moduleFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetResult");
 			moduleFind.next();
@@ -1379,9 +1378,9 @@ public class Getter
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.cheatsheets.solutions", lang);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call cheatSheetGetSolution(?)");
+			PreparedStatement callstmt = conn.prepareCall("call cheatSheetGetSolution(?)");
 			log.debug("Gathering cheatSheetGetSolution ResultSet");
-			callstmt.setString(1, moduleId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from cheatSheetGetSolution");
 			resultSet.next();
@@ -1538,8 +1537,8 @@ public class Getter
 		try
 		{
 			log.debug("Preparing userProgress call");
-			CallableStatement callstmnt = conn.prepareCall("call userProgress(?)");
-			callstmnt.setString(1, classId);
+			PreparedStatement callstmnt = conn.prepareCall("call userProgress(?)");
+			callstmnt.setInt(1, Integer.parseInt(classId));
 			log.debug("Executing userProgress");
 			ResultSet resultSet = callstmnt.executeQuery();
 			int resultAmount = 0;
@@ -1589,8 +1588,8 @@ public class Getter
 		{
 			log.debug("Preparing userProgress call");
 			//Returns User's: Name, # of Completed modules and Score
-			CallableStatement callstmnt = conn.prepareCall("call userProgress(?)");
-			callstmnt.setString(1, classId);
+			PreparedStatement callstmnt = conn.prepareCall("call userProgress(?)");
+			callstmnt.setInt(1, Integer.parseInt(classId));
 			log.debug("Executing userProgress");
 			ResultSet resultSet = callstmnt.executeQuery();
 			JSONArray json = new JSONArray();
@@ -1667,9 +1666,8 @@ public class Getter
 		{
 			
 			String listEntry = new String();
-			//Get the modules
-			CallableStatement callstmt = conn.prepareCall("call moduleTournamentOpenInfo(?)");
-			callstmt.setString(1, userId);
+			PreparedStatement callstmt = conn.prepareCall("call moduleTournamentOpenInfo(?)");
+			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleTournamentOpenInfo ResultSet for user " + userId);
 			ResultSet levels = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleTournamentOpenInfo");
@@ -1843,9 +1841,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call userGetNameById(?)");
+			PreparedStatement callstmt = conn.prepareCall("call userGetNameById(?)");
 			log.debug("Gathering userGetNameById ResultSet");
-			callstmt.setString(1, userId);
+			callstmt.setInt(1, Integer.parseInt(userId));
 			ResultSet resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from userGetNameById");
 			resultSet.next();
@@ -1879,10 +1877,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(applicationRoot);
 		try
 		{
-			log.debug("Preparing csrfLevelComplete call");
-			CallableStatement callstmnt = conn.prepareCall("call csrfLevelComplete(?, ?)");
-			callstmnt.setString(1, moduleId);
-			callstmnt.setString(2, userId);
+			PreparedStatement callstmnt = conn.prepareCall("call csrfLevelComplete(?, ?)");
+			callstmnt.setInt(1, Integer.parseInt(moduleId));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			log.debug("moduleId: " + moduleId);
 			log.debug("userId: " + userId);
 			log.debug("Executing csrfLevelComplete");
@@ -1911,7 +1908,7 @@ public class Getter
 		{
 			//Get the modules
 			PreparedStatement prepStmt = conn.prepareCall("SELECT moduleStatus FROM modules WHERE moduleId = ?");
-			prepStmt.setString(1, moduleId);
+			prepStmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet rs = prepStmt.executeQuery();
 			if(rs.next())
 			{

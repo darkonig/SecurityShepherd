@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -47,7 +49,7 @@ import dbProcs.Database;
 public class DirectObjectBankLogin extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankLogin.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankLogin.class);
 	private static String levelName = "Insecure Direct Object Bank Challenge";
 	public static String levelHash = "1f0935baec6ba69d79cfb2eba5fdfa6ac5d77fadee08585eb98b130ec524d00c";
 	private static String levelResult = "4a1df02af317270f844b56edc0c29a09f3dd39faad3e2a23393606769b2dfa35";
@@ -76,9 +78,9 @@ public class DirectObjectBankLogin extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String accountHolder = request.getParameter("accountHolder");
+				String accountHolder = StringEscapeUtils.escapeHtml4(request.getParameter("accountHolder"));
 				log.debug("Account Holder - " + accountHolder);
-				String accountPass = request.getParameter("accountPass");
+				String accountPass = StringEscapeUtils.escapeHtml4(request.getParameter("accountPass"));
 				log.debug("Account Pass - " + accountPass);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
@@ -108,12 +110,12 @@ public class DirectObjectBankLogin extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("login.error.couldNotGetBalance"));
-				log.fatal(levelName + " SQL Error - " + e.toString());
+				log.error(levelName + " SQL Error - ", e);
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				log.error(levelName + " - ", e);
 			}
 		}
 		else
@@ -221,12 +223,13 @@ public class DirectObjectBankLogin extends HttpServlet
 	 */
 	public static float getAccountBalance(String accountNumber, String applicationRoot) throws SQLException {
 		Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-		CallableStatement callstmt;
+//		CallableStatement callstmt;
+		PreparedStatement callstmt;
 		float toReturn = 0;
 		try 
 		{
 			callstmt = conn.prepareCall("CALL currentFunds(?)");
-			callstmt.setString(1, accountNumber);
+			callstmt.setInt(1, Integer.parseInt(accountNumber));
 			ResultSet rs = callstmt.executeQuery();
 			if(rs.next())
 			{

@@ -37,7 +37,7 @@ import org.w3c.tidy.Tidy;
  */
 public class FindXSS
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(FindXSS.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(FindXSS.class);
 	/**
 	 * Method used to detect valid java script in a user submission. Specifically the presence of a script that will execute an alert command.
 	 * Script tag, URI java script and java script triggers vectors are all including in this detection method.
@@ -165,11 +165,11 @@ public class FindXSS
 					}
 					catch(MalformedURLException e)
 					{
-						log.error("Invalid URL: " + e.toString());
+						log.error("Invalid URL ", e);
 					}
 					if(!validUrl)
 					{
-						log.debug("Invalid Url: " + tempMessage);
+						log.debug("Invalid Url ");
 					}
 					else
 					{
@@ -204,12 +204,12 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted: " + e.toString());
+			log.debug("Invalid URL Submitted ", e);
 			validAttack = false;
 		}
 		catch(Exception e)
 		{
-			log.error("FindCSRF Failed: " + e.toString());
+			log.error("FindCSRF Failed ", e);
 			validAttack = false;
 		}
 		return validAttack;
@@ -250,12 +250,12 @@ public class FindXSS
 		}
 		catch(MalformedURLException e)
 		{
-			log.debug("Invalid URL Submitted: " + e.toString());
+			log.debug("Invalid URL Submitted ", e);
 			validAttack = false;
 		}
 		catch(Exception e)
 		{
-			log.error("FindCSRF Failed: " + e.toString());
+			log.error("FindCSRF Failed ", e);
 			validAttack = false;
 		}
 		return validAttack;

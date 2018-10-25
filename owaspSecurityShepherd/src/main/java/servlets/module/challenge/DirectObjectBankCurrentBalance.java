@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -41,7 +42,7 @@ import utils.Validate;
 public class DirectObjectBankCurrentBalance extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankCurrentBalance.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankCurrentBalance.class);
 	private static String levelName = "Insecure Direct Object Bank Challenge (Refresh Balance)";
 	public static String levelHash = "1f0935baec6ba69d79cfb2eba5fdfa6ac5d77fadee08585eb98b130ec524d00c";
 	/**
@@ -67,7 +68,7 @@ public class DirectObjectBankCurrentBalance extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String accountNumber = request.getParameter("accountNumber");
+				String accountNumber = StringEscapeUtils.escapeHtml4(request.getParameter("accountNumber"));
 				log.debug("Account Number - " + accountNumber);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
@@ -79,12 +80,12 @@ public class DirectObjectBankCurrentBalance extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("login.error.couldNotGetBalance"));
-				log.fatal(levelName + " SQL Error - " + e.toString());
+				log.error(levelName + " SQL Error - ", e);
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				log.error(levelName + " - ", e);
 			}
 		}
 		else

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -42,7 +43,7 @@ import dbProcs.Getter;
 public class GetPlayersByClass extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetPlayersByClass.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetPlayersByClass.class);
 	
 	/**
 	 * Initiated by assignPlayers.jsp. This servlet returns options for inside html select
@@ -76,7 +77,7 @@ public class GetPlayersByClass extends HttpServlet
 					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = '" + classId + "'");
 					
 					//Validation
@@ -109,11 +110,6 @@ public class GetPlayersByClass extends HttpServlet
 					}
 					else
 					{
-						//Validation Error Responses
-						if(!notNull || !notEmpty)
-						{
-							log.error("Null values detected");
-						}
 						out.print("fail");
 					}
 				}

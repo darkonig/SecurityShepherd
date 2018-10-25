@@ -21,7 +21,7 @@ import testUtils.TestProperties;
  * credit to Mark Denihan
  */
 public class DeletePlayersTest {
-	private static org.apache.log4j.Logger log = Logger.getLogger(DeletePlayersTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DeletePlayersTest.class);
 	private static String applicationRoot = new String();
 	private MockHttpServletRequest request;
     private MockHttpServletResponse response;

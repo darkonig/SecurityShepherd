@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  */
 public class Database 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Database.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Database.class);
 	/**
 	 * This method is used by the application to close an open connection to a database server
 	 * @param conn The connection to close
@@ -42,7 +42,7 @@ public class Database
 		}
 		catch(Exception e)
 		{
-			log.error("Error closing connection:" + e.toString());
+			log.error("Error closing connection", e);
 		}
 	}
 	
@@ -81,8 +81,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection: " + e);
-		   e.printStackTrace();
+		   log.error("Unable to create database connection " + e);
 	   }
 	   return conn;
 	}
@@ -120,8 +119,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection: " + e);
-		   e.printStackTrace();
+		   log.fatal("Unable to create database connection", e);
 	   }
 	   return conn;
 	}
@@ -137,7 +135,6 @@ public class Database
 	 */
 	public static Connection getDatabaseConnection(String ApplicationRoot, boolean allowMulti)
 	{
-	   Connection conn = null;
 	   try
 	   {
 		   String props = Constants.DBPROP;
@@ -153,13 +150,13 @@ public class Database
 		   String username=FileInputProperties.readfile(props, "databaseUsername");
 		   String password=FileInputProperties.readfile(props, "databasePassword");
 		   
-		   conn = DriverManager.getConnection(connectionURL,username,password);
+		  return DriverManager.getConnection(connectionURL,username,password);
 	   }
 	   catch(Exception e)
 	   {
 		   log.fatal("Unable to create database connection: " + e);
 	   }
-	   return conn;
+	   return null;
 	}
 	
 	/**
@@ -170,7 +167,6 @@ public class Database
 	 */
 	public static Connection getSqlInjLessonConnection(String ApplicationRoot)
 	{
-	   Connection conn = null;
 	   try
 	   {
 		   //Pull Driver and DB URL out of database.properties
@@ -186,13 +182,12 @@ public class Database
 		   String username=FileInputProperties.readfile(props, "databaseUsername");
 		   String password=FileInputProperties.readfile(props, "databasePassword");
 		   
-		   conn = DriverManager.getConnection(connectionURL,username,password);
+		   return DriverManager.getConnection(connectionURL,username,password);
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection: " + e);
-		   e.printStackTrace();
+		   log.error("Unable to create database connection ", e);
 	   }
-	   return conn;
+	   return null;
 	}
 }

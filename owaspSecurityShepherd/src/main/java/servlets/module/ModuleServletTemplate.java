@@ -50,7 +50,7 @@ public class ModuleServletTemplate
 extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(ModuleServletTemplate.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(ModuleServletTemplate.class);
 	private static String levelName = "Level Name Here";
 	public static String levelHash = "Level Hash Here";
 	private static String levelResult = ""; // Put the Level Result Key here only if the level is not hardcoded in the database or mobile application
@@ -121,7 +121,7 @@ extends HttpServlet
 					
 				}
 				log.debug("Outputting HTML");
-				out.write(htmlOutput);
+				out.print(htmlOutput);
 			}
 			else
 			{
@@ -132,7 +132,7 @@ extends HttpServlet
 		catch(Exception e)
 		{
 			//Dont change this error
-			out.write(errors.getString("error.funky"));
+			out.print(errors.getString("error.funky"));
 			log.fatal(levelName + " - " + e.toString());
 		}
 	}

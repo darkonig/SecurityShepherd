@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -40,7 +41,7 @@ import dbProcs.Setter;
 public class AddPlayer extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(AddPlayer.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(AddPlayer.class);
 	
 	/** Initiated by addPlayers.jsp. Player is ether added to the system under a specific or null class or invalid data is detected and no player is added to the database
 	 * Adding of player to Core Database is handed by Setter.createUser
@@ -77,17 +78,16 @@ public class AddPlayer extends HttpServlet
 				try
 				{
 					log.debug("Getting ApplicationRoot");
-					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
+					String ApplicationRoot = getServletContext().getRealPath("");					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
-					String userName = (String)request.getParameter("userName");
+					String userName = StringEscapeUtils.escapeHtml4(request.getParameter("userName"));
 					log.debug("userName = " + userName);
-					String passWord = (String)request.getParameter("passWord");
+					String passWord = StringEscapeUtils.escapeHtml4(request.getParameter("passWord"));
 					log.debug("passWord retrieved");
-					String passWordConfirm = (String)request.getParameter("passWordConfirm");
+					String passWordConfirm = StringEscapeUtils.escapeHtml4(request.getParameter("passWordConfirm"));
 					log.debug("passWordConfirm retrieved");
 					String userAddress = Validate.validateParameter(request.getParameter("userAddress"), 128);
 					log.debug("userAddress = " + userAddress);
@@ -171,7 +171,8 @@ public class AddPlayer extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Create New Class Error: " + e.toString());
+					log.error("Create New Class Error", e);
+					e.printStackTrace();
 					out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 							"An error Occurred! Please try again." +
 							"</strong></p></div>");

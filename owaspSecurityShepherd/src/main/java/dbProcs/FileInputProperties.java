@@ -33,7 +33,7 @@ import utils.FileUtils;
  */
 public class FileInputProperties 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(FileInputProperties.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(FileInputProperties.class);
 	
 	/**
 	 * Reads the properties file for a specific property and returns it as a string.
@@ -85,12 +85,12 @@ public class FileInputProperties
 	    } 
 	    catch (FileNotFoundException e) 
 	    {
-	    	log.error("Error: Properties filename: "+filename+" can not be found: " + e.getMessage());
+	    	log.error("Error: Properties filename: can not be found ", e);
 	    	result = result +  e.toString();
 	    } 
 	    catch (IOException e) 
 	    {
-	    	log.error("Error: Properties filename: "+filename+" can not be opened: " + e.getMessage());
+	    	log.error("Error: Properties filename: not be opened ", e);
 	    	result = result + e.toString();
 	    }
 	    finally {

@@ -20,7 +20,7 @@ import utils.InstallationException;
  */
 public class CloseAllModulesTest
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(CloseAllModulesTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CloseAllModulesTest.class);
 	private static String applicationRoot = new String();
 	private static String lang = "en_GB";
 	private MockHttpServletRequest request;
@@ -93,7 +93,7 @@ public class CloseAllModulesTest
 		String userName = "configUserTester";
 		String password = userName;
 		//Verify / Create user in DB
-		try
+		try	
 		{
 			TestProperties.verifyTestUser(log, applicationRoot, userName, password);
 			//Sign in as Normal User

@@ -41,7 +41,7 @@ import dbProcs.Getter;
 public class GetModule extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetModule.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetModule.class);
 	/**
 	 * Initiated by an Ajax call defined in index.jsp, this method takes a module identifier and returns the valid directory of where the module's View structure is stored.
 	 * @param moduleId The identifier of the module to be returned

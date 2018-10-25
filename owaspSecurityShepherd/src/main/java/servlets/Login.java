@@ -39,7 +39,7 @@ import dbProcs.Getter;
 public class Login extends HttpServlet
 { 
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(Login.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Login.class);
 	/** 
 	 * Initiated by login.jsp. Once this post request has been completely processed, the user will be logged in, the account will be one count closer to been temporarily been locked or will be locked out temporarily.
 	 * This method takes the credentials submitted and determines if they are correct. If they are correct, a session is prepared for the user and they are assigned a CSRF token.

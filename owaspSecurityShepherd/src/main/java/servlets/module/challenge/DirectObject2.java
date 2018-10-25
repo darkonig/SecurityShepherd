@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -46,7 +47,7 @@ import dbProcs.Database;
 public class DirectObject2 extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObject2.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObject2.class);
 	private static String levelName = "Insecure Direct Object Reference Challenge Two";
 	public static String levelHash = "vc9b78627df2c032ceaf7375df1d847e47ed7abac2a4ce4cb6086646e0f313a4";
 	/**
@@ -73,7 +74,7 @@ public class DirectObject2 extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String userId = request.getParameter("userId[]");
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId[]"));
 				log.debug("User Submitted - " + userId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
@@ -81,7 +82,7 @@ public class DirectObject2 extends HttpServlet
 				
 				Connection conn = Database.getChallengeConnection(ApplicationRoot, "directObjectRefChalTwo");
 				PreparedStatement prepstmt = conn.prepareStatement("SELECT userName, privateMessage FROM users WHERE userId = ?");
-				prepstmt.setString(1, userId);
+				prepstmt.setInt(1, Integer.parseInt(userId));
 				ResultSet resultSet = prepstmt.executeQuery();
 				if(resultSet.next())
 				{
@@ -104,7 +105,7 @@ public class DirectObject2 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				log.error(levelName + " - ", e);
 			}
 		}
 		else

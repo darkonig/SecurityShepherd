@@ -29,7 +29,7 @@ import org.owasp.encoder.Encode;
  */
 public class XssFilter 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(XssFilter.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(XssFilter.class);
 	/**
 	 * A method to badly validate a URL
 	 * @param input URL to validate

@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class Validate 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Validate.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Validate.class);
 	/**
 	 * Finds JSession token from user's cookies[], validates and returns.
 	 * @param userCookies Cookies from users browser
@@ -264,6 +264,7 @@ public class Validate
 	{
 		boolean result = false;
 		String userName = new String();
+		String role = new String();
 		if (ses == null)
 		{
 			log.debug("No Session Found");
@@ -284,7 +285,7 @@ public class Validate
 					{
 						userName = (String) ses.getAttribute("userName");
 						//log.debug("Session holder is " + userName);
-						String role = (String) ses.getAttribute("userRole");
+						role = (String) ses.getAttribute("userRole");
 						result = (role.compareTo("admin") == 0);
 						if(!result)
 						{

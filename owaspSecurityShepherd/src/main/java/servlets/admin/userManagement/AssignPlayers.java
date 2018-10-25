@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -41,7 +42,7 @@ import utils.Validate;
 public class AssignPlayers extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(AssignPlayers.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(AssignPlayers.class);
 
 	/** Initiated by assignPlayers.jsp. A number of players can be assigned to a new class. Changing the actual class of the player is handed by Setter.changePlayerClass
 	 * @param classId The identifier of the class to add the players to
@@ -74,9 +75,9 @@ public class AssignPlayers extends HttpServlet
 					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
-					String[] players = request.getParameterValues("players[]");;
+					String[] players = request.getParameterValues("players[]");
 					log.debug("players = " + players.toString());
 					
 					//Validation
@@ -103,7 +104,7 @@ public class AssignPlayers extends HttpServlet
 						for(int i = 0; i < players.length; i++)
 						{
 							log.debug("Validating player " + players[i]);
-							validPlayer = Getter.findPlayerById(ApplicationRoot, players[i]);
+							validPlayer = Getter.findPlayerById(ApplicationRoot, StringEscapeUtils.escapeHtml4(players[i]));
 						}	
 					}
 					if(notNull && validPlayer)

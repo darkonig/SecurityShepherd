@@ -18,7 +18,7 @@ import dbProcs.Setter;
 public class TestPoorValidationLesson
 {
 	private static String lang = "en_GB";
-	private static org.apache.log4j.Logger log = Logger.getLogger(TestPoorValidationLesson.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(TestPoorValidationLesson.class);
 	private static String applicationRoot = new String();
 	private MockHttpServletRequest request;
     private MockHttpServletResponse response;

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.Hash;
@@ -47,7 +48,7 @@ public class BrokenCrypto4 extends HttpServlet
 	private static final String levelName = new String("Broken Crypto 4");
 	private static final String levelHash = new String("b927fc4d8c9f70a78f8b6fc46a0cc18533a88b2363054a1f391fe855954d12f9");
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(BrokenCrypto4.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(BrokenCrypto4.class);
 	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
@@ -78,7 +79,7 @@ public class BrokenCrypto4 extends HttpServlet
 				log.debug("rageAmount - " + rageAmount);
 				int notBadAmount = validateAmount(Integer.parseInt(request.getParameter("notBadAmount")));
 				log.debug("notBadAmount - " + notBadAmount);
-				String couponCode = request.getParameter("couponCode");
+				String couponCode = StringEscapeUtils.escapeHtml4(request.getParameter("couponCode"));
 				log.debug("couponCode - " + couponCode);
 				
 				//Working out costs
@@ -133,7 +134,7 @@ public class BrokenCrypto4 extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					log.debug("Could Not Find Coupon: " + e.toString());
+					log.error("Could Not Find Coupon", e);
 				}
 				finally {
 					if (coupons != null && !coupons.isClosed()) {
@@ -165,7 +166,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.debug("Didn't complete order: " + e.toString());
+				log.error("Didn't complete order", e);
 				htmlOutput += "<p>" + bundle.getString("insecureCyrptoStorage.4.orderFailed") + "</p>";
 			}
 			
@@ -175,7 +176,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause: " + e.toString());
+				log.error("Failed to Pause ", e);
 			}
 			out.write(htmlOutput);
 		}

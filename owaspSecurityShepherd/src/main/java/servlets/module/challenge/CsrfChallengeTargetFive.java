@@ -45,7 +45,7 @@ public class CsrfChallengeTargetFive extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private static final String levelHash = "70b96195472adf3bf347cbc37c34489287969d5ba504ac2439915184d6e5dc49";
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetFive.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetFive.class);
 	private static String levelName = "CSRF 5 Target";
 	/**
 	 * CSRF vulnerable function that can be used by users to force other users to mark their CSRF challenge Two as complete.
@@ -113,7 +113,7 @@ public class CsrfChallengeTargetFive extends HttpServlet
 						}
 						else
 						{
-							log.error("UserId '" + plusId + "' could not be found.");
+								log.error("The user plusId could not be found.");
 						}
 					}
 					else

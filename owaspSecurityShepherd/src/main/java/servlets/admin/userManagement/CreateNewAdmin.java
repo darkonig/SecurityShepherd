@@ -41,7 +41,7 @@ import dbProcs.Setter;
 public class CreateNewAdmin extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CreateNewAdmin.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CreateNewAdmin.class);
 	/**
 	 * Initiated by createNewAdmin.jsp. This method adds administrators to the system if valid data is submitted, otherwise no admin will be added to the database.
 	 * Email is gathered for future functionality. Adding of the player to the core database is handed by Setter.playerCreate
@@ -155,7 +155,7 @@ public class CreateNewAdmin extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Create New Admin Error: " + e.toString());
+					log.error("Create New Admin Error ", e);
 					out.print("<h3 class=\"title\">Admin Create Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

@@ -22,7 +22,7 @@ import utils.ScoreboardStatus;
 
 public class SetterTest 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(SetterTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SetterTest.class);
 	private static String applicationRoot = new String();
 
 	/**

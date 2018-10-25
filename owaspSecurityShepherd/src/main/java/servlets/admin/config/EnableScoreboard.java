@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -41,7 +42,7 @@ import utils.Validate;
 public class EnableScoreboard extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboard.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboard.class);
 
 	/** 
 	 * @param classId The identifier of the class to add the players to
@@ -71,7 +72,7 @@ public class EnableScoreboard extends HttpServlet
 					String applicationRoot = getServletContext().getRealPath("");
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
 					String scoreboardMessage = new String();
 					if(classId.isEmpty()) // Null Submitted - configure scoreboard to list all players regardless of class

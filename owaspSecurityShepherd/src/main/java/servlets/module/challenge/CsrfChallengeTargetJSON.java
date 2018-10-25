@@ -44,7 +44,7 @@ import dbProcs.Setter;
 public class CsrfChallengeTargetJSON extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetJSON.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetJSON.class);
 	private static String levelName = "CSRF JSON Target";
 	/**
 	 * CSRF vulnerable function that can be used by users to force other users to mark their CSRF challenge as complete. Function expecting JSON formed data
@@ -97,7 +97,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 					}
 					else
 					{
-						log.error("UserId '" + plusId + "' could not be found.");
+							log.error("The user id could not be found.");
 					}
 				}
 				
@@ -118,7 +118,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			log.fatal(levelName + " - " + e.toString());
+			log.error(levelName + " - ", e);
 		}
 	}
 	

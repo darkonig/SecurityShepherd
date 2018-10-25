@@ -41,7 +41,7 @@ import dbProcs.Setter;
 public class CsrfChallengeTargetOne extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetOne.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetOne.class);
 	private static String levelName = "CSRF 1 Target";
 	/**
 	 * CSRF vulnerable function that can be used by users to force other users to mark their CSRF challenge One as complete.
@@ -88,7 +88,11 @@ public class CsrfChallengeTargetOne extends HttpServlet
 					}
 					else
 					{
-						log.error("UserId '" + plusId + "' could not be found.");
+						try{
+							log.error("The user "+ plusId + " could not be found.");
+						}catch(NumberFormatException e) {
+							log.error("The user could not be found.", e);
+						}
 					}
 				}
 				

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -45,7 +46,7 @@ import dbProcs.Database;
 public class CsrfChallengeSixGetToken extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeSixGetToken.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeSixGetToken.class);
 	public static final String levelHash = "7d79ea2b2a82543d480a63e55ebb8fef3209c5d648b54d1276813cd072815df3";
 	private static String levelName = "CSRF Challenge 6 Get Token";
 	/**
@@ -73,7 +74,7 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 			{
 				log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 				String htmlOutput = new String("Your csrf Token for this Challenge is: ");
-				String userId = request.getParameter("userId").toString();
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId"));
 				
 				Connection conn = null;
 				PreparedStatement callstmnt = null;
@@ -83,7 +84,7 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 					conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeSix");
 					log.debug("Preparing setCsrfChallengeSixToken call");
 					callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfchallengesix.csrfTokens WHERE userId LIKE ?");
-					callstmnt.setString(1, userId);
+					callstmnt.setInt(1, Integer.parseInt(userId));
 					log.debug("Executing setCsrfChallengeSixTokenQuery");
 					rs = callstmnt.executeQuery();
 					int i = 0;
@@ -97,7 +98,7 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.debug("Could not retrieve Challenge CSRF Tokens: " + e.toString());
+					log.error("Could not retrieve Challenge CSRF Tokens ", e);
 					htmlOutput = csrfGenerics.getString("error.noToken");
 				}
 				finally {

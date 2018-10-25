@@ -47,7 +47,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 {
 	private static final String levelName = "SQLi C5 VIPCouponCheck";
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5VipCheck.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5VipCheck.class);
 	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException

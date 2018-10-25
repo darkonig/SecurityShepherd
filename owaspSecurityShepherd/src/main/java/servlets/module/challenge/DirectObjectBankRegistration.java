@@ -44,7 +44,7 @@ import dbProcs.Database;
 public class DirectObjectBankRegistration extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankRegistration.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DirectObjectBankRegistration.class);
 	private static String levelName = "Insecure Direct Object Bank Challenge (Register)";
 	public static String levelHash = "1f0935baec6ba69d79cfb2eba5fdfa6ac5d77fadee08585eb98b130ec524d00c";
 	/**
@@ -91,12 +91,12 @@ public class DirectObjectBankRegistration extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("register.error"));
-				log.fatal(levelName + " SQL Error - " + e.toString());
+				log.error(levelName + " SQL Error - ", e);
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				log.error(levelName + " - ", e);
 			}
 		}
 		else
