@@ -120,7 +120,7 @@ public class UrlAccess3UserList extends HttpServlet
 			catch(Exception e)
 			{
 				htmlOutput = new String(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}finally {
 				try {
 					if(rs != null) {
@@ -134,7 +134,7 @@ public class UrlAccess3UserList extends HttpServlet
 						callstmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("Outputting HTML");

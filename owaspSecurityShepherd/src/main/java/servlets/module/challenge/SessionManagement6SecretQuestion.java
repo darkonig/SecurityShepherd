@@ -131,7 +131,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 				}
 				catch(SQLException e)
 				{
-					log.error(levelName + " SQL Error: " + e.toString());
+					e.printStackTrace();
 				}
 				log.debug("Outputting HTML");
 				out.write(htmlOutput);
@@ -241,7 +241,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 						}
 						catch(SQLException e)
 						{
-							log.debug(levelName + " SQL Error: " + e.toString());
+							e.printStackTrace();
 							log.debug("Outputting error to user");
 							htmlOutput = new String(e.toString());
 						}finally {
@@ -257,7 +257,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 									stmt.close();
 								}
 							} catch (Exception e) {
-								log.error("Error close connections", e);
+								e.printStackTrace();
 							}
 						}
 					}
@@ -278,7 +278,7 @@ public class SessionManagement6SecretQuestion extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

@@ -129,7 +129,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 					} 
 					catch (ParseException e) 
 					{
-						log.error("Date Parsing Error: " + e.toString());
+						e.printStackTrace();
 						errorMessage += bundle.getString("changePass.badTokenData") + ": " + e.toString();
 					}
 					
@@ -196,7 +196,7 @@ public class SessionManagement5ChangePassword extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - Change Password - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

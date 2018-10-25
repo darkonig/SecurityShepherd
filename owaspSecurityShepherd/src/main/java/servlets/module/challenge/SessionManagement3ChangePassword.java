@@ -148,7 +148,7 @@ public class SessionManagement3ChangePassword extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - Change Password - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

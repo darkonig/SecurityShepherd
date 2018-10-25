@@ -107,7 +107,7 @@ public class Setup extends HttpServlet {
 		catch (Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			log.fatal("Unexpected database config creation error: " + e.toString());
+			e.printStackTrace();
 		}
 		out.close();
 	}
@@ -130,7 +130,6 @@ public class Setup extends HttpServlet {
 			if (!Files.exists(utils.FileUtils.getSetupPath(), LinkOption.NOFOLLOW_LINKS)) {
 				UUID randomUUID = UUID.randomUUID();
 				Files.write(utils.FileUtils.getSetupPath(), randomUUID.toString().getBytes(), StandardOpenOption.CREATE);
-				log.info("genrated UUID " + randomUUID + " in " + Constants.SETUP_AUTH);
 			}
 		} catch (IOException e) {
 			log.fatal("Unable to generate auth");
@@ -165,7 +164,6 @@ public class Setup extends HttpServlet {
 			psProcToexecute.executeUpdate(data);
 
 		} catch (Exception e) {
-			log.fatal(e);
 			e.printStackTrace();
 			throw new InstallationException(e);
 		}
@@ -182,7 +180,6 @@ public class Setup extends HttpServlet {
 			psProcToexecute.executeUpdate(data);
 
 		} catch (Exception e) {
-			log.fatal(e);
 			e.printStackTrace();
 			throw new InstallationException(e);
 		}

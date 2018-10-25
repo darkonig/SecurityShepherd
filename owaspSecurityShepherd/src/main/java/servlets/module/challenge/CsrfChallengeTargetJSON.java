@@ -118,7 +118,7 @@ public class CsrfChallengeTargetJSON extends HttpServlet
 		catch(Exception e)
 		{
 			out.write(errors.getString("error.funky"));
-			log.error(levelName + " - ", e);
+			e.printStackTrace();
 		}
 	}
 	

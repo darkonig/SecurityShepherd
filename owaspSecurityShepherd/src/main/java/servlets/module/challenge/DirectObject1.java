@@ -108,7 +108,11 @@ public class DirectObject1 extends HttpServlet
 			catch(Exception e)
 			{
 				out.print(errors.getString("error.funky"));
+<<<<<<< HEAD
+				e.printStackTrace();
+=======
 				log.error(levelName + " - ", e);
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 			}
 			finally {
 				try {

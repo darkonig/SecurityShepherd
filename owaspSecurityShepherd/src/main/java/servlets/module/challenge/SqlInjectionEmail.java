@@ -87,7 +87,6 @@ public class SqlInjectionEmail extends HttpServlet
 				{
 					log.debug("Filtered to " + userIdentity);
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
 					
 					conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeEmail");
 					log.debug("Getting Connection to Database");
@@ -125,7 +124,7 @@ public class SqlInjectionEmail extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				log.debug("SQL Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}
@@ -146,7 +145,7 @@ public class SqlInjectionEmail extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("Outputting HTML");

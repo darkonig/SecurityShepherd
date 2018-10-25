@@ -74,7 +74,6 @@ public class DirectObjectLesson extends HttpServlet
 				String userName = request.getParameter("username");
 				log.debug("User Submitted - " + userName);
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
 				String htmlOutput = new String();
 				if(userName.equalsIgnoreCase("guest"))
 				{

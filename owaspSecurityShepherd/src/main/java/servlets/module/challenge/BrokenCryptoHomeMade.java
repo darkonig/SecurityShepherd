@@ -168,7 +168,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						}
 						catch(Exception e)
 						{
-							log.error("Exception", e);
+							e.printStackTrace();
 							htmlOutput += "<p>" + bundle.getString("result.failed") + "</p>";
 						}
 					}
@@ -297,7 +297,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		} 
 		catch (GeneralSecurityException e)
 		{
-			log.error("Could not decrypt user name", e);
+			e.printStackTrace();
 		}
 		return decryptedUserName;
 	}
@@ -360,7 +360,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("Random Number Error", e);
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -395,7 +395,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("Encrypt Failure", e);
+				e.printStackTrace();
 				toReturn = "Key Should be here! Please refresh the home page and try again!";;
 			}
 		return toReturn;
@@ -415,7 +415,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("Encrypt Failure", e);
+				e.printStackTrace();
 			}
 		return forLog;
 	}

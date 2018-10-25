@@ -104,14 +104,14 @@ public class SqlInjection5VipCheck extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					log.debug("Could Not Find VIP Coupon: " + e.toString());
+					e.printStackTrace();
 					htmlOutput += "<p> " + bundle.getString("response.checkFailed")+ "</p>";
 				}
 				conn.close();
 			}
 			catch(Exception e)
 			{
-				log.debug("Did complete VIP Check: " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p> " + bundle.getString("response.checkFailed")+ "</p>";
 			}finally {
 				try {
@@ -126,7 +126,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 						prepstmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			try
@@ -135,7 +135,7 @@ public class SqlInjection5VipCheck extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause: " + e.toString());
+				e.printStackTrace();
 			}
 			out.write(htmlOutput);
 		}

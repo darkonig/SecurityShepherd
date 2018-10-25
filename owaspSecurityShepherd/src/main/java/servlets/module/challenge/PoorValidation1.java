@@ -98,7 +98,7 @@ public class PoorValidation1 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.debug("Didn't complete order: " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>" + bundle.getString("poorValidation.badOrder")+ "</p>";
 			}
 			try
@@ -107,7 +107,7 @@ public class PoorValidation1 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause: " + e.toString());
+				e.printStackTrace();
 			}
 			out.write(htmlOutput);
 		}

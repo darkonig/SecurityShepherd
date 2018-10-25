@@ -108,7 +108,7 @@ public class DirectObject2 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.error(levelName + " - ", e);
+				e.printStackTrace();
 			}
 			finally {
 				try {

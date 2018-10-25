@@ -72,14 +72,18 @@ public class Getter
 		
 		boolean userFound = false;
 		boolean goOn = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet userFind = null;
+		ResultSet loginAttempt = null;
 		try 
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			//See if user Exists
-			CallableStatement callstmt = conn.prepareCall("call userFind(?)");
+			callstmt = conn.prepareCall("call userFind(?)");
 			log.debug("Gathering userFind ResultSet");
 			callstmt.setString(1, userName);
-			ResultSet userFind = callstmt.executeQuery();
+			userFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from userFind");
 			try
 			{
@@ -99,7 +103,7 @@ public class Getter
 				log.debug("Gathering authUser ResultSet");
 				callstmt.setString(1, userName);
 				callstmt.setString(2, password);
-				ResultSet loginAttempt = callstmt.executeQuery();
+				loginAttempt = callstmt.executeQuery();
 				log.debug("Opening Result Set from authUser");
 				try
 				{
@@ -150,11 +154,39 @@ public class Getter
 		} 
 		catch (SQLException e) 
 		{
-			log.error("Login Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
-			//Lagging Response
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (loginAttempt != null) {
+					loginAttempt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (userFind != null) {
+					userFind.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+		}
 		log.debug("$$$ End authUser $$$");
 		return result;
 	}
@@ -171,24 +203,49 @@ public class Getter
 		log.debug("*** Getter.checkPlayerResult ***");
 		
 		String result = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing userCheckResult call");
-			PreparedStatement callstmnt = conn.prepareCall("call userCheckResult(?, ?)");
+			callstmnt = conn.prepareCall("call userCheckResult(?, ?)");
 			callstmnt.setInt(1, Integer.parseInt(moduleId));
 			callstmnt.setInt(2, Integer.parseInt(userId));
 			log.debug("Executing userCheckResult");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			resultSet.next();
 			result = resultSet.getString(1);
 		}
 		catch(SQLException e)
 		{
-			log.debug("userCheckResult Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+		}
 		log.debug("*** END checkPlayerResult ***");
 		return result;
 	}
@@ -203,13 +260,16 @@ public class Getter
 		log.debug("*** Getter.findPlayerById ***");
 		boolean userFound = false;
 		//Get connection
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet userFind = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call playerFindById(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call playerFindById(?)");
 			log.debug("Gathering playerFindById ResultSet");
 			callstmt.setString(1, userId);
-			ResultSet userFind = callstmt.executeQuery();
+			userFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from playerFindById");
 			userFind.next(); //This will throw an exception if player not found
 			log.debug("Player Found: " + userFind.getString(1)); //This line will not execute if player not found
@@ -217,10 +277,26 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Player did not exist: " + e.toString());
+			e.printStackTrace();
 			userFound = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (userFind != null) {
+					userFind.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END findPlayerById ***");
 		return userFound;
 	}
@@ -235,12 +311,15 @@ public class Getter
 		log.debug("*** Getter.getAllModuleInfo ***");
 		ArrayList<String[]> modules = new ArrayList<String[]>();
 		
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetAll()");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleGetAll()");
 			log.debug("Gathering moduleGetAll ResultSet");
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetAll");
 			int i = 0;
 			while(resultSet.next())
@@ -257,9 +336,25 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getAllModuleInfo ***");
 		return modules;
 	}
@@ -277,14 +372,16 @@ public class Getter
 		//Getting Translated Level Names
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.moduleGenerics.moduleNames", lang);
 		//Encoder to prevent XSS
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet challenges = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call moduleAllInfo('challenge', ?)");
-//			callstmt.setString(1, "challenge");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleAllInfo('challenge', ?)");
 			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleAllInfo ResultSet");
-			ResultSet challenges = callstmt.executeQuery();
+			challenges = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
 			String challengeCategory = new String();
 			int rowNumber = 0; // Identifies the first row, ie the start of the list. This is slightly different output to every other row
@@ -331,9 +428,25 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (challenges != null) {
+					challenges.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getChallenges() ***");
 		return output;
 	}
@@ -345,12 +458,14 @@ public class Getter
 	public static int getClassCount(String ApplicationRoot)
 	{
 		int result = 0;
-		ResultSet resultSet = null;
 		log.debug("*** Getter.getClassCount ***");
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call classCount()");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call classCount()");
 			log.debug("Gathering classCount ResultSet");
 			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from classCount");
@@ -359,10 +474,26 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = 0;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getClassCount");
 		return result;
 	}
@@ -375,18 +506,37 @@ public class Getter
 	{
 		ResultSet result = null;
 		log.debug("*** Getter.getClassInfo (All Classes) ***");
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call classesGetData()");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call classesGetData()");
 			log.debug("Gathering classesGetData ResultSet");
 			result = callstmt.executeQuery();
 			log.debug("Returning Result Set from classesGetData");
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
+		}
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (result != null) {
+					result.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
 		}
 		log.debug("*** END getClassInfo");
 		return result;
@@ -401,13 +551,17 @@ public class Getter
 	{
 		String[] result = new String[2];
 		log.debug("*** Getter.getClassInfo (Single Class) ***");
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		
+		ResultSet resultSet = null;
+		Connection conn = null;
+		PreparedStatement callstmt = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call classFind(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call classFind(?)");
 			callstmt.setInt(1, Integer.parseInt(classId));
 			log.debug("Gathering classFind ResultSet");
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from classFind");
 			resultSet.next();
 			result[0] = resultSet.getString(1);//Name
@@ -415,8 +569,25 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
+		}
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
 		}
 		log.debug("*** END getClassInfo");
 		return result;
@@ -435,15 +606,19 @@ public class Getter
 		log.debug("*** Getter.getCsrfForum ***");
 		log.debug("Getting stored messages from class: " + classId);
 		String htmlOutput = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			if(classId != null)
-			{PreparedStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
+			{
+				callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
 				log.debug("Gathering resultMessageByClass ResultSet");
 				callstmt.setInt(1, Integer.parseInt(classId));
 				callstmt.setInt(2, Integer.parseInt(moduleId));
-				ResultSet resultSet = callstmt.executeQuery();
+				resultSet = callstmt.executeQuery();
 				log.debug("resultMessageByClass executed");
 				
 				//Table Header
@@ -472,14 +647,30 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			htmlOutput = "<p>" + bundle.getString("error.occurred ") + "</p>";
 		}
 		catch (Exception e)
 		{
-			log.fatal("Could not return CSRF Forum: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getCsrfForum ***");
 		return htmlOutput;
 	}
@@ -496,17 +687,20 @@ public class Getter
 	{
 		log.debug("*** Getter.getCsrfForum ***");
 		log.debug("Getting stored messages from class: " + classId);
-		String htmlOutput = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		String htmlOutput = new String();		
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
 			if(classId != null)
 			{
-				PreparedStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
+				conn = Database.getCoreConnection(ApplicationRoot);
+				callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
 				log.debug("Gathering resultMessageByClass ResultSet");
 				callstmt.setInt(1, Integer.parseInt(classId));
 				callstmt.setInt(2,Integer.parseInt(moduleId));
-				ResultSet resultSet = callstmt.executeQuery();
+				resultSet = callstmt.executeQuery();
 				log.debug("resultMessageByClass executed");
 				
 				//Table Header
@@ -535,14 +729,30 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			htmlOutput = "<p>" + bundle.getString("error.occurred") + "</p>";
 		}
 		catch (Exception e)
 		{
-			log.fatal("Could not return CSRF Forum: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getCsrfForum ***");
 		return htmlOutput;
 	}
@@ -558,14 +768,18 @@ public class Getter
 		log.debug("*** Getter.getFeedback ***");
 		
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(applicationRoot);
 			log.debug("Preparing userUpdateResult call");
-			PreparedStatement callstmnt = conn.prepareCall("call moduleFeedback(?)");
+			callstmnt = conn.prepareCall("call moduleFeedback(?)");
 			callstmnt.setInt(1, Integer.parseInt(moduleId));
 			log.debug("Executing moduleFeedback");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			int resultAmount = 0;
 			int before = 0;
 			int after = 0;
@@ -605,10 +819,26 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("moduleFeedback Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getFeedback ***");
 		return result;
 	}
@@ -626,19 +856,23 @@ public class Getter
 	{
 		log.debug("*** Getter.getIncrementalChallenges ***");
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		
 		Locale.setDefault(new Locale("en"));
 		Locale locale = new Locale(lang);
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.text", locale);
 		ResourceBundle levelNames = ResourceBundle.getBundle("i18n.moduleGenerics.moduleNames", locale);
 		
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet modules = null;
+		
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
 			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleIncrementalInfo ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleIncrementalInfo");
 			boolean lastRow = false;
 			boolean completedModules = false;
@@ -706,9 +940,25 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getIncrementalChallenges() ***");
 		return output;
 	}
@@ -725,19 +975,23 @@ public class Getter
 	{
 		log.debug("*** Getter.getIncrementalChallengesWithoutScript ***");
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		
 		Locale.setDefault(new Locale("en"));
 		Locale locale = new Locale(lang);
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.text", locale);
 		ResourceBundle levelNames = ResourceBundle.getBundle("i18n.moduleGenerics.moduleNames", locale);
 		
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet modules = null;
+		
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleIncrementalInfo(?)");
 			callstmt.setString(1, userId);
 			log.debug("Gathering moduleIncrementalInfo ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleIncrementalInfo");
 			boolean lastRow = false;
 			boolean completedModules = false;
@@ -802,9 +1056,25 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getIncrementalChallengesWithoutScript() ***");
 		return output;
 	}
@@ -821,11 +1091,14 @@ public class Getter
 	{
 		log.debug("classId: " + classId);
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(applicationRoot);
 			//Returns User's: Name, # of Completed modules and Score
-			PreparedStatement callstmnt = null;
+			callstmnt = null;
 			if(ScoreboardStatus.getScoreboardClass().isEmpty() && !ScoreboardStatus.isClassSpecificScoreboard())
 				callstmnt = conn.prepareCall("call totalScoreboard()"); //Open Scoreboard not based on a class
 			else
@@ -834,7 +1107,7 @@ public class Getter
 				callstmnt.setInt(1, Integer.parseInt(classId));
 			}
 			//log.debug("Executing classScoreboard");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			JSONArray json = new JSONArray();
 			JSONObject jsonInner = new JSONObject();
 			int resultAmount = 0;
@@ -957,15 +1230,31 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getJsonScore Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		catch(Exception e)
 		{
-			log.error("getJsonScore Unexpected Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		//log.debug("*** END getJsonScore ***");
 		return result;
 	}
@@ -1024,7 +1313,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("lesson Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getLesson() ***");
@@ -1069,9 +1358,15 @@ public class Getter
 		}
 		catch(Exception e)
 		{
+<<<<<<< HEAD
+			e.printStackTrace();
+			log.error("moduleID = " + moduleId);
+			log.error("userID = " + userId);
+=======
 			log.error("Module Hash Retrieval: " + e.toString());
 			log.debug("moduleID = " + moduleId);
 			log.debug("userID = " + userId);
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModuleAddress() ***");
@@ -1099,7 +1394,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			theCategory = null;
 		}
 		Database.closeConnection(conn);
@@ -1129,7 +1424,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleGetHash: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1160,7 +1455,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1193,7 +1488,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			theKeyType = true;
 		}
 		Database.closeConnection(conn);
@@ -1224,7 +1519,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleGetNameLocale: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1255,7 +1550,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			moduleFound = null;
 		}
 		Database.closeConnection(conn);
@@ -1288,7 +1583,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1322,7 +1617,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModulesInOptionTags() ***");
@@ -1355,7 +1650,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModulesInOptionTags() ***");
@@ -1390,7 +1685,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1442,7 +1737,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module Status Menu: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return output;
@@ -1475,7 +1770,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module Status Menu: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return output;
@@ -1516,7 +1811,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		log.debug("*** END getPlayersByClass");
@@ -1564,7 +1859,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getProgress Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1615,12 +1910,12 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getProgressJSON Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		catch(Exception e)
 		{
-			log.error("getProgressJSON Unexpected Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1763,7 +2058,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Tournament List Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return levelMasterList;
@@ -1791,7 +2086,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute userClassId: " + e.toString());
+			e.printStackTrace();
 			result = new String();
 		}
 		Database.closeConnection(conn);
@@ -1821,7 +2116,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1851,7 +2146,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1891,7 +2186,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("csrfLevelComplete Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -1921,7 +2216,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("isModuleOpen Error: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return result;
@@ -1945,7 +2240,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		log.debug("*** END adminGetAll ***");
@@ -1976,7 +2271,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Admin does not exist: " + e.toString());
+			e.printStackTrace();
 			userFound = false;
 		}
 		Database.closeConnection(conn);

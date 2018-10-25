@@ -42,7 +42,7 @@ public class Database
 		}
 		catch(Exception e)
 		{
-			log.error("Error closing connection", e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.error("Unable to create database connection " + e);
+		   e.printStackTrace();
 	   }
 	   return conn;
 	}
@@ -119,7 +119,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection", e);
+		   e.printStackTrace();
 	   }
 	   return conn;
 	}
@@ -154,7 +154,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.fatal("Unable to create database connection: " + e);
+		   e.printStackTrace();
 	   }
 	   return null;
 	}
@@ -186,7 +186,7 @@ public class Database
 	   }
 	   catch(Exception e)
 	   {
-		   log.error("Unable to create database connection ", e);
+		   e.printStackTrace();
 	   }
 	   return null;
 	}

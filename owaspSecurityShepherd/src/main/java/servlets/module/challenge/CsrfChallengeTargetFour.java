@@ -172,7 +172,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("CSRF4 Token Check Failure ", e);
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
