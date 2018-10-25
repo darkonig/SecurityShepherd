@@ -57,7 +57,7 @@ public class BrokenCrypto3 extends HttpServlet
 		if(Validate.validateSession(ses))
 		{			
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
-			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
+			SaveLogs.saveDebug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 			String htmlOutput = new String();
 			
 			PrintWriter out = response.getWriter();
@@ -70,8 +70,7 @@ public class BrokenCrypto3 extends HttpServlet
 			try
 			{
 				String userData = request.getParameter("userData");
-				log.debug("User Submitted - " + userData);
-				
+				SaveLogs.saveDebug("User Submitted - " + userData);
 				String decryptedUserData = "";
 				if (userData != null) {
 					log.debug("Decrypting user input");
