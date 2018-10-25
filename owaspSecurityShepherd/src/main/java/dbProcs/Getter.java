@@ -176,8 +176,8 @@ public class Getter
 		{
 			log.debug("Preparing userCheckResult call");
 			CallableStatement callstmnt = conn.prepareCall("call userCheckResult(?, ?)");
-			callstmnt.setString(1, moduleId);
-			callstmnt.setString(2, userId);
+			callstmnt.setInt(1, Integer.parseInt(moduleId));
+			callstmnt.setInt(2, Integer.parseInt(userId));
 			log.debug("Executing userCheckResult");
 			ResultSet resultSet = callstmnt.executeQuery();
 			resultSet.next();
@@ -280,9 +280,9 @@ public class Getter
 		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleAllInfo(?, ?)");
-			callstmt.setString(1, "challenge");
-			callstmt.setString(2, userId);
+			CallableStatement callstmt = conn.prepareCall("call moduleAllInfo('challenge', ?)");
+//			callstmt.setString(1, "challenge");
+			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleAllInfo ResultSet");
 			ResultSet challenges = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
@@ -1217,7 +1217,7 @@ public class Getter
 		{
 			CallableStatement callstmt = conn.prepareCall("call moduleGetNameLocale(?)");
 			log.debug("Gathering moduleGetNameLocale ResultSet");
-			callstmt.setString(1, moduleId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetNameLocale");
 			resultSet.next();
@@ -1247,7 +1247,7 @@ public class Getter
 		{
 			CallableStatement callstmt = conn.prepareCall("call moduleGetResult(?)");
 			log.debug("Gathering moduleGetResult ResultSet");
-			callstmt.setString(1, moduleId);
+			callstmt.setInt(1, Integer.parseInt(moduleId));
 			ResultSet moduleFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetResult");
 			moduleFind.next();

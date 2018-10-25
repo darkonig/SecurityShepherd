@@ -74,7 +74,7 @@ public class DirectObject1 extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId"));
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId[]"));
 				log.debug("User Submitted - " + userId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
