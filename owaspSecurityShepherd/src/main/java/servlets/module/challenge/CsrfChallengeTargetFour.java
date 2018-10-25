@@ -77,7 +77,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 			String csrfTokenName = "csrfChallengeFourNonce";
 			boolean result = false;
 			HttpSession ses = request.getSession(true);
-			String userId = (String)ses.getAttribute("userStamp");
+			String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 			if(Validate.validateSession(ses))
 			{
 				ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
@@ -95,7 +95,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 					storedToken = "" + ses.getAttribute(csrfTokenName);
 				}
 				log.debug("Victom is - " + userId);
-				String plusId = request.getParameter("userId").trim();
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = request.getParameter("csrfToken").trim();
 				log.debug("csrfToken Submitted - '" + csrfToken + "'");
@@ -106,7 +106,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 					if(validCsrfToken(ApplicationRoot, csrfToken)) // Poor CSRF Validation Method
 					{
 						log.debug("'Valid' Nonce Value Submitted");
-						String userName = (String)ses.getAttribute("userName");
+						String userName = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"));
 						String attackerName = Getter.getUserName(ApplicationRoot, plusId);
 						if(attackerName != null)
 						{

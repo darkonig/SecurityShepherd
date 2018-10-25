@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Cross Site Request Forgery Challenge Target Five - Does not return Result key
@@ -88,9 +89,9 @@ public class CsrfChallengeTargetFive extends HttpServlet
 				{
 					storedToken = "" + ses.getAttribute("csrfChallengeFiveNonce");
 				}
-				String userId = (String)ses.getAttribute("userStamp");
+				String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 				
-				String plusId = (String)request.getParameter("userId").trim();
+				String plusId = StringEscapeUtils.escapeHtml4((String)request.getParameter("userId").trim());
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = (String)request.getParameter("csrfToken").trim();;
 				log.debug("csrfToken Submitted - " + csrfToken);
@@ -101,7 +102,7 @@ public class CsrfChallengeTargetFive extends HttpServlet
 					{
 						log.debug("Valid Nonce Value Submitted");
 						String ApplicationRoot = getServletContext().getRealPath("");
-						String userName = (String)ses.getAttribute("userName");
+						String userName = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"));
 						String attackerName = Getter.getUserName(ApplicationRoot, plusId);
 						if(attackerName != null)
 						{

@@ -16,12 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Database;
 import utils.Hash;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 
 /**
  * Security Misconfiguration Steal Tokens
@@ -76,7 +77,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 			{
 				String applicationRoot = getServletContext().getRealPath("");
 				
-				String userId = ses.getAttribute("userStamp").toString();
+				String userId = StringEscapeUtils.escapeHtml4(ses.getAttribute("userStamp").toString());
 				String userActualCookie = getUserToken(userId, applicationRoot);
 				//Getting Submitted Cookie
 				int i = 0;

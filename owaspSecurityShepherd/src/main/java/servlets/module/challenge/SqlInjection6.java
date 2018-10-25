@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
-
+import dbProcs.Database;
 import utils.Hash;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Database;
 /**
  * Level : SQL Injection 6
  * <br><br>
@@ -80,7 +80,7 @@ public class SqlInjection6 extends HttpServlet
 			ResultSet users = null;
 			try
 			{
-				String userPin = (String) request.getParameter("pinNumber");
+				String userPin = StringEscapeUtils.escapeHtml4((String) request.getParameter("pinNumber"));
 				log.debug("userPin - " + userPin);
 				userPin = userPin.replaceAll("\\\\", "\\\\\\\\").replaceAll("'", ""); // Escape single quotes
 				log.debug("userPin scrubbed - " + userPin);
