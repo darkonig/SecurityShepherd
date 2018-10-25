@@ -2,8 +2,8 @@ package servlets.module.challenge;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.SecureRandom;
 import java.util.Locale;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Cross Site Request Forgery Challenge Target Six
@@ -80,8 +80,7 @@ public class CsrfChallengeTargetSix extends HttpServlet
 				if(ses.getAttribute(csrfTokenName) == null || ses.getAttribute(csrfTokenName).toString().isEmpty())
 				{
 					log.debug("No CSRF Token associated with user");
-					Random random = new Random();
-					int newToken = random.nextInt();
+					int newToken = SecureRandom.getInstanceStrong().nextInt(3);
 					storedToken = csrfArray[newToken];
 					out.write(csrfGenerics.getString("target.noTokenNewToken") + " " + storedToken + "<br><br>");
 					ses.setAttribute(csrfTokenName, storedToken);
