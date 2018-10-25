@@ -76,13 +76,13 @@ public class CsrfChallengeFive extends HttpServlet
 				Object tokenParmeter = request.getParameter("csrfToken");
 				if(Validate.validateTokens(tokenCookie, tokenParmeter))
 				{
-					String myMessage = request.getParameter("myMessage");
+					String myMessage = StringEscapeUtils.escapeHtml4(request.getParameter("myMessage"));
 					log.debug("User Submitted - " + myMessage);
 					myMessage = Validate.makeValidUrl(myMessage);
 					
 					log.debug("Updating User's Stored Message");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, CsrfChallengeFive.levelHash);
+					String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, CsrfChallengeFive.levelHash));
 					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					Setter.setStoredMessage(ApplicationRoot, myMessage, userId, moduleId);
 					

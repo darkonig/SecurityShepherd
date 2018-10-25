@@ -81,7 +81,7 @@ public class CsrfChallengeOne extends HttpServlet
 					
 					log.debug("Updating User's Stored Message");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, levelHash);
+					String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, levelHash));
 					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					Setter.setStoredMessage(ApplicationRoot, myMessage, userId, moduleId);
 					

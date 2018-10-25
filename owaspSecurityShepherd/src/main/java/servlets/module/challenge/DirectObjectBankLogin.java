@@ -93,7 +93,7 @@ public class DirectObjectBankLogin extends HttpServlet
 				resultSet = callstmt.executeQuery();
 				if(resultSet.next())
 				{
-					String accountNumber = resultSet.getString(1);
+					String accountNumber = StringEscapeUtils.escapeHtml4(resultSet.getString(1));
 					log.debug("Found Account Number: " + accountNumber);
 					ses.setAttribute("directObjectBankAccount", accountNumber);
 					htmlOutput += bankForm(accountNumber, applicationRoot, ses, bundle, errors);
