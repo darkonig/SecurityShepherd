@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -73,7 +74,7 @@ public class DirectObject2 extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String userId = request.getParameter("userId[]");
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId[]"));
 				log.debug("User Submitted - " + userId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
@@ -81,7 +82,7 @@ public class DirectObject2 extends HttpServlet
 				
 				Connection conn = Database.getChallengeConnection(ApplicationRoot, "directObjectRefChalTwo");
 				PreparedStatement prepstmt = conn.prepareStatement("SELECT userName, privateMessage FROM users WHERE userId = ?");
-				prepstmt.setString(1, userId);
+				prepstmt.setInt(1, Integer.parseInt(userId));
 				ResultSet resultSet = prepstmt.executeQuery();
 				if(resultSet.next())
 				{

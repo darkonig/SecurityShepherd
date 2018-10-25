@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -76,9 +78,9 @@ public class DirectObjectBankLogin extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String accountHolder = request.getParameter("accountHolder");
+				String accountHolder = StringEscapeUtils.escapeHtml4(request.getParameter("accountHolder"));
 				log.debug("Account Holder - " + accountHolder);
-				String accountPass = request.getParameter("accountPass");
+				String accountPass = StringEscapeUtils.escapeHtml4(request.getParameter("accountPass"));
 				log.debug("Account Pass - " + accountPass);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
@@ -221,12 +223,13 @@ public class DirectObjectBankLogin extends HttpServlet
 	 */
 	public static float getAccountBalance(String accountNumber, String applicationRoot) throws SQLException {
 		Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-		CallableStatement callstmt;
+//		CallableStatement callstmt;
+		PreparedStatement callstmt;
 		float toReturn = 0;
 		try 
 		{
 			callstmt = conn.prepareCall("CALL currentFunds(?)");
-			callstmt.setString(1, accountNumber);
+			callstmt.setInt(1, Integer.parseInt(accountNumber));
 			ResultSet rs = callstmt.executeQuery();
 			if(rs.next())
 			{
