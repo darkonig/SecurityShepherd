@@ -169,7 +169,7 @@ extends HttpServlet
 		}
 		catch (Exception e)
 		{
-			log.fatal(bundle.getString("example.error") + ": General Error"; //Html Encode Error to prevent XSS
+			log.error(bundle.getString("example.error") + ": General Error"); //Html Encode Error to prevent XSS
 		}finally {
 			try {
 				if(resultSet != null) {
