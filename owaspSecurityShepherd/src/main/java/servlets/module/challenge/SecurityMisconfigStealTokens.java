@@ -155,13 +155,16 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 	{
 		String userToken = new String();
 		log.debug("Getting user token with id: " + userId);
-		Connection conn = Database.getChallengeConnection(applicationRoot, "SecurityMisconfigStealToken");
-		try 
+		Connection conn = null;
+		CallableStatement getTokenCs = null;
+		ResultSet tokenRs = null;
+		try
 		{
-			CallableStatement getTokenCs = conn.prepareCall("call getToken(?)");
+			conn = Database.getChallengeConnection(applicationRoot, "SecurityMisconfigStealToken");
+			getTokenCs = conn.prepareCall("call getToken(?)");
 			getTokenCs.setString(1, userId);
 			log.debug("Executing getToken procedure...");
-			ResultSet tokenRs = getTokenCs.executeQuery();
+			tokenRs = getTokenCs.executeQuery();
 			if(tokenRs.next())
 			{
 				userToken = tokenRs.getString(1);
@@ -178,7 +181,23 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 			SaveLogs.saveLog("Error", e);
 			throw e;
 		}
-		conn.close();
+		finally {
+			try {
+				if (getTokenCs != null) {
+					getTokenCs.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (tokenRs != null) {
+					tokenRs.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+		}
 		if (!userToken.isEmpty())
 			log.debug("Found token: " + userToken);
 		return userToken;
@@ -196,14 +215,17 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 	{
 		boolean validToken = false;
 		log.debug("Checking token:" + token);
-		Connection conn = Database.getChallengeConnection(applicationRoot, "SecurityMisconfigStealToken");
-		try 
+		Connection conn = null;
+		CallableStatement validateTokenCs = null;
+		ResultSet tokenRs = null;
+		try
 		{
-			CallableStatement validateTokenCs = conn.prepareCall("call validToken(?, ?)");
+			conn = Database.getChallengeConnection(applicationRoot, "SecurityMisconfigStealToken");
+			validateTokenCs = conn.prepareCall("call validToken(?, ?)");
 			validateTokenCs.setString(1, userId);
 			validateTokenCs.setString(2, token);
 			log.debug("Executing validToken procedure...");
-			ResultSet tokenRs = validateTokenCs.executeQuery();
+			tokenRs = validateTokenCs.executeQuery();
 			if(tokenRs.next())
 			{
 				if(tokenRs.getInt(1) > 0)
@@ -224,7 +246,23 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 			SaveLogs.saveLog("Error", e);
 			throw e;
 		}
-		conn.close();
+		finally {
+			try {
+				if (validateTokenCs != null) {
+					validateTokenCs.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+			try {
+				if (tokenRs != null) {
+					tokenRs.close();
+				}
+			} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+		}
 		return validToken;
 	}
 }

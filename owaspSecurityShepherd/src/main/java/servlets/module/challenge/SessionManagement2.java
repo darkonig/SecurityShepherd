@@ -77,6 +77,9 @@ public class SessionManagement2 extends HttpServlet
 			
 			String htmlOutput = new String();
 			log.debug(levelName + " Servlet accessed");
+			Connection conn = null;
+			PreparedStatement callstmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				log.debug("Getting Challenge Parameters");
@@ -96,20 +99,19 @@ public class SessionManagement2 extends HttpServlet
 				String ApplicationRoot = getServletContext().getRealPath("");
 				log.debug("Servlet root = " + ApplicationRoot );
 				
-				Connection conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalTwo");
+				conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalTwo");
 				log.debug("Checking credentials");
-				PreparedStatement callstmt;
 				
 				log.debug("Committing changes made to database");
 				callstmt = conn.prepareStatement("COMMIT");
 				callstmt.execute();
 				log.debug("Changes committed.");
-				
+				callstmt.close();
 				callstmt = conn.prepareStatement("SELECT userName, userAddress FROM users WHERE userName = ? AND userPassword = SHA(?)");
 				callstmt.setString(1, subName);
 				callstmt.setString(2, subPass);
 				log.debug("Executing authUser");
-				ResultSet resultSet = callstmt.executeQuery();
+				resultSet = callstmt.executeQuery();
 				if(resultSet.next())
 				{
 					log.debug("Successful Login");
@@ -122,6 +124,10 @@ public class SessionManagement2 extends HttpServlet
 				}
 				else
 				{
+					if (callstmt != null)
+						callstmt.close();
+					if (resultSet != null)
+						resultSet.close();
 					log.debug("Incorrect credentials, checking if user name correct");
 					callstmt = conn.prepareStatement("SELECT userAddress FROM users WHERE userName = ?");
 					callstmt.setString(1, subName);
@@ -146,6 +152,23 @@ public class SessionManagement2 extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				SaveLogs.saveLog("Error", e);
+			}
+			finally {
+				try {
+					if (callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (Exception e) { SaveLogs.saveLog("Error", e); }
 			}
 		}
 		else
