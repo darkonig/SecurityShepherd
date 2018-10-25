@@ -74,7 +74,7 @@ public class UpgradePlayer extends HttpServlet
 					
 					log.debug("Getting Parameters");
 					String players = (String)request.getParameter("players");;
-					log.debug("players = " + players.toString());
+					log.debug("players = " + players);
 					
 					
 					

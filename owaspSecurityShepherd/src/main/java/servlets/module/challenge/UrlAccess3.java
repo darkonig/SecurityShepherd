@@ -130,8 +130,8 @@ public class UrlAccess3 extends HttpServlet
 					hackDetected = !(request.getParameter(redherringOne) != null && request.getParameter(redherringTwo) != null);
 					if(!hackDetected)
 					{
-						String paramOne = request.getParameter(redherringOne).toString();
-						String paramTwo = request.getParameter(redherringTwo).toString();
+						String paramOne = request.getParameter(redherringOne);
+						String paramTwo = request.getParameter(redherringTwo);
 						log.debug("Param value of " + redherringOne + ":" + paramOne);
 						log.debug("Param value of " + redherringTwo + ":" + paramTwo);
 						badUserId = paramOne.equalsIgnoreCase("d3d9446802a44259755d38e6d163e820");

@@ -88,19 +88,22 @@ public class SqlInjection4 extends HttpServlet
 				log.debug("Filtered to " + theUserName);
 				String thePassword = request.getParameter("thePassword");
 				thePassword = SqlFilter.levelFour(thePassword);
-				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
 				
-				log.debug("Getting Connection to Database");
-				conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeFour");
+				if (thePassword != null && theUserName != null) {
+					String ApplicationRoot = getServletContext().getRealPath("");
+					log.debug("Servlet root = " + ApplicationRoot );
+					
+					log.debug("Getting Connection to Database");
+					conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeFour");
+					
+					String query = "SELECT userName FROM users WHERE userName = ? AND userPassword = ?";
+					stmt = conn.prepareStatement(query);
+					stmt.setString(1, theUserName);
+					stmt.setString(2, thePassword);
+					log.debug("Gathering result set");
+					resultSet = stmt.executeQuery();
+				}
 				
-				String query = "SELECT userName FROM users WHERE userName = ? AND userPassword = ?";
-				stmt = conn.prepareStatement(query);
-				stmt.setString(1, theUserName);
-				stmt.setString(2, thePassword);
-				log.debug("Gathering result set");
-				resultSet = stmt.executeQuery();
-		
 				int i = 0;
 				htmlOutput = "<h2 class='title'>" + bundle.getString("response.loginResults")+ "</h2>";
 				

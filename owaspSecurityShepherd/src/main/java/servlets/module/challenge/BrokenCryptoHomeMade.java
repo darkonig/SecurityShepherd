@@ -208,7 +208,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						String name = new String();
 						if(request.getParameter("name") != null)
 						{
-							name = request.getParameter("name").toString();
+							name = request.getParameter("name");
 						}
 						if(name != null && name.length() < 4)
 						{

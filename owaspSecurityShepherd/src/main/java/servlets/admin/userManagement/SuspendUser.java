@@ -71,7 +71,7 @@ public class SuspendUser extends HttpServlet
 					
 					log.debug("Getting Parameters");
 					String player = (String)request.getParameter("player");
-					log.debug("player = " + player.toString());
+					log.debug("player = " + player);
 					String amountOfMinutesString = (String)request.getParameter("numberOfMinutes");
 					log.debug("amountOfMinutesString = " + amountOfMinutesString);
 					int amountOfMinutes = Integer.parseInt(amountOfMinutesString);

@@ -70,7 +70,7 @@ public class UnSuspendUser extends HttpServlet
 					
 					log.debug("Getting Parameters");
 					String player = (String)request.getParameter("player");
-					log.debug("player = " + player.toString());
+					log.debug("player = " + player);
 					
 					//Validation
 					notNull = (player != null);
