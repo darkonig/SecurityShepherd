@@ -159,7 +159,7 @@ extends HttpServlet
 		}
 		catch (Exception e)
 		{
-			log.erro("Error: GeneralException");
+			log.error("Error: GeneralException");
 		}finally {
 			try {
 				if(resultSet != null) {
