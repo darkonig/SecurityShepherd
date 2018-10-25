@@ -121,7 +121,7 @@ extends HttpServlet
 					
 				}
 				log.debug("Outputting HTML");
-				out.write(htmlOutput);
+				out.print(htmlOutput);
 			}
 			else
 			{
@@ -132,7 +132,7 @@ extends HttpServlet
 		catch(Exception e)
 		{
 			//Dont change this error
-			out.write(errors.getString("error.funky"));
+			out.print(errors.getString("error.funky"));
 			log.fatal(levelName + " - " + e.toString());
 		}
 	}
