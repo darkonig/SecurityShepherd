@@ -83,7 +83,6 @@ String translatedLevelName = bundle.getString("title.question.fail_restrict_url_
 				<br/>
 				<%= bundle.getString("challenge.description") %>
 				<div id="hiddenDiv" style="display: none;">
-					<!-- <%= bundle.getString("challenge.adminComment") %> -->
 					<a href="adminOnly/resultKey.jsp">
 						<%= bundle.getString("challenge.adminLink") %>
 					</a>

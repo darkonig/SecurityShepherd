@@ -57,15 +57,11 @@
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/tinysort.js"></script>
 		<div id="wrapper">
-		<!-- start header -->
 		<div id="header">
 			<h1>Scoreboard</h1>
 			<p>The OWASP Security Shepherd Project</p>
 		</div>
-		<!-- end header -->
-		<!-- start page -->
 		<div id="page">
-			<!-- start content -->
 				<div id="badData"></div>
 				<% if(canSeeScoreboard) { %>
 					<ul id="leaderboard" class="leaderboard"></ul>
@@ -73,12 +69,8 @@
 					<p>Scoreboard is not currently available!</p>
 				<% } %>
 			</div>
-			<!-- end content -->
-			<!-- start sidebar -->
-			<!-- end sidebar -->
 		</div>
 		</div>
-		<!-- end page -->
 		<% if(canSeeScoreboard) { %>
 			<script>
 				var windowIsActive = true;

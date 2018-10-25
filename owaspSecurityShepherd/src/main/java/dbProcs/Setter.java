@@ -300,7 +300,7 @@ public class Setter
 			if (writer != null) {
 				try {
 					writer.close();
-				}catch(Exception e) {}
+				}catch(Exception e) { log.error(e); }
 			}
 		}
 	}

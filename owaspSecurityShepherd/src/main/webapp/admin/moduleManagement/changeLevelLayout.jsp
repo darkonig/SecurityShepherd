@@ -58,7 +58,6 @@ if (request.getSession() != null) //Session If
 					<div id="resultDiv" style="display: none" class="informationBox"></div>
 					<div id="badData" style="display: none"></div>
 					
-					<!-- CTF Mode Section -->
 					<div id="ctfDiv" <% if(ModulePlan.isIncrementalFloor()) { %>style="display: none;"<% } %>>
 						<h2 class="title">Enable CTF Mode</h2>
 						<p>
@@ -72,7 +71,6 @@ if (request.getSession() != null) //Session If
 					<div id="ctfLoadingDiv" style="display:none;" class="menuButton">Loading...</div>
 					<br>
 					
-					<!-- Open Floor Mode Section -->
 					<div id="openFloor" <% if(ModulePlan.isOpenFloor()) { %>style="display: none;"<% } %>>
 						<h2 class="title">Enable Open Floor Mode</h2>
 						<p>
@@ -85,7 +83,6 @@ if (request.getSession() != null) //Session If
 					<div id="openFloorLoadingDiv" style="display:none;" class="menuButton">Loading...</div>
 					<br>
 					
-					<!-- Tournament Mode Section -->
 					<div id="tournament" <% if(ModulePlan.isTournyFloor()) { %>style="display: none;"<% } %>>
 						<h2 class="title">Enable Tournament Mode</h2>
 						<p>

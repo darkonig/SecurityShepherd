@@ -145,7 +145,7 @@ public class Setup extends HttpServlet {
 		} else {
 			try {
 				Files.delete(utils.FileUtils.getSetupPath());
-			} catch (IOException e) {}
+			} catch (IOException e) { log.error(e); }
 		}
 	}
 

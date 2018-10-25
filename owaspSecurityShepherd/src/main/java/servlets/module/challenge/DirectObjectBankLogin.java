@@ -86,9 +86,10 @@ public class DirectObjectBankLogin extends HttpServlet
 				log.debug("Account Pass - " + accountPass);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
-				
+
 				conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
 				callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
+
 				callstmt.setString(1, accountHolder);
 				callstmt.setString(2, accountPass);
 				resultSet = callstmt.executeQuery();

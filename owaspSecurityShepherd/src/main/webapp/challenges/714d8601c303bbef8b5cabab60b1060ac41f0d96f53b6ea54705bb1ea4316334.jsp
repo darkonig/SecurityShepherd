@@ -66,7 +66,7 @@ String i18nLevelName = bundle.getString("challenge.challengeName");
 		<div id="contentDiv">
 			<h2 class="title"><%= i18nLevelName %></h2>
 			<p> 
-				<%= bundle.getString("challenge.description") %> <!-- <%= bundle.getString("challenge.comment") %> --><%= bundle.getString("challenge.description.2") %>
+				<%= bundle.getString("challenge.description") %> <%= bundle.getString("challenge.description.2") %>
 				<br />
 				<form id="leForm" action="javascript:;">
 					<table>

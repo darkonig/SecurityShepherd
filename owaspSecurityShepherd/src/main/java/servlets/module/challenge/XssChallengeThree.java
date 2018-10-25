@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
@@ -99,7 +100,7 @@ public class XssChallengeThree extends HttpServlet
 						searchTerm +
 						"</p>";
 					log.debug("Outputting HTML");
-					out.write(htmlOutput);
+					out.write(StringEscapeUtils.escapeHtml4(htmlOutput));
 				}
 			}
 		}

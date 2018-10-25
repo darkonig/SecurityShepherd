@@ -100,8 +100,8 @@ public class FeedbackSubmit extends HttpServlet
 					log.debug("additionalInfo = " + additionalInfo);
 					
 					log.debug("Getting session parameters");
-					String userId = (String)ses.getAttribute("userStamp");
-					String userName = (String)ses.getAttribute("userName");
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
+					String userName = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"));
 					log.debug("userId = " + userId);
 					
 					//Validation
