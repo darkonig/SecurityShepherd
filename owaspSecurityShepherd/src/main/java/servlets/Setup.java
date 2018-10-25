@@ -89,7 +89,7 @@ public class Setup extends HttpServlet {
 						}
 						success = true;
 					} catch (InstallationException e) {
-						htmlOutput = bundle.getString("generic.text.setup.failed") + ": " +  e.getMessage();
+						htmlOutput = bundle.getString("generic.text.setup.failed") + ": Install error";
 						Files.delete(utils.FileUtils.getDbProp());
 					}
 					//Clean up File as it is not needed anymore. Will Cause a new one to be generated next time too

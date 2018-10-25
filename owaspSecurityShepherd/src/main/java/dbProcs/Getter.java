@@ -1271,14 +1271,18 @@ public class Getter
 		//Getting Translated Level Names
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.moduleGenerics.moduleNames", lang);
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet lessons = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			//Get the lesson modules
-			PreparedStatement callstmt = conn.prepareCall("call lessonInfo(?)");
+			callstmt = conn.prepareCall("call lessonInfo(?)");
 			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering lessonInfo ResultSet for user " + userId);
-			ResultSet lessons = callstmt.executeQuery();
+			lessons = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
 			while(lessons.next())
 			{
@@ -1315,7 +1319,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (lessons != null) {
+					lessons.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getLesson() ***");
 		return output;
 	}
@@ -1335,14 +1355,17 @@ public class Getter
 		log.debug("*** Getter.getModuleAddress ***");
 		String output = new String();
 		String type = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet modules = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call moduleGetHash(?, ?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleGetHash(?, ?)");
 			callstmt.setInt(1, Integer.parseInt(moduleId));
 			callstmt.setInt(2, Integer.parseInt(userId));
 			log.debug("Gathering moduleGetHash ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetHash");
 			modules.next(); //Exception thrown if no hash was found
 			//Set Type. Used to ensure the URL points at the correct directory
@@ -1362,7 +1385,23 @@ public class Getter
 			log.error("moduleID = " + moduleId);
 			log.error("userID = " + userId);
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleAddress() ***");
 		return output;
 	}
@@ -1377,12 +1416,15 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleResult ***");
 		String theCategory = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepstmt = null;
+		ResultSet moduleFind = null;
 		try
 		{
-			PreparedStatement prepstmt = conn.prepareStatement("SELECT moduleCategory FROM modules WHERE moduleId = ?");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			prepstmt = conn.prepareStatement("SELECT moduleCategory FROM modules WHERE moduleId = ?");
 			prepstmt.setString(1, moduleId);
-			ResultSet moduleFind = prepstmt.executeQuery();
+			moduleFind = prepstmt.executeQuery();
 			moduleFind.next();
 			theCategory = moduleFind.getString(1);
 		}
@@ -1391,7 +1433,23 @@ public class Getter
 			e.printStackTrace();
 			theCategory = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepstmt != null) {
+					prepstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (moduleFind != null) {
+					moduleFind.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleCategory ***");
 		return theCategory;
 	}
@@ -1405,13 +1463,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleHash ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetHashById(?)");
+			conn = Database.getCoreConnection(applicationRoot);
+			callstmt = conn.prepareCall("call moduleGetHashById(?)");
 			log.debug("Gathering moduleGetHash ResultSet");
 			callstmt.setString(1, moduleId);
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetHash");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -1421,7 +1482,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleHash ***");
 		return result;
 	}
@@ -1436,13 +1513,16 @@ public class Getter
 		log.debug("*** Getter.getModuleIdFromHash ***");
 		log.debug("Getting ID from Hash: " + moduleHash);
 		String result = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetIdFromHash(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleGetIdFromHash(?)");
 			log.debug("Gathering moduleGetIdFromHash ResultSet");
 			callstmt.setString(1, moduleHash);
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetIdFromHash");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -1452,7 +1532,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleIdFromHash ***");
 		return result;
 	}
@@ -1467,12 +1563,15 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleKeyType ***");
 		boolean theKeyType = true;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepstmt = null;
+		ResultSet moduleFind = null;
 		try
 		{
-			PreparedStatement prepstmt = conn.prepareStatement("SELECT hardcodedKey FROM modules WHERE moduleId = ?");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			prepstmt = conn.prepareStatement("SELECT hardcodedKey FROM modules WHERE moduleId = ?");
 			prepstmt.setString(1, moduleId);
-			ResultSet moduleFind = prepstmt.executeQuery();
+			moduleFind = prepstmt.executeQuery();
 			moduleFind.next();
 			theKeyType = moduleFind.getBoolean(1);
 			if(theKeyType)
@@ -1485,7 +1584,23 @@ public class Getter
 			e.printStackTrace();
 			theKeyType = true;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepstmt != null) {
+					prepstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (moduleFind != null) {
+					moduleFind.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleKeyType ***");
 		return theKeyType;
 	}
@@ -1500,13 +1615,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleNameLocaleKey ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleGetNameLocale(?)");
+			conn = Database.getCoreConnection(applicationRoot);
+			callstmt = conn.prepareCall("call moduleGetNameLocale(?)");
 			log.debug("Gathering moduleGetNameLocale ResultSet");
 			callstmt.setInt(1, Integer.parseInt(moduleId));
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetNameLocale");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -1516,7 +1634,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleNameLocaleKey ***");
 		return result;
 	}
@@ -1530,13 +1664,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleResult ***");
 		String moduleFound = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet moduleFind = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call moduleGetResult(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleGetResult(?)");
 			log.debug("Gathering moduleGetResult ResultSet");
 			callstmt.setInt(1, Integer.parseInt(moduleId));
-			ResultSet moduleFind = callstmt.executeQuery();
+			 moduleFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetResult");
 			moduleFind.next();
 			log.debug("Module " + moduleFind.getString(1) + " Found");
@@ -1547,7 +1684,23 @@ public class Getter
 			e.printStackTrace();
 			moduleFound = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (moduleFind != null) {
+					moduleFind.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleResult ***");
 		return moduleFound;
 	}
@@ -1562,14 +1715,17 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleResultFromHash ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("hash '" + moduleHash + "'");
-			CallableStatement callstmt = conn.prepareCall("call moduleGetResultFromHash(?)");
+			callstmt = conn.prepareCall("call moduleGetResultFromHash(?)");
 			log.debug("Gathering moduleGetResultFromHash ResultSet");
 			callstmt.setString(1, moduleHash);
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetResultFromHash");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -1580,7 +1736,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleResultFromHash ***");
 		return result;
 	}
@@ -1595,12 +1767,15 @@ public class Getter
 	{
 		log.debug("*** Getter.getModulesInOptionTags ***");
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet modules = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareStatement("SELECT moduleId, moduleName FROM modules ORDER BY moduleCategory, moduleName;");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareStatement("SELECT moduleId, moduleName FROM modules ORDER BY moduleCategory, moduleName;");
 			log.debug("Gathering moduleAllInfo ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
 			while(modules.next())
 			{
@@ -1613,7 +1788,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModulesInOptionTags() ***");
 		return output;
 	}
@@ -1628,12 +1819,15 @@ public class Getter
 	{
 		log.debug("*** Getter.getModulesInOptionTags ***");
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet modules = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareStatement("SELECT moduleId, moduleName FROM modules ORDER BY incrementalRank;");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareStatement("SELECT moduleId, moduleName FROM modules ORDER BY incrementalRank;");
 			log.debug("Gathering moduleAllInfo ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllInfo");
 			while(modules.next())
 			{
@@ -1646,7 +1840,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModulesInOptionTags() ***");
 		return output;
 	}
@@ -1662,15 +1872,19 @@ public class Getter
 	{
 		log.debug("*** Getter.getModuleSolution ***");
 		String[] result = new String[2];
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		//Getting Translations
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.cheatsheets.solutions", lang);
+		
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call cheatSheetGetSolution(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call cheatSheetGetSolution(?)");
 			log.debug("Gathering cheatSheetGetSolution ResultSet");
 			callstmt.setInt(1, Integer.parseInt(moduleId));
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from cheatSheetGetSolution");
 			resultSet.next();
 			result[0] = resultSet.getString(1);
@@ -1682,7 +1896,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getModuleSolution ***");
 		return result;
 	}
@@ -1699,13 +1929,16 @@ public class Getter
 		String openModules = new String();
 		String closedModules = new String();
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet modules = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			//Get the modules
-			CallableStatement callstmt = conn.prepareCall("call moduleAllStatus()");
+			callstmt = conn.prepareCall("call moduleAllStatus()");
 			log.debug("Gathering moduleAllStatus ResultSet");
-			ResultSet modules = callstmt.executeQuery();
+			modules = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleAllStatus");
 			while(modules.next())
 			{
@@ -1733,7 +1966,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		return output;
 	}
 	/**
@@ -1746,12 +1995,15 @@ public class Getter
 		log.debug("*** Getter.getOpenCloseCategoryMenu ***");
 		String theModules = new String();
 		String output = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet modules = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			//Get the modules
-			CallableStatement callstmt = conn.prepareCall("SELECT DISTINCT moduleCategory FROM modules ORDER BY moduleCategory");
-			ResultSet modules = callstmt.executeQuery();
+			callstmt = conn.prepareCall("SELECT DISTINCT moduleCategory FROM modules ORDER BY moduleCategory");
+			modules = callstmt.executeQuery();
 			while(modules.next())
 			{
 				String theModule = "<option value='" + Encode.forHtmlAttribute(modules.getString(1)) + 
@@ -1766,7 +2018,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (modules != null) {
+					modules.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		return output;
 	}
 	/**
@@ -1782,10 +2050,13 @@ public class Getter
 		ResultSet result = null;
 		log.debug("*** Getter.getPlayersByClass (Single Class) ***");
 		log.debug("classId: '" + classId + "'");
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = null;
+			conn = Database.getCoreConnection(ApplicationRoot);
+			
 			if(classId != null)
 			{
 				log.debug("Gathering playersByClass ResultSet");
@@ -1799,7 +2070,7 @@ public class Getter
 				callstmt = conn.prepareCall("call playersWithoutClass()");
 				log.debug("Returning Result Set from playersByClass");
 			}
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			result = resultSet;
 			resultSet.next();
 		}
@@ -1807,6 +2078,23 @@ public class Getter
 		{
 			e.printStackTrace();
 			result = null;
+		}
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
 		}
 		log.debug("*** END getPlayersByClass");
 		return result;
@@ -1822,14 +2110,17 @@ public class Getter
 		log.debug("*** Getter.getProgress ***");
 		
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(applicationRoot);
 			log.debug("Preparing userProgress call");
-			PreparedStatement callstmnt = conn.prepareCall("call userProgress(?)");
+			callstmnt = conn.prepareCall("call userProgress(?)");
 			callstmnt.setInt(1, Integer.parseInt(classId));
 			log.debug("Executing userProgress");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			int resultAmount = 0;
 			while(resultSet.next()) //For each user in a class
 			{
@@ -1856,7 +2147,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getProgress ***");
 		return result;
 	}
@@ -1872,15 +2179,18 @@ public class Getter
 		log.debug("*** Getter.getProgressJSON ***");
 		
 		String result = new String();
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
+			conn = Database.getCoreConnection(applicationRoot);
 			log.debug("Preparing userProgress call");
 			//Returns User's: Name, # of Completed modules and Score
-			PreparedStatement callstmnt = conn.prepareCall("call userProgress(?)");
+			callstmnt = conn.prepareCall("call userProgress(?)");
 			callstmnt.setInt(1, Integer.parseInt(classId));
 			log.debug("Executing userProgress");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			JSONArray json = new JSONArray();
 			JSONObject jsonInner = new JSONObject();
 			int resultAmount = 0;
@@ -1912,7 +2222,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getProgressJSON ***");
 		return result;
 	}
@@ -1947,18 +2273,21 @@ public class Getter
 	{
 		log.debug("*** Getter.getTournamentModules ***");
 		String levelMasterList = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
 		//Getting Translations
 		ResourceBundle bundle = ResourceBundle.getBundle("i18n.text", lang);
 		ResourceBundle levelNames = ResourceBundle.getBundle("i18n.moduleGenerics.moduleNames", lang);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet levels = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			
 			String listEntry = new String();
-			PreparedStatement callstmt = conn.prepareCall("call moduleTournamentOpenInfo(?)");
+			callstmt = conn.prepareCall("call moduleTournamentOpenInfo(?)");
 			callstmt.setInt(1, Integer.parseInt(userId));
 			log.debug("Gathering moduleTournamentOpenInfo ResultSet for user " + userId);
-			ResultSet levels = callstmt.executeQuery();
+			levels = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleTournamentOpenInfo");
 			int currentSection = 0; // Used to identify the first row, as it is slightly different to all other rows for output
 			while(levels.next())
@@ -2054,7 +2383,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (levels != null) {
+					levels.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		return levelMasterList;
 	}
 	/**
@@ -2066,13 +2411,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getUserClass ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call userClassId(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call userClassId(?)");
 			log.debug("Gathering userClassId ResultSet");
 			callstmt.setString(1, userName);
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from userClassId");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -2083,7 +2431,23 @@ public class Getter
 			e.printStackTrace();
 			result = new String();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getUserClass ***");
 		return result;
 	}
@@ -2097,13 +2461,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getUserIdFromName ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call userGetIdByName(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call userGetIdByName(?)");
 			log.debug("Gathering userGetIdByName ResultSet");
 			callstmt.setString(1, userName);
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from userGetIdByName");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -2113,7 +2480,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getUserIdFromName ***");
 		return result;
 	}
@@ -2127,13 +2510,16 @@ public class Getter
 	{
 		log.debug("*** Getter.getUserName ***");
 		String result = new String();
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call userGetNameById(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call userGetNameById(?)");
 			log.debug("Gathering userGetNameById ResultSet");
 			callstmt.setInt(1, Integer.parseInt(userId));
-			ResultSet resultSet = callstmt.executeQuery();
+			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from userGetNameById");
 			resultSet.next();
 			result = resultSet.getString(1);
@@ -2143,7 +2529,23 @@ public class Getter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END getUserName ***");
 		return result;
 	}
@@ -2163,16 +2565,19 @@ public class Getter
 		
 		boolean result = false;
 		
-		Connection conn = Database.getCoreConnection(applicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet resultSet = null;
 		try
 		{
-			PreparedStatement callstmnt = conn.prepareCall("call csrfLevelComplete(?, ?)");
+			conn = Database.getCoreConnection(applicationRoot);
+			callstmnt = conn.prepareCall("call csrfLevelComplete(?, ?)");
 			callstmnt.setInt(1, Integer.parseInt(moduleId));
 			callstmnt.setInt(2, Integer.parseInt(userId));
 			log.debug("moduleId: " + moduleId);
 			log.debug("userId: " + userId);
 			log.debug("Executing csrfLevelComplete");
-			ResultSet resultSet = callstmnt.executeQuery();
+			resultSet = callstmnt.executeQuery();
 			resultSet.next();
 			result = resultSet.getInt(1) > 0; // If Result is > 0, then the CSRF level is complete
 			if(result)
@@ -2183,7 +2588,23 @@ public class Getter
 			e.printStackTrace();
 			result = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END isCsrfLevelComplete ***");
 		return result;
 	}
@@ -2192,13 +2613,16 @@ public class Getter
 	{
 		log.debug("*** Getter.isModuleOpen ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			//Get the modules
-			PreparedStatement prepStmt = conn.prepareCall("SELECT moduleStatus FROM modules WHERE moduleId = ?");
+			prepStmt = conn.prepareCall("SELECT moduleStatus FROM modules WHERE moduleId = ?");
 			prepStmt.setInt(1, Integer.parseInt(moduleId));
-			ResultSet rs = prepStmt.executeQuery();
+			rs = prepStmt.executeQuery();
 			if(rs.next())
 			{
 				if(rs.getString(1).equalsIgnoreCase("open"))
@@ -2212,7 +2636,23 @@ public class Getter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepStmt != null) {
+					prepStmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		return result;
 	}
 	
@@ -2222,12 +2662,14 @@ public class Getter
 	*/
 	public static ResultSet getAdmins(String ApplicationRoot)
 	{
-		ResultSet result = null;
 		log.debug("*** Getter.adminGetAll () ***");
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet result = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call adminGetAll()");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call adminGetAll()");
 			log.debug("Gathering adminGetAll ResultSet");
 			result = callstmt.executeQuery();
 			log.debug("Returning Result Set from adminGetAll");
@@ -2236,6 +2678,23 @@ public class Getter
 		{
 			e.printStackTrace();
 			result = null;
+		}
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (result != null) {
+					result.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
 		}
 		log.debug("*** END adminGetAll ***");
 		return result;
@@ -2251,13 +2710,16 @@ public class Getter
 		log.debug("*** Getter.findAdminById ***");
 		boolean userFound = false;
 		//Get connection
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
+		ResultSet userFind = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call adminFindById(?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call adminFindById(?)");
 			log.debug("Gathering adminFindById ResultSet");
 			callstmt.setString(1, userId);
-			ResultSet userFind = callstmt.executeQuery();
+			userFind = callstmt.executeQuery();
 			log.debug("Opening Result Set from adminFindById");
 			userFind.next(); //This will throw an exception if player not found
 			log.debug("Admin Found: " + userFind.getString(1)); //This line will not execute if admin not found
@@ -2268,7 +2730,23 @@ public class Getter
 			e.printStackTrace();
 			userFound = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (userFind != null) {
+					userFind.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END findAdminById ***");
 		return userFound;
 	}	

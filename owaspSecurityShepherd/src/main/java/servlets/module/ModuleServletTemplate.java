@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -94,11 +95,11 @@ extends HttpServlet
 				{
 					htmlOutput += "<p>" + bundle.getString("module.example.outputWasNull") + "/p>";
 				}
-				else if(output.startsWith("123"))
+				else if(StringEscapeUtils.escapeHtml4(output).startsWith("123"))
 				{
 					log.debug("Setting Error Message");
-					htmlOutput += "<p>" + bundle.getString("example.error.123") + "</p>" +
-							"<p>" + output + "</p>";
+					htmlOutput += "<p>" + StringEscapeUtils.escapeHtml4(bundle.getString("example.error.123")) + "</p>" +
+							"<p>" + StringEscapeUtils.escapeHtml4(output) + "</p>";
 				}
 				else
 				{
@@ -163,12 +164,12 @@ extends HttpServlet
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
-			result = bundle.getString("example.error") + ": " + Encode.forHtml(e.toString()); //Html Encode Error to prevent XSS
+			log.error("Error", e);
+			result = bundle.getString("example.error") + ": SQL Error"; //Html Encode Error to prevent XSS
 		}
 		catch (Exception e)
 		{
-			log.fatal(bundle.getString("example.error") + ": " + Encode.forHtml(e.toString())); //Html Encode Error to prevent XSS
+			log.error(bundle.getString("example.error") + ": General Error"); //Html Encode Error to prevent XSS
 		}finally {
 			try {
 				if(resultSet != null) {
