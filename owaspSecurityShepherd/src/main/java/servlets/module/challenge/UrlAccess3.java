@@ -134,8 +134,8 @@ public class UrlAccess3 extends HttpServlet
 						String paramTwo = request.getParameter(redherringTwo);
 						log.debug("Param value of " + redherringOne + ":" + paramOne);
 						log.debug("Param value of " + redherringTwo + ":" + paramTwo);
-						badUserId = paramOne.equalsIgnoreCase("d3d9446802a44259755d38e6d163e820");
-						hackDetected = !badUserId && !paramTwo.equalsIgnoreCase("true");
+						badUserId = "d3d9446802a44259755d38e6d163e820".equalsIgnoreCase(paramOne);
+						hackDetected = !badUserId && !"true".equalsIgnoreCase(paramTwo);
 					}
 					if(!hackDetected)
 					{

@@ -84,12 +84,13 @@ public class SqlInjection4 extends HttpServlet
 			{
 				String theUserName = request.getParameter("theUserName");
 				log.debug("User Submitted - " + theUserName);
-				theUserName = SqlFilter.levelFour(theUserName);
-				log.debug("Filtered to " + theUserName);
 				String thePassword = request.getParameter("thePassword");
-				thePassword = SqlFilter.levelFour(thePassword);
 				
 				if (thePassword != null && theUserName != null) {
+					theUserName = SqlFilter.levelFour(theUserName);
+					log.debug("Filtered to " + theUserName);
+					thePassword = SqlFilter.levelFour(thePassword);
+				
 					String ApplicationRoot = getServletContext().getRealPath("");
 					log.debug("Servlet root = " + ApplicationRoot );
 					
