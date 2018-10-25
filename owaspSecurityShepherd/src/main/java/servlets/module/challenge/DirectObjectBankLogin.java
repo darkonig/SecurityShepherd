@@ -86,7 +86,7 @@ public class DirectObjectBankLogin extends HttpServlet
 				String htmlOutput = new String();
 				
 				Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-				CallableStatement callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
+				PreparedStatement callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
 				callstmt.setString(1, accountHolder);
 				callstmt.setString(2, accountPass);
 				ResultSet resultSet = callstmt.executeQuery();
