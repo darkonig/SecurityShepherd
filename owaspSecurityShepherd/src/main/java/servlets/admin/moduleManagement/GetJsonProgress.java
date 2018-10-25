@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
 
 /**
  * This control class is responsible for the server operation in the Get Progress use case where the result of which is a JSON object of JSON arrays. This is used to create a scoreboard environment that updates in real time.
@@ -63,7 +64,7 @@ public class GetJsonProgress extends HttpServlet
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 			if(Validate.validateTokens(tokenCookie, tokenParmeter))
 			{
-				String classId = Validate.validateParameter(request.getParameter("classId"), 64);
+				String classId = Validate.validateParameter(StringEscapeUtils.escapeHtml4(request.getParameter("classId")), 64);
 				log.debug("classId: " + classId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				String jsonOutput = Getter.getProgressJSON(ApplicationRoot, classId);
