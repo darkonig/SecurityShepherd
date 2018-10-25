@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -221,12 +222,13 @@ public class DirectObjectBankLogin extends HttpServlet
 	 */
 	public static float getAccountBalance(String accountNumber, String applicationRoot) throws SQLException {
 		Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-		CallableStatement callstmt;
+//		CallableStatement callstmt;
+		PreparedStatement callstmt;
 		float toReturn = 0;
 		try 
 		{
 			callstmt = conn.prepareCall("CALL currentFunds(?)");
-			callstmt.setString(1, accountNumber);
+			callstmt.setInt(1, Integer.parseInt(accountNumber));
 			ResultSet rs = callstmt.executeQuery();
 			if(rs.next())
 			{

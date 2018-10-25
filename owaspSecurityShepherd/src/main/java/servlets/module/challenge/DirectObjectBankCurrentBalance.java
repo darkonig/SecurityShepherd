@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -67,7 +68,7 @@ public class DirectObjectBankCurrentBalance extends HttpServlet
 			out.print(getServletInfo());
 			try
 			{
-				String accountNumber = request.getParameter("accountNumber");
+				String accountNumber = StringEscapeUtils.escapeHtml4(request.getParameter("accountNumber"));
 				log.debug("Account Number - " + accountNumber);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
