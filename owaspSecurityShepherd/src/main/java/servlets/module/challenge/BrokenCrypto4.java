@@ -137,14 +137,26 @@ public class BrokenCrypto4 extends HttpServlet
 					log.error("Could Not Find Coupon", e);
 				}
 				finally {
-					if (coupons != null && !coupons.isClosed()) {
-						safeCloseR(coupons);
+					try {
+						if (coupons != null) {
+							coupons.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
 					}
-					if (prepstmt != null && !prepstmt.isClosed()) {
-						safeCloseSTM(prepstmt);
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
 					}
-					if (conn != null && !conn.isClosed()) {
-						safeCloseC(conn);
+					try {
+						if (prepstmt != null) {
+							prepstmt.close();
+						}
+					} catch (Exception e) {
+						log.error("Error close connections", e);
 					}
 				}
 				
@@ -193,33 +205,4 @@ public class BrokenCrypto4 extends HttpServlet
 		return amount;
 	}
 	
-	public static void safeCloseSTM(PreparedStatement stmt) 
-	{
-	  if (stmt != null) {
-	    try {
-	      stmt.close();
-	    } catch (Exception e) {
-	    }
-	  }
-	}
-	
-	public static void safeCloseC(Connection stmt) 
-	{
-		if (stmt != null) {
-		    try {
-		      stmt.close();
-		    } catch (Exception e) {
-		    }
-		  }
-	}
-	
-	public static void safeCloseR(ResultSet stmt) 
-	{
-		if (stmt != null) {
-		    try {
-		      stmt.close();
-		    } catch (Exception e) {
-		    }
-		  }
-	}
 }
