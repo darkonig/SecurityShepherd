@@ -66,7 +66,7 @@ public class BrokenCrypto4 extends HttpServlet
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n.servlets.challenges.insecureCryptoStorage.insecureCryptoStorage", locale);
 			
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
-			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
+			SaveLogs.saveDebug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 			PrintWriter out = response.getWriter();  
 			out.print(getServletInfo());
 			String htmlOutput = new String();

@@ -93,31 +93,33 @@ public class UnvalidatedForwardsLesson extends HttpServlet
 					boolean validAttack = false;
 					try
 					{
-						URL csrfUrl = new URL(messageForAdmin);
-						log.debug("Url Host: " + csrfUrl.getHost());
-						log.debug("Url Port: " + csrfUrl.getPort());
-						log.debug("Url Path: " + csrfUrl.getPath());
-						log.debug("Url Query: " + csrfUrl.getQuery());
-						validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getPath()).toLowerCase().equalsIgnoreCase("/user/redirect");
-						if(!validSolution)
-							log.debug("Invalid Solution: Bad Path or Above");
-						validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getQuery()).toLowerCase().startsWith(("to=").toLowerCase()) && validSolution;
-						if(!validSolution)
-							log.debug("Invalid Solution: Bad Query or Above");
-						if(validSolution)
-						{
-							log.debug("Redirect URL Correct: Now checking the Redirected URL for valid CSRF Attack");
-							int csrfStart = 0;
-							int csrfEnd = 0;
-							csrfStart = csrfUrl.getQuery().indexOf("to=") + 3;
-							csrfEnd = csrfUrl.getQuery().indexOf("&");
-							if(csrfEnd == -1)
+						if (messageForAdmin != null) {
+							URL csrfUrl = new URL(messageForAdmin);
+							log.debug("Url Host: " + csrfUrl.getHost());
+							log.debug("Url Port: " + csrfUrl.getPort());
+							log.debug("Url Path: " + csrfUrl.getPath());
+							log.debug("Url Query: " + csrfUrl.getQuery());
+							validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getPath()).toLowerCase().equalsIgnoreCase("/user/redirect");
+							if(!validSolution)
+								log.debug("Invalid Solution: Bad Path or Above");
+							validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getQuery()).toLowerCase().startsWith(("to=").toLowerCase()) && validSolution;
+							if(!validSolution)
+								log.debug("Invalid Solution: Bad Query or Above");
+							if(validSolution)
 							{
-								csrfEnd = csrfUrl.getQuery().length();
-							}
-							String csrfAttack = csrfUrl.getQuery().substring(csrfStart, csrfEnd);
-							log.debug("csrfAttack Found to be: " + csrfAttack);
-							validAttack = FindXSS.findCsrfAttackUrl(csrfAttack, "/root/grantComplete/unvalidatedredirectlesson", "userId", tempId);
+								log.debug("Redirect URL Correct: Now checking the Redirected URL for valid CSRF Attack");
+								int csrfStart = 0;
+								int csrfEnd = 0;
+								csrfStart = csrfUrl.getQuery().indexOf("to=") + 3;
+								csrfEnd = csrfUrl.getQuery().indexOf("&");
+								if(csrfEnd == -1)
+								{
+									csrfEnd = csrfUrl.getQuery().length();
+								}
+								String csrfAttack = csrfUrl.getQuery().substring(csrfStart, csrfEnd);
+								log.debug("csrfAttack Found to be: " + csrfAttack);
+								validAttack = FindXSS.findCsrfAttackUrl(csrfAttack, "/root/grantComplete/unvalidatedredirectlesson", "userId", tempId);
+							}	
 						}
 					}
 					catch(MalformedURLException e)

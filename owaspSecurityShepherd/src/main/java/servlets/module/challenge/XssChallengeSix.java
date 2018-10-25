@@ -79,23 +79,26 @@ public class XssChallengeSix extends HttpServlet
 					String htmlOutput = new String();
 					String userPost = new String();
 					String searchTerm = request.getParameter("searchTerm");
-					log.debug("User Submitted - " + searchTerm);
-					searchTerm = XssFilter.anotherBadUrlValidate(searchTerm);
-					userPost = "<a href=\"" + searchTerm + "\">Your HTTP Link!</a>";
-					log.debug("After Sanitising - " + searchTerm);
-					
-					boolean xssDetected = FindXSS.search(userPost);
-					if(xssDetected)
-					{
-						htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
-								"<p>" + bundle.getString("result.youDidIt") + "<br />" +
-								bundle.getString("result.resultKey") + " <a>" +
-									Hash.generateUserSolution(
-											Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash),
-										(String)ses.getAttribute("userName")
-									)
-								 + "</a>";
+					if (searchTerm != null) {
+						log.debug("User Submitted - " + searchTerm);
+						searchTerm = XssFilter.anotherBadUrlValidate(searchTerm);
+						userPost = "<a href=\"" + searchTerm + "\">Your HTTP Link!</a>";
+						log.debug("After Sanitising - " + searchTerm);
+						
+						boolean xssDetected = FindXSS.search(userPost);
+						if(xssDetected)
+						{
+							htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
+									"<p>" + bundle.getString("result.youDidIt") + "<br />" +
+									bundle.getString("result.resultKey") + " <a>" +
+										Hash.generateUserSolution(
+												Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash),
+											(String)ses.getAttribute("userName")
+										)
+									 + "</a>";
+						}
 					}
+					
 					log.debug("Adding searchTerm to Html: " + searchTerm);
 					htmlOutput += "<h2 class='title'>" + bundle.getString("response.yourPost") + "</h2>" +
 						"<p>" + bundle.getString("response.linkPosted") + "</p> " +

@@ -104,7 +104,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 				if(Validate.validateSession(ses))
 				{
 					ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
-					log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
+					SaveLogs.saveDebug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 					Cookie tokenCookie = Validate.getToken(request.getCookies());
 					Object tokenParmeter = request.getParameter("csrfToken");
 					if(Validate.validateTokens(tokenCookie, tokenParmeter))
@@ -149,7 +149,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 								else
 								{
 									log.debug("Expected: " + expectedSolution);
-									log.debug("Got     : " + submittedSolution);
+									SaveLogs.saveDebug("Got     : " + submittedSolution);
 									htmlOutput = "<h2 class='title'>" + bundle.getString("insecureCyrptoStorage.homemade.badanswer") + "</h2><p>" + bundle.getString("insecureCyrptoStorage.homemade.badanswer.warning") + "</p>";
 									homemadebadanswers++;
 									if(homemadebadanswers >= 5)
@@ -195,7 +195,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 				if(Validate.validateSession(ses))
 				{
 					ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
-					log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
+					SaveLogs.saveDebug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 					Cookie tokenCookie = Validate.getToken(request.getCookies());
 					Object tokenParmeter = request.getParameter("csrfToken");
 					if(Validate.validateTokens(tokenCookie, tokenParmeter))
@@ -375,7 +375,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 	 */
 	public static String generateUserSolution(String baseKey, String userSalt)
 	{
-		log.debug("Generating key for " + userSalt);
+		SaveLogs.saveDebug("Generating key for " + userSalt);
 		String toReturn = "Key Should be here! Please refresh the home page and try again!";
 
 			try 
@@ -405,7 +405,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 	
 	public static String generateUserSolutionKeyOnly(String baseKey, String userSalt)
 	{
-		log.debug("Generating key for " + userSalt);
+		SaveLogs.saveDebug("Generating key for " + userSalt);
 		String forLog = "Key Should be here! Please refresh the home page and try again!";
 
 			try 

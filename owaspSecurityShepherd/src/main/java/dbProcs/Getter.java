@@ -133,7 +133,7 @@ public class Getter
 						result[3] = "false";
 					if (!result[1].equals(userName)) //If somehow this functionality has been compromised to sign in as other users, this will limit the expoitability. But the method is sql injection safe, so it should be ok
 					{
-						log.fatal("User Name used ("+ userName +") and User Name retrieved ("+ result[1] +") were not the Same. Nulling Result");
+						log.fatal("User Name used and User Name retrieved were not the Same. Nulling Result");
 						result = null;
 					}
 					else

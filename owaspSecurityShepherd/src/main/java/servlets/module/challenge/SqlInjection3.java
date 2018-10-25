@@ -93,29 +93,30 @@ public class SqlInjection3 extends HttpServlet
 				log.debug("Getting Connection to Database");
 				conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeThree");
 				
-				String query = "SELECT customerName FROM customers WHERE customerName = ?";
-				stmt = conn.prepareStatement(query);
-				stmt.setString(1, theUserName);
-				log.debug("Gathering result set");
-				resultSet = stmt.executeQuery();
-				
+				if (theUserName != null) {
+					String query = "SELECT customerName FROM customers WHERE customerName = ?";
+					stmt = conn.prepareStatement(query);
+					stmt.setString(1, theUserName);
+					log.debug("Gathering result set");
+					resultSet = stmt.executeQuery();
 		
-				int i = 0;
-				htmlOutput = "<h2 class='title'>" + bundle.getString("response.searchResults")+ "</h2>";;
-				htmlOutput += "<table><tr><th>"+ bundle.getString("response.table.name")+ "</th></tr>";
-				
-				log.debug("Opening Result Set from query");
-				while(resultSet.next())
-				{
-					log.debug("Adding Customer " + resultSet.getString(1));
-					htmlOutput += "<tr><td>"
-						+ Encode.forHtml(resultSet.getString(1)) + "</td></tr>";
-					i++;
-				}
-				htmlOutput += "</table>";
-				if(i == 0)
-				{
-					htmlOutput = "<p>"+bundle.getString("response.table.noResults")+"</p>";
+					int i = 0;
+					htmlOutput = "<h2 class='title'>" + bundle.getString("response.searchResults")+ "</h2>";;
+					htmlOutput += "<table><tr><th>"+ bundle.getString("response.table.name")+ "</th></tr>";
+					
+					log.debug("Opening Result Set from query");
+					while(resultSet.next())
+					{
+						log.debug("Adding Customer " + resultSet.getString(1));
+						htmlOutput += "<tr><td>"
+							+ Encode.forHtml(resultSet.getString(1)) + "</td></tr>";
+						i++;
+					}
+					htmlOutput += "</table>";
+					if(i == 0)
+					{
+						htmlOutput = "<p>"+bundle.getString("response.table.noResults")+"</p>";
+					}
 				}
 			}
 			catch (SQLException e)

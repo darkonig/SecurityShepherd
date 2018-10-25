@@ -77,23 +77,26 @@ public class XssChallengeOne extends HttpServlet
 				Object tokenParmeter = request.getParameter("csrfToken");
 				if(Validate.validateTokens(tokenCookie, tokenParmeter))
 				{
+					String htmlOutput = new String();
 					String searchTerm = request.getParameter("searchTerm");
 					log.debug("User Submitted - " + searchTerm);
-					searchTerm = XssFilter.levelOne(searchTerm);
-					log.debug("After Filtering - " + searchTerm);
-					String htmlOutput = new String();
-					if(FindXSS.search(searchTerm))
-					{
-						htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
-								"<p>" + bundle.getString("result.youDidIt") + "<br />" +
-								bundle.getString("result.resultKey") + " <a>" +
-									Hash.generateUserSolution(
-											Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash
-											), (String)ses.getAttribute("userName")
-									)
-								+
-								"</a>";
+					if (searchTerm != null) {
+						searchTerm = XssFilter.levelOne(searchTerm);
+						log.debug("After Filtering - " + searchTerm);
+						if(FindXSS.search(searchTerm))
+						{
+							htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
+									"<p>" + bundle.getString("result.youDidIt") + "<br />" +
+									bundle.getString("result.resultKey") + " <a>" +
+										Hash.generateUserSolution(
+												Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash
+												), (String)ses.getAttribute("userName")
+										)
+									+
+									"</a>";
+						}
 					}
+					
 					log.debug("Adding searchTerm to Html: " + searchTerm);
 					htmlOutput += "<h2 class='title'>" + bundle.getString("response.searchResults") + "</h2>" +
 						"<p>" + bundle.getString("response.noResults") + " " +
