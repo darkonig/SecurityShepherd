@@ -72,7 +72,7 @@ if (request.getSession() != null)
 				<%= bundle.getString("challenge.description") %>
 				<br/>
 				<br/>
-				<%= bundle.getString("challenge.form.instruction") %> <!-- <%= bundle.getString("challenge.form.instruction.comment") %>  -->
+				<%= bundle.getString("challenge.form.instruction") %>
 				<br/>
 				<br/>
 				<form id="leForm" action="javascript:;">

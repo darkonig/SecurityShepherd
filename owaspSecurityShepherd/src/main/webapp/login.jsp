@@ -73,14 +73,10 @@ if(ses.getAttribute("loginFailed") != null)
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<div id="wrapper">
 	<jsp:include page="translation-select.jsp" />
-	<!-- start header -->
 	<div id="header">
 		<h1>Security Shepherd</h1>
 	</div>
-	<!-- end header -->
-	<!-- start page -->
 	<div id="page">
-		<!-- start content -->
 		<div id="content" style="margin-right: auto; margin-left: auto; width: 40%; max-width: 320px;">
 			<div class="post">
 				<h1 class="title" id="login_title"><fmt:message key="generic.text.login" /></h1>
@@ -127,12 +123,8 @@ if(ses.getAttribute("loginFailed") != null)
 			<%= Analytics.sponsorshipMessage(new Locale(Validate.validateLanguage(request.getSession()))) %>
 			</div>
 		</div>
-		<!-- end content -->
-		<!-- start sidebar -->
-		<!-- end sidebar -->
 	</div>
 	</div>
-	<!-- end page -->
 	<script>
 		jQuery.fn.center = function () 
 		{

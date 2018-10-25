@@ -53,7 +53,6 @@ if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 	<h1 class="title">Configure Cheat Sheets</h1>
 	<p>The Security Shepherd Application is capable of presenting users with &quot;Cheat Sheets&quot; that will instruct the reader on how to complete a specific module. These cheats are disabled by default, but can be enabled for administrators or all players. Once enabled, as you open Security Shepherd modules, a cheat button will appear in the left hand menu. Click this button to reveal the cheat sheet for the currently open module.</p>
 	
-	<!-- Enable Cheats Section -->
 	<div id="enableCheats" <% if(CheatSheetStatus.isEnabledAtAll()) {%>style="display: none;"<% } %>>
 		<h2 class="title">Enable Cheat Sheets</h2>
 		<p>Enable cheat sheets for administrators or all users.</p>
@@ -66,7 +65,6 @@ if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 		<br>
 	</div>
 	
-	<!-- Disable Cheats Section -->
 	<div id="disableCheats" <% if(!CheatSheetStatus.isEnabledAtAll()) {%>style="display: none;"<% } %>>
 		<h2 class="title">Disable Cheat Sheets</h2>
 		<p>Are you sure that you want to disable cheat sheets for all users?</p>
