@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
+import dbProcs.Getter;
+import dbProcs.Setter;
 import utils.Hash;
 import utils.ShepherdLogManager;
 import utils.Validate;
-import dbProcs.Getter;
-import dbProcs.Setter;
 
 /**
  * Cross Site Request Forgery Challenge Target Seven - Does not return Result key
@@ -72,7 +73,7 @@ public class CsrfChallengeTargetSeven extends HttpServlet
 			String csrfTokenName = "csrfChallengeSevenNonce";
 			boolean result = false;
 			HttpSession ses = request.getSession(true);
-			String userId = (String)ses.getAttribute("userStamp");
+			String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 			if(Validate.validateSession(ses))
 			{
 				ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
@@ -91,7 +92,7 @@ public class CsrfChallengeTargetSeven extends HttpServlet
 					storedToken = "" + ses.getAttribute(csrfTokenName);
 				}
 				log.debug("Victom is - " + userId);
-				String plusId = request.getParameter("userId").trim();
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = request.getParameter("csrfToken").trim();
 				log.debug("csrfToken Submitted - '" + csrfToken + "'");
