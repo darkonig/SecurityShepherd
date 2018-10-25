@@ -78,7 +78,8 @@ public class AddPlayer extends HttpServlet
 				try
 				{
 					log.debug("Getting ApplicationRoot");
-					String ApplicationRoot = getServletContext().getRealPath("");					log.debug("Servlet root = " + ApplicationRoot );
+					String ApplicationRoot = getServletContext().getRealPath("");
+					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
 					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
@@ -171,7 +172,7 @@ public class AddPlayer extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					log.error("Create New Class Error: " + e.toString());
 					out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 							"An error Occurred! Please try again." +
 							"</strong></p></div>");
