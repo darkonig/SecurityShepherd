@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -79,7 +80,7 @@ public class SqlInjectionEscaping extends HttpServlet
 			ResultSet resultSet = null;
 			try
 			{
-				String aUserId = request.getParameter("aUserId");
+				String aUserId = StringEscapeUtils.escapeHtml4(request.getParameter("aUserId"));
 				log.debug("User Submitted - " + aUserId);
 				aUserId = aUserId.replaceAll("'", "\\\\'"); //Replace ' with \'
 				log.debug("Escaped to - " + aUserId);

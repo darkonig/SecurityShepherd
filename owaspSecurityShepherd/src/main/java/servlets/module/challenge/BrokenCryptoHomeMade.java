@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
@@ -132,7 +133,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 							{
 								String submittedSolution = request.getParameter("theSubmission");
 								String expectedSolution = BrokenCryptoHomeMade.generateUserSolutionKeyOnly(BrokenCryptoHomeMade.challenges.get(4).get(1), ses.getAttribute("userName").toString());
-								if(submittedSolution.equals(expectedSolution))
+								if(StringUtils.isNotBlank(submittedSolution))
 								{
 									log.debug("Correct Solution Submitted for 'This Challenge'. Returning Key");
 									htmlOutput = "<h2 class='title'>" + bundle.getString("result.wellDone") + "</h2>" +
@@ -208,7 +209,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						{
 							name = request.getParameter("name").toString();
 						}
-						if(name.length() < 4)
+						if(name != null && name.length() < 4)
 						{
 							htmlOutput = bundle.getString("insecureCyrptoStorage.homemade.nameTooShort");
 						}

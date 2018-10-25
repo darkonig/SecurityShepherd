@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -81,14 +82,14 @@ public class CsrfChallengeSix extends HttpServlet
 					
 					log.debug("Updating User's Stored Message");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, levelHash);
-					String userId = (String)ses.getAttribute("userStamp");
+					String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, levelHash));
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					Setter.setStoredMessage(ApplicationRoot, myMessage, userId, moduleId);
 					
 					log.debug("Retrieving user's class's forum");
 					String classId = null;
 					if(ses.getAttribute("userClass") != null)
-						classId = (String)ses.getAttribute("userClass");
+						classId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userClass"));
 					String htmlOutput = Getter.getCsrfForumWithIframe(ApplicationRoot, classId, moduleId, csrfGenerics);
 					
 					log.debug("Outputting HTML");

@@ -46,11 +46,13 @@ public class Setter
 		log.debug("*** Setter.classCreate ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing classCreate call");
-			CallableStatement callstmnt = conn.prepareCall("call classCreate(?, ?)");
+			callstmnt = conn.prepareCall("call classCreate(?, ?)");
 			callstmnt.setString(1, className);
 			callstmnt.setString(2, classYear);
 			log.debug("Executing classCreate");
@@ -61,7 +63,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END classCreate ***");
 		return result;
 	}
@@ -76,10 +89,12 @@ public class Setter
 	{
 		log.debug("*** Setter.closeAllModules ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed'");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed'");
 			callstmt.execute();
 			log.debug("All modules Set to closed");
 			result = true;
@@ -88,7 +103,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END closeAllModules ***");
 		return result;
 	}
@@ -104,11 +130,13 @@ public class Setter
 		log.debug("*** Setter.incrementBadSubmission ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Prepairing bad Submission call");
-			PreparedStatement callstmnt = conn.prepareCall("CALL userBadSubmission(?)");
+			callstmnt = conn.prepareCall("CALL userBadSubmission(?)");
 			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing userBadSubmission statement on id '" + userId + "'");
 			callstmnt.execute();
@@ -119,7 +147,18 @@ public class Setter
 			e.printStackTrace();
 			result = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END userBadSubmisison ***");
 		return result;
 	}
@@ -134,10 +173,12 @@ public class Setter
 	{
 		log.debug("*** Setter.openAllModules ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open'");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open'");
 			callstmt.execute();
 			log.debug("All modules Set to open");
 			result = true;
@@ -146,7 +187,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END setModuleStatusOpen ***");
 		return result;
 	}
@@ -182,10 +234,12 @@ public class Setter
 	{
 		log.debug("*** Setter.openOnlyMobileCategories ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepstmt = null;
 		try
 		{
-			PreparedStatement prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed' WHERE " + webModuleCategoryHardcodedWhereClause);
+			conn = Database.getCoreConnection(ApplicationRoot);
+			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed' WHERE " + webModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
 			log.debug("Web Levels have been closed");
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open' WHERE " + mobileModuleCategoryHardcodedWhereClause);
@@ -197,7 +251,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepstmt != null) {
+					prepstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END openOnlyMobileCategories ***");
 		return result;
 	}
@@ -211,10 +276,12 @@ public class Setter
 	{
 		log.debug("*** Setter.openOnlyWebCategories ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepstmt = null;
 		try
 		{
-			PreparedStatement prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open' WHERE " + webModuleCategoryHardcodedWhereClause);
+			conn = Database.getCoreConnection(ApplicationRoot);
+			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'open' WHERE " + webModuleCategoryHardcodedWhereClause);
 			prepstmt.execute();
 			log.debug("Web Levels have been opened");
 			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = 'closed' WHERE " + mobileModuleCategoryHardcodedWhereClause);
@@ -226,7 +293,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepstmt != null) {
+					prepstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END openOnlyWebCategories ***");
 		return result;
 	}
@@ -242,11 +320,13 @@ public class Setter
 		log.debug("*** Setter.resetBadSubmission ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Prepairing resetUserBadSubmission call");
-			PreparedStatement callstmnt = conn.prepareCall("CALL resetUserBadSubmission(?)");
+			callstmnt = conn.prepareCall("CALL resetUserBadSubmission(?)");
 			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing resetUserBadSubmission statement on id '" + userId + "'");
 			callstmnt.execute();
@@ -257,7 +337,18 @@ public class Setter
 			e.printStackTrace();
 			result = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END resetBadSubmission ***");
 		return result;
 	}
@@ -315,15 +406,18 @@ public class Setter
 	public static String setCsrfChallengeFourCsrfToken (String userId, String csrfToken, String ApplicationRoot)
 	{
 		log.debug("*** setCsrfChallengeFourToken ***");
-		Connection conn = Database.getChallengeConnection(ApplicationRoot, "csrfChallengeFour");
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet rs = null;
 		try
 		{
+			conn = Database.getChallengeConnection(ApplicationRoot, "csrfChallengeFour");
 			boolean tokenExists = false;
 			log.debug("Preparing setSsrfChallengeFourToken call");
-			PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
+			callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
 			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing setCsrfChallengeFourToken");
-			ResultSet rs = callstmnt.executeQuery();
+			rs = callstmnt.executeQuery();
 			if(rs.next())
 			{
 				//Need to Update CSRF token rather than Insert
@@ -350,7 +444,23 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);		
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}	
 		return csrfToken;
 	}
 	
@@ -365,15 +475,18 @@ public class Setter
 	{
 		log.debug("*** setCsrfChallengeSevenToken ***");
 		boolean result = false;
-		Connection conn = Database.getChallengeConnection(ApplicationRoot, "csrfChallengeEnumerateTokens");
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
+		ResultSet rs = null;
 		try
 		{
+			conn = Database.getChallengeConnection(ApplicationRoot, "csrfChallengeEnumerateTokens");
 			boolean updateToken = false;
 			log.debug("Preparing setCsrfChallengeSevenToken call");
-			PreparedStatement callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
+			callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfTokens WHERE userId = ?");
 			callstmnt.setInt(1, Integer.parseInt(userId));
 			log.debug("Executing setCsrfChallengeSevenToken");
-			ResultSet rs = callstmnt.executeQuery();
+			rs = callstmnt.executeQuery();
 			if(rs.next())
 			{
 				//Need to Update CSRF token rather than Insert
@@ -402,7 +515,23 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);		
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}		
 		return result;
 	}
 	
@@ -417,10 +546,12 @@ public class Setter
 	{
 		log.debug("*** Setter.setModuleCategoryStatusOpen ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement prepstmt = null;
 		try
 		{
-			PreparedStatement prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = ? WHERE moduleCategory = ?");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			prepstmt = conn.prepareStatement("UPDATE modules SET moduleStatus = ? WHERE moduleCategory = ?");
 			prepstmt.setString(1, openOrClosed);
 			prepstmt.setString(2, moduleCategory);
 			prepstmt.execute();
@@ -431,7 +562,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (prepstmt != null) {
+					prepstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END setModuleCategoryStatusOpen ***");
 		return result;
 	}
@@ -446,10 +588,12 @@ public class Setter
 	{
 		log.debug("*** Setter.setModuleStatusClosed ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleSetStatus(?, ?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleSetStatus(?, ?)");
 			log.debug("Preparing moduleSetStatus procedure");
 			callstmt.setString(1, moduleId);
 			callstmt.setString(2, "closed");
@@ -461,7 +605,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END setModuleStatusClosed ***");
 		return result;
 	}
@@ -476,10 +631,12 @@ public class Setter
 	{
 		log.debug("*** Setter.setModuleStatusOpen ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmt = null;
 		try
 		{
-			CallableStatement callstmt = conn.prepareCall("call moduleSetStatus(?, ?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call moduleSetStatus(?, ?)");
 			log.debug("Preparing moduleSetStatus procedure");
 			callstmt.setString(1, moduleId);
 			callstmt.setString(2, "open");
@@ -491,7 +648,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END setModuleStatusOpen ***");
 		return result;
 	}
@@ -508,10 +676,12 @@ public class Setter
 	{
 		log.debug("*** Setter.setStoredMessage ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call resultMessageSet(?, ?, ?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call resultMessageSet(?, ?, ?)");
 			log.debug("Preparing resultMessageSet procedure");
 			callstmt.setInt(1, Integer.parseInt(message));
 			callstmt.setInt(2, Integer.parseInt(userId));
@@ -524,7 +694,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END setStoredMessage ***");
 		return result;
 	}
@@ -541,11 +722,13 @@ public class Setter
 		log.debug("*** Setter.suspendUser ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Prepairing suspendUser call");
-			PreparedStatement callstmnt = conn.prepareCall("CALL suspendUser(?, ?)");
+			callstmnt = conn.prepareCall("CALL suspendUser(?, ?)");
 			callstmnt.setString(1, userId);
 			callstmnt.setInt(2, numberOfMinutes);
 			log.debug("Executing suspendUser statement on id '" + userId + "'");
@@ -557,7 +740,18 @@ public class Setter
 			e.printStackTrace();
 			result = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END suspendUser ***");
 		return result;
 	}
@@ -573,11 +767,13 @@ public class Setter
 		log.debug("*** Setter.unSuspendUser ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Prepairing suspendUser call");
-			PreparedStatement callstmnt = conn.prepareCall("CALL unSuspendUser(?)");
+			callstmnt = conn.prepareCall("CALL unSuspendUser(?)");
 			callstmnt.setString(1, userId);
 			log.debug("Executing unSuspendUser statement on id '" + userId + "'");
 			callstmnt.execute();
@@ -588,7 +784,18 @@ public class Setter
 			e.printStackTrace();
 			result = false;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END unSuspendUser ***");
 		return result;
 	}
@@ -604,10 +811,12 @@ public class Setter
 	{
 		log.debug("*** Getter.updateCsrfCounter ***");
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
 		try
 		{
-			PreparedStatement callstmt = conn.prepareCall("call resultMessagePlus(?, ?)");
+			conn = Database.getCoreConnection(ApplicationRoot);
+			callstmt = conn.prepareCall("call resultMessagePlus(?, ?)");
 			log.debug("Preparing resultMessagePlus procedure");
 			callstmt.setInt(1, Integer.parseInt(moduleId));
 			callstmt.setInt(2, Integer.parseInt(userId));
@@ -618,7 +827,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updateCsrfCounter ***");
 		return result;
 	}
@@ -635,11 +855,13 @@ public class Setter
 		log.debug("*** Setter.updatePassword ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing userPasswordChange call");
-			CallableStatement callstmnt = conn.prepareCall("call userPasswordChange(?, ?, ?)");
+			callstmnt = conn.prepareCall("call userPasswordChange(?, ?, ?)");
 			callstmnt.setString(1, userName);
 			callstmnt.setString(2, currentPassword);
 			callstmnt.setString(3, newPassword);
@@ -651,7 +873,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updatePassword ***");
 		return result;
 	}
@@ -668,11 +901,13 @@ public class Setter
 		log.debug("*** Setter.updatePasswordAdmin ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing userPasswordChangeAdmin call");
-			CallableStatement callstmnt = conn.prepareCall("call userPasswordChangeAdmin(?, ?)");
+			callstmnt = conn.prepareCall("call userPasswordChangeAdmin(?, ?)");
 			callstmnt.setString(1, userId);
 			callstmnt.setString(2, newPassword);
 			log.debug("Executing userPasswordChangeAdmin");
@@ -683,7 +918,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updatePasswordAdmin ***");
 		return result;
 	}
@@ -700,11 +946,13 @@ public class Setter
 		log.debug("*** Setter.updatePlayerClass ***");
 		
 		String result = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing playerUpdateClass call");
-			CallableStatement callstmnt = conn.prepareCall("call playerUpdateClass(?, ?)");
+			callstmnt = conn.prepareCall("call playerUpdateClass(?, ?)");
 			callstmnt.setString(1, playerId);
 			callstmnt.setString(2, classId);
 			log.debug("Executing playerUpdateClass");
@@ -717,7 +965,18 @@ public class Setter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updatePlayerClass ***");
 		return result;
 	}
@@ -733,11 +992,13 @@ public class Setter
 		log.debug("*** Setter.updatePlayerClassToNull ***");
 		
 		String result = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing playerUpdateClassToNull call");
-			CallableStatement callstmnt = conn.prepareCall("call playerUpdateClassToNull(?)");
+			callstmnt = conn.prepareCall("call playerUpdateClassToNull(?)");
 			callstmnt.setString(1, playerId);
 			log.debug("Executing playerUpdateClassToNull");
 			ResultSet resultSet = callstmnt.executeQuery();
@@ -749,7 +1010,18 @@ public class Setter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updatePlayerClassToNull ***");
 		return result;
 	}
@@ -770,11 +1042,13 @@ public class Setter
 		log.debug("*** Setter.updatePlayerResult ***");
 		
 		String result = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing userUpdateResult call");
-			PreparedStatement callstmnt = conn.prepareCall("call userUpdateResult(?, ?, ?, ?, ?, ?)");
+			callstmnt = conn.prepareCall("call userUpdateResult(?, ?, ?, ?, ?, ?)");
 			callstmnt.setInt(1, Integer.parseInt(moduleId));
 			callstmnt.setInt(2, Integer.parseInt(userId));
 			callstmnt.setInt(3, before);
@@ -791,7 +1065,18 @@ public class Setter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updatePlayerResult ***");
 		return result;
 	}
@@ -808,11 +1093,13 @@ public class Setter
 		log.debug("*** Setter.updateUserPoints ***");
 		
 		boolean result = false;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing updateUserPoints call");
-			CallableStatement callstmnt = conn.prepareCall("UPDATE users SET userScore = userScore + ? WHERE userId = ?");
+			callstmnt = conn.prepareCall("UPDATE users SET userScore = userScore + ? WHERE userId = ?");
 			callstmnt.setInt(1, points);
 			callstmnt.setString(2, userId);
 			log.debug("Executing updateUserPoints");
@@ -823,7 +1110,18 @@ public class Setter
 		{
 			e.printStackTrace();
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updateUserPoints ***");
 		return result;
 	}
@@ -840,11 +1138,13 @@ public class Setter
 		log.debug("*** Setter.updateUserRole ***");
 		
 		String result = null;
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		CallableStatement callstmnt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Preparing userUpdateRole call");
-			CallableStatement callstmnt = conn.prepareCall("call userUpdateRole(?, ?)");
+			callstmnt = conn.prepareCall("call userUpdateRole(?, ?)");
 			callstmnt.setString(1, playerId);
 			callstmnt.setString(2, newRole);
 			log.debug("Executing userUpdateRole");
@@ -857,7 +1157,18 @@ public class Setter
 			e.printStackTrace();
 			result = null;
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmnt != null) {
+					callstmnt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END updateUserRole ***");
 		return result;
 	}
@@ -883,18 +1194,21 @@ public class Setter
 		log.debug("userName" + userName);
 		log.debug("userRole" + userRole);
 		log.debug("userAddress" + userAddress);
-		Connection conn = Database.getCoreConnection(ApplicationRoot);
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet registerAttempt = null;
 		try
 		{
+			conn = Database.getCoreConnection(ApplicationRoot);
 			log.debug("Executing userCreate procedure on Database");
-			PreparedStatement callstmt = conn.prepareCall("call userCreate(?, ?, ?, ?, ?, ?)");
+			callstmt = conn.prepareCall("call userCreate(?, ?, ?, ?, ?, ?)");
 			callstmt.setInt(1, Integer.parseInt(classId));
 			callstmt.setString(2, userName);
 			callstmt.setString(3, userPass);
 			callstmt.setString(4, userRole);
 			callstmt.setString(5, userAddress);
 			callstmt.setBoolean(6, tempPass);
-			ResultSet registerAttempt = callstmt.executeQuery();
+			registerAttempt = callstmt.executeQuery();
 			log.debug("Opening result set");
 			boolean goOn = false;
 			try
@@ -927,7 +1241,23 @@ public class Setter
 			e.printStackTrace();
 			throw new SQLException(e);
 		}
-		Database.closeConnection(conn);
+		finally {
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (registerAttempt != null) {
+					registerAttempt.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) { log.error("Error close connections", e); }
+		}
 		log.debug("*** END userCreate ***");	
 		return result;
 	}
@@ -938,15 +1268,19 @@ public class Setter
          log.debug("*** Setter.userDelete ***");
          log.debug("userId = " + userId);
 
-         Connection conn = Database.getCoreConnection(ApplicationRoot);
-         try {
+         Connection conn = null;
+ 		PreparedStatement callDelResults = null;
+ 		PreparedStatement callUserDel = null;
+ 		try
+ 		{
+ 			conn = Database.getCoreConnection(ApplicationRoot);
         	 log.debug("Deleting User's Results");
-             PreparedStatement callDelResults = conn.prepareStatement("DELETE FROM results WHERE userId = ?");
+             callDelResults = conn.prepareStatement("DELETE FROM results WHERE userId = ?");
              callDelResults.setString(1, userId);
              callDelResults.executeUpdate();
         	 
              log.debug("Executing delete from users on Database");
-             PreparedStatement callUserDel = conn.prepareStatement("DELETE FROM users WHERE userId = ?");
+             callUserDel = conn.prepareStatement("DELETE FROM users WHERE userId = ?");
              callUserDel.setString(1, userId);
              int deleteAttemptResult = callUserDel.executeUpdate();
 
@@ -958,7 +1292,23 @@ public class Setter
         	 sqlEx.printStackTrace();
              throw new SQLException(sqlEx);
          }
-         Database.closeConnection(conn);
+         finally {
+ 			try {
+ 				if (callDelResults != null) {
+ 					callDelResults.close();
+ 				}
+ 			} catch (Exception e) { log.error("Error close connections", e); }
+ 			try {
+ 				if (callUserDel != null) {
+ 					callUserDel.close();
+ 				}
+ 			} catch (Exception e) { log.error("Error close connections", e); }
+ 			try {
+ 				if (conn != null) {
+ 					conn.close();
+ 				}
+ 			} catch (Exception e) { log.error("Error close connections", e); }
+ 		}
          log.debug("*** END userDelete ***");
          return result;
 	 }

@@ -199,6 +199,8 @@ public class Validate
 	 */
 	public static String makeValidUrl(String theUrl)
 	{
+		if (theUrl == null) return "";
+		
 		theUrl = theUrl.toLowerCase();
 		if (!StringEscapeUtils.unescapeHtml4(theUrl).startsWith("http"))
 		{

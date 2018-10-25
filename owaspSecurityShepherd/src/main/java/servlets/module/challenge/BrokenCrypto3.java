@@ -72,10 +72,13 @@ public class BrokenCrypto3 extends HttpServlet
 				String userData = request.getParameter("userData");
 				log.debug("User Submitted - " + userData);
 				
-				log.debug("Decrypting user input");
-				//Using level key as encryption key
-				String decryptedUserData = decrypt(userData, levelResult);
-				
+				String decryptedUserData = "";
+				if (userData != null) {
+					log.debug("Decrypting user input");
+					//Using level key as encryption key
+					decryptedUserData = decrypt(userData, levelResult);
+				}
+								
 				htmlOutput = "<h2 class='title'>" + bundle.getString("insecureCyrptoStorage.3.plaintextResult") + "</h2><p>" + bundle.getString("insecureCyrptoStorage.3.plaintextResult.message") + "<br/><br/><em>"
 						+ Encode.forHtml(decryptedUserData)
 						+ "</em></p>";

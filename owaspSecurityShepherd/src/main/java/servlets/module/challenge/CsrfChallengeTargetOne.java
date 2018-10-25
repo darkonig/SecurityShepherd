@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -69,9 +70,9 @@ public class CsrfChallengeTargetOne extends HttpServlet
 			{
 				ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 				log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
-				String plusId = request.getParameter("userid");
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userid"));
 				log.debug("User Submitted - " + plusId);
-				String userId = (String)ses.getAttribute("userStamp");
+				String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 				if(!userId.equals(plusId))
 				{
 					String ApplicationRoot = getServletContext().getRealPath("");

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -1525,7 +1526,7 @@ public class Getter
 			resultSet = callstmt.executeQuery();
 			log.debug("Opening Result Set from moduleGetIdFromHash");
 			resultSet.next();
-			result = resultSet.getString(1);
+			result = StringEscapeUtils.escapeHtml4(resultSet.getString(1));
 		}
 		catch (SQLException e)
 		{

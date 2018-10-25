@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
@@ -91,7 +92,7 @@ public class CsrfChallengeTargetSix extends HttpServlet
 				}
 				String userId = (String)ses.getAttribute("userStamp");
 				
-				String plusId = request.getParameter("userId").trim();;
+				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = request.getParameter("csrfToken").trim();;
 				log.debug("csrfToken Submitted - " + csrfToken);
@@ -102,14 +103,14 @@ public class CsrfChallengeTargetSix extends HttpServlet
 					{
 						log.debug("Valid Nonce Value Submitted");
 						String ApplicationRoot = getServletContext().getRealPath("");
-						String userName = (String)ses.getAttribute("userName");
-						String attackerName = Getter.getUserName(ApplicationRoot, plusId);
+						String userName = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userName"));
+						String attackerName = StringEscapeUtils.escapeHtml4(Getter.getUserName(ApplicationRoot, plusId));
 						if(attackerName != null)
 						{
 							log.debug(userName + " is been CSRF'd by " + attackerName);
 							
 							log.debug("Attempting to Increment ");
-							String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, moduleHash);
+							String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, moduleHash));
 							result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
 						}
 						else

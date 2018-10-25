@@ -58,7 +58,7 @@ if (request.getSession() != null)
 		{
 			userClass = Encode.forHtml(ses.getAttribute("userClass").toString());
 		}
-		String userId = Encode.forHtml(ses.getAttribute("userStamp").toString());
+		String userId = StringEscapeUtils.escapeHtml4(Encode.forHtml(ses.getAttribute("userStamp").toString()));
 		
 		//Set CSRF Challenge 7 CsrfToken
 		String csrfChal7Token = Hash.randomString().trim();

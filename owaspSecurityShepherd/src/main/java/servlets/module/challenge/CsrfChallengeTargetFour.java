@@ -96,6 +96,9 @@ public class CsrfChallengeTargetFour extends HttpServlet
 				}
 				log.debug("Victom is - " + userId);
 				String plusId = StringEscapeUtils.escapeHtml4(request.getParameter("userId").trim());
+				if (plusId != null) {
+					plusId = plusId.trim();
+				}
 				log.debug("User Submitted - " + plusId);
 				String csrfToken = request.getParameter("csrfToken").trim();
 				log.debug("csrfToken Submitted - '" + csrfToken + "'");
@@ -113,7 +116,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 							log.debug(userName + " is been CSRF'd by " + attackerName);
 							
 							log.debug("Attempting to Increment ");
-							String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, moduleHash);
+							String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, moduleHash));
 							result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
 						}
 						else
