@@ -113,7 +113,7 @@ public class CsrfChallengeTargetFive extends HttpServlet
 						}
 						else
 						{
-							log.error("UserId '" + plusId + "' could not be found.");
+								log.error("The user plusId could not be found.");
 						}
 					}
 					else
