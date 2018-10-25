@@ -113,8 +113,8 @@ public class CsrfChallengeTargetFour extends HttpServlet
 							log.debug(userName + " is been CSRF'd by " + attackerName);
 							
 							log.debug("Attempting to Increment ");
-							String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, moduleHash);
-							result = Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId);
+							String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, moduleHash));
+							result = StringEscapeUtils.escapeHtml4(Setter.updateCsrfCounter(ApplicationRoot, moduleId, plusId));
 						}
 						else
 						{

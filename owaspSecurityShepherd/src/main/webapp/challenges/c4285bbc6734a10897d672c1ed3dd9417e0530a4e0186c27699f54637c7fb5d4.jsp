@@ -59,7 +59,7 @@ String i18nLevelName = bundle.getString("securityMisconfig.stealTokens.challenge
 		{
 			userClass = Encode.forHtml(ses.getAttribute("userClass").toString());
 		}
-		String userId = Encode.forHtml(ses.getAttribute("userStamp").toString());
+		String userId = StringEscapeUtils.escapeHtml4(Encode.forHtml(ses.getAttribute("userStamp").toString()));
 		String challengeUrl = request.getRequestURL().toString();
 		ShepherdLogManager.logEvent(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), levelName +".jsp: DEBUG: Challenge URL " + challengeUrl);
 		//Changing URL to HTTP

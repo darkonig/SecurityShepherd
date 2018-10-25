@@ -58,10 +58,10 @@ if (request.getSession() != null)
 		{
 			userClass = Encode.forHtml(ses.getAttribute("userClass").toString());
 		}
-		String userId = Encode.forHtml(ses.getAttribute("userStamp").toString());
+		String userId = StringEscapeUtils.escapeHtml4(Encode.forHtml(ses.getAttribute("userStamp").toString()));
 		
 		//Set CSRF Challenge 4 CsrfToken
-		String csrfChal4Token = Setter.setCsrfChallengeFourCsrfToken(userId, Hash.randomString().trim(), ApplicationRoot);
+		String csrfChal4Token = StringEscapeUtils.escapeHtml4(Setter.setCsrfChallengeFourCsrfToken(userId, Hash.randomString().trim(), ApplicationRoot));
 		ses.setAttribute("csrfChallengeFourNonce", csrfChal4Token);
 %>
 

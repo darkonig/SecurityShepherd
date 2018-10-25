@@ -82,7 +82,7 @@ public class CsrfChallengeJSON extends HttpServlet
 					
 					log.debug("Updating User's Stored Message");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String moduleId = Getter.getModuleIdFromHash(ApplicationRoot, levelHash);
+					String moduleId = StringEscapeUtils.escapeHtml4(Getter.getModuleIdFromHash(ApplicationRoot, levelHash));
 					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					Setter.setStoredMessage(ApplicationRoot, myMessage, userId, moduleId);
 					
@@ -90,7 +90,7 @@ public class CsrfChallengeJSON extends HttpServlet
 					String classId = null;
 					if(ses.getAttribute("userClass") != null)
 						classId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userClass"));
-					String htmlOutput = Getter.getCsrfForumWithIframe(ApplicationRoot, classId, moduleId, csrfGenerics);
+					String htmlOutput = StringEscapeUtils.escapeHtml4(Getter.getCsrfForumWithIframe(ApplicationRoot, classId, moduleId, csrfGenerics));
 					
 					log.debug("Outputting HTML");
 					out.write(htmlOutput);
