@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -97,10 +98,10 @@ public class UnvalidatedForwardsLesson extends HttpServlet
 						log.debug("Url Port: " + csrfUrl.getPort());
 						log.debug("Url Path: " + csrfUrl.getPath());
 						log.debug("Url Query: " + csrfUrl.getQuery());
-						validSolution = csrfUrl.getPath().toLowerCase().equalsIgnoreCase("/user/redirect");
+						validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getPath()).toLowerCase().equalsIgnoreCase("/user/redirect");
 						if(!validSolution)
 							log.debug("Invalid Solution: Bad Path or Above");
-						validSolution = csrfUrl.getQuery().toLowerCase().startsWith(("to=").toLowerCase()) && validSolution;
+						validSolution = StringEscapeUtils.unescapeHtml4(csrfUrl.getQuery()).toLowerCase().startsWith(("to=").toLowerCase()) && validSolution;
 						if(!validSolution)
 							log.debug("Invalid Solution: Bad Query or Above");
 						if(validSolution)
@@ -121,7 +122,7 @@ public class UnvalidatedForwardsLesson extends HttpServlet
 					}
 					catch(MalformedURLException e)
 					{
-						log.error("Invalid URL: " + e.toString());
+						e.printStackTrace();
 						validUrl = false;
 						validSolution = false;
 						validAttack = false;
