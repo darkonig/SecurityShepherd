@@ -2,7 +2,6 @@ package servlets.module.challenge;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,6 +75,9 @@ public class DirectObjectBankLogin extends HttpServlet
 			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 			PrintWriter out = response.getWriter();
 			out.print(getServletInfo());
+			Connection conn = null;
+			PreparedStatement callstmt = null;
+			ResultSet resultSet = null;
 			try
 			{
 				String accountHolder = StringEscapeUtils.escapeHtml4(request.getParameter("accountHolder"));
@@ -84,12 +86,13 @@ public class DirectObjectBankLogin extends HttpServlet
 				log.debug("Account Pass - " + accountPass);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
-				
-				Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-				PreparedStatement callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
+
+				conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
+				callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
+
 				callstmt.setString(1, accountHolder);
 				callstmt.setString(2, accountPass);
-				ResultSet resultSet = callstmt.executeQuery();
+				resultSet = callstmt.executeQuery();
 				if(resultSet.next())
 				{
 					String accountNumber = resultSet.getString(1);
@@ -116,6 +119,29 @@ public class DirectObjectBankLogin extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				log.error(levelName + " - ", e);
+			}
+			finally {
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 		}
 		else
@@ -222,15 +248,16 @@ public class DirectObjectBankLogin extends HttpServlet
 	 * @throws SQLException If no rows found or if SQL error occurs
 	 */
 	public static float getAccountBalance(String accountNumber, String applicationRoot) throws SQLException {
-		Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-//		CallableStatement callstmt;
-		PreparedStatement callstmt;
+		Connection conn = null;
+		PreparedStatement callstmt = null;
+		ResultSet rs = null;
 		float toReturn = 0;
 		try 
 		{
+			conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
 			callstmt = conn.prepareCall("CALL currentFunds(?)");
 			callstmt.setInt(1, Integer.parseInt(accountNumber));
-			ResultSet rs = callstmt.executeQuery();
+			rs = callstmt.executeQuery();
 			if(rs.next())
 			{
 				toReturn = rs.getFloat(1);
@@ -244,7 +271,29 @@ public class DirectObjectBankLogin extends HttpServlet
 		{
 			throw e;
 		}
-		conn.close();
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+			try {
+				if (callstmt != null) {
+					callstmt.close();
+				}
+			} catch (Exception e) {
+				log.error("Error close connections", e);
+			}
+		}
 		return toReturn;
 	}
 }
