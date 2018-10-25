@@ -102,7 +102,7 @@ String translatedLevelName = bundle.getString("title.question.security_misconfig
 						<input type="text" id="userName" autocomplete="off"/>
 						</td>
 					<tr><td>
-						<%= bundle.getString("challenge.password") %>  
+						<%= bundle.getString("challenge.senha") %>  
 						</td><td>
 						<input type="password" id="userPass" autocomplete="off"/>
 						</td>
