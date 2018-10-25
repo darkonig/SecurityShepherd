@@ -93,7 +93,7 @@ if (request.getSession() != null)
 				<p style="display: none;" id="loadingSign"><%= bundle.getString("challenge.form.loading") %></p>
 				<br/>
 				<div id="forgottenPassDiv" style="display: none;">
-					<form id="leForm2" action="javascript:;">
+					<form id="leForm2" action="javascript:;" method="POST">
 						<h2 class='title'><%= bundle.getString("question.header") %></h2>
 						<p>
 							<%= bundle.getString("question.whatToDo") %>
@@ -107,7 +107,7 @@ if (request.getSession() != null)
 					</form>
 					<div id="resultsDiv2"></div>
 					<div id="answerQuestionDiv" style="display:none;">
-					<form id="leForm3" action="javascript:;">
+					<form id="leForm3" action="javascript:;" method="POST">
 						<table>
 							<tr></td>
 								<div id="answerQuestion"><input id="questionAnswer" type="text" width="300px" autocomplete="off"/><input type="submit" value="<%= bundle.getString("question.form.giveAnswer") %>"/></div>

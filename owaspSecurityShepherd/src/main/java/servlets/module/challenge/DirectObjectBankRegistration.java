@@ -68,6 +68,8 @@ public class DirectObjectBankRegistration extends HttpServlet
 			log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 			PrintWriter out = response.getWriter();
 			out.print(getServletInfo());
+			Connection conn = null;
+			CallableStatement callstmt = null;
 			try
 			{
 				String accountHolder = request.getParameter("accountHolder");
@@ -77,8 +79,8 @@ public class DirectObjectBankRegistration extends HttpServlet
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
 				
-				Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-				CallableStatement callstmt = conn.prepareCall("CALL createAccount(?, ?)");
+				conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
+				callstmt = conn.prepareCall("CALL createAccount(?, ?)");
 				callstmt.setString(1, accountHolder);
 				callstmt.setString(2, accountPass);
 				callstmt.execute();
@@ -86,7 +88,6 @@ public class DirectObjectBankRegistration extends HttpServlet
 				log.debug("Outputting HTML");
 				htmlOutput = bundle.getString("register.accountCreated");
 				out.write(htmlOutput);
-				Database.closeConnection(conn);
 			}
 			catch(SQLException e)
 			{
@@ -97,6 +98,22 @@ public class DirectObjectBankRegistration extends HttpServlet
 			{
 				out.write(errors.getString("error.funky"));
 				log.error(levelName + " - ", e);
+			}
+			finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
+				try {
+					if (callstmt != null) {
+						callstmt.close();
+					}
+				} catch (Exception e) {
+					log.error("Error close connections", e);
+				}
 			}
 		}
 		else
