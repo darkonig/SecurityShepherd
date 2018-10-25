@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -75,7 +76,7 @@ public class RefreshMenu extends HttpServlet
 				{
 					
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String userId = (String)ses.getAttribute("userStamp");
+					String userId = StringEscapeUtils.escapeHtml4((String)ses.getAttribute("userStamp"));
 					if(ModulePlan.isIncrementalFloor())
 					{
 						log.debug("Returning CTF Menu");
