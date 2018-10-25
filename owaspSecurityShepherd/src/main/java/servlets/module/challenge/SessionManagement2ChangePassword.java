@@ -110,7 +110,7 @@ public class SessionManagement2ChangePassword extends HttpServlet
 				}
 				catch(SQLException e)
 				{
-					log.error(levelName + " SQL Error: " + e.toString());
+					e.printStackTrace();
 				}
 			}
 			catch(Exception e)

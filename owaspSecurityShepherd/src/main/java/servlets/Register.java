@@ -71,7 +71,6 @@ public class Register extends HttpServlet
 			{
 				log.debug("Getting ApplicationRoot");
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
 				
 				log.debug("Ensuring not a CSRF");
 				String paramToken = (String)request.getParameter("csrfToken");
@@ -157,7 +156,7 @@ public class Register extends HttpServlet
 			}
 			catch (Exception e)
 			{
-				log.error("Registration Error: " + e.toString());
+				e.printStackTrace();
 				ses.setAttribute("errorMessage", "An error Occurred. Please try again");
 				response.sendRedirect("register.jsp");
 			}

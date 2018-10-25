@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -61,7 +62,7 @@ public class GetProgress extends HttpServlet
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 			if(Validate.validateTokens(tokenCookie, tokenParmeter))
 			{
-				String classId = Validate.validateParameter(request.getParameter("classId"), 64);
+				String classId = Validate.validateParameter(StringEscapeUtils.escapeHtml4(request.getParameter("classId")), 64);
 				log.debug("classId: " + classId);
 				String ApplicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = Getter.getProgress(ApplicationRoot, classId);

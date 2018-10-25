@@ -158,7 +158,7 @@ public class SessionManagement5 extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

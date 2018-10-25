@@ -59,7 +59,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("classCreate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END classCreate ***");
@@ -86,7 +86,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not close all modules: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END closeAllModules ***");
@@ -116,7 +116,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userBadSubmission Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -144,7 +144,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not open all modules: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusOpen ***");
@@ -195,7 +195,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not only open Mobile Levels: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END openOnlyMobileCategories ***");
@@ -224,7 +224,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not only open Web levels: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END openOnlyWebCategories ***");
@@ -254,7 +254,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("resetUserBadSubmission Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -293,7 +293,7 @@ public class Setter
 		} 
 		catch (IOException e) 
 		{
-			log.error("Could not update Core Database Info: " + e.toString());
+			e.printStackTrace();
 			return false;
 		}
 		finally {
@@ -348,7 +348,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("CsrfChallenge4 TokenUpdate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);		
 		return csrfToken;
@@ -400,7 +400,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("csrfChallenge7EnumTokens TokenUpdate Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);		
 		return result;
@@ -429,7 +429,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not open/close category: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleCategoryStatusOpen ***");
@@ -459,7 +459,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleSetStatus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusClosed ***");
@@ -489,7 +489,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleSetStatus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setModuleStatusOpen ***");
@@ -522,7 +522,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute resultMessageSet: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END setStoredMessage ***");
@@ -554,7 +554,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("suspendUser Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -585,7 +585,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("unSuspendUser Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -616,7 +616,7 @@ public class Setter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute resultMessagePlus: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updateCsrfCounter ***");
@@ -649,7 +649,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updatePassword Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updatePassword ***");
@@ -681,7 +681,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updatePasswordAdmin Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updatePasswordAdmin ***");
@@ -714,7 +714,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("playerUpdateClass Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -746,7 +746,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{ 	
-			log.error("updatePlayerClassToNull Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -788,7 +788,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userUpdateResult Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -821,7 +821,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("updateUserPoints Failure: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END updateUserPoints ***");
@@ -854,7 +854,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.error("userUpdateRole Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -924,7 +924,7 @@ public class Setter
 		}
 		catch(SQLException e)
 		{
-			log.fatal("userCreate Failure: " + e.toString());
+			e.printStackTrace();
 			throw new SQLException(e);
 		}
 		Database.closeConnection(conn);
@@ -955,7 +955,7 @@ public class Setter
              }
          }
          catch(SQLException sqlEx) {
-             log.fatal("userDelete Failure: " + sqlEx.toString());
+        	 sqlEx.printStackTrace();
              throw new SQLException(sqlEx);
          }
          Database.closeConnection(conn);

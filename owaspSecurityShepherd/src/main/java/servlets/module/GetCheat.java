@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -72,7 +73,7 @@ public class GetCheat extends HttpServlet
 				if(CheatSheetStatus.showCheat(ses.getAttribute("userRole").toString()))
 				{
 					String ApplicationRoot = getServletContext().getRealPath("");
-					String moduleId = request.getParameter("moduleId");
+					String moduleId = StringEscapeUtils.escapeHtml4(request.getParameter("moduleId"));
 					Locale locale = new Locale(Validate.validateLanguage(request.getSession()));
 					log.debug(ses.getAttribute("userName") + " submitted the following moduleId: " + moduleId);
 					if(moduleId != null)
@@ -92,8 +93,8 @@ public class GetCheat extends HttpServlet
 			}
 			else
 			{
-				final String error_response = "CSRF Attack Detected: Made Against" + ses.getAttribute("userName");
-				log.error(error_response);
+				log.error("CSRF Attack Detected: Made Against a user");
+				log.debug("CSRF Attack Detected: Made Against" + ses.getAttribute("userName"));
 			}
 		}
 		else

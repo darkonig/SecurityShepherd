@@ -109,21 +109,21 @@ public class SqlInjection6 extends HttpServlet
 				catch(Exception e)
 				{
 					htmlOutput = "<h3>" + bundle.getString("response.incorrectCreds")+ "</h3><p>" + bundle.getString("response.carefulNow")+ "</p>";
-					log.debug("Could Not Find User: " + e.toString());
+					e.printStackTrace();
 					try
 					{
 						Thread.sleep(1000);
 					}
 					catch(Exception e1)
 					{
-						log.error("Failed to Pause: " + e1.toString());
+						e.printStackTrace();
 					}
 				}
 				conn.close();
 			}
 			catch(Exception e)
 			{
-				log.debug("Could not Search for User: " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>" + bundle.getString("response.badRequest")+ "</p>";
 				try
 				{
@@ -131,7 +131,7 @@ public class SqlInjection6 extends HttpServlet
 				}
 				catch(Exception e2)
 				{
-					log.error("Failed to Pause: " + e2.toString());
+					e.printStackTrace();
 				}
 			}finally {
 				try {
@@ -146,7 +146,7 @@ public class SqlInjection6 extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("*** SQLi C6 End ***");

@@ -68,7 +68,6 @@ public class ChangeCoreDatabase extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
 					String url = Validate.validateParameter(request.getParameter("databaseUrl"), 256);

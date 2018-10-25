@@ -82,7 +82,7 @@ public class BrokenCrypto3 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error(levelName, e);
+				e.printStackTrace();
 				htmlOutput = errors.getString("error.funky");
 			}
 		}

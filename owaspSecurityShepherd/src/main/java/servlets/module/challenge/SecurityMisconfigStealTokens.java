@@ -131,7 +131,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("securityMisconfig.servlet.stealTokens.notComplete.yourToken"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 			log.debug("Outputting HTML");
 			out.write(htmlOutput);
@@ -173,7 +173,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 		} 
 		catch (SQLException e) 
 		{
-			log.error("Could not get user SecurityMisconfigStealToken token: " + e.toString());
+			e.printStackTrace();
 			throw e;
 		}
 		conn.close();
@@ -219,7 +219,7 @@ public class SecurityMisconfigStealTokens extends HttpServlet
 		} 
 		catch (SQLException e) 
 		{
-			log.error("Could not verify token: " + e.toString());
+			e.printStackTrace();
 			throw e;
 		}
 		conn.close();

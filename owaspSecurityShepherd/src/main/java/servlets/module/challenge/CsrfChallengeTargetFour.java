@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
-import utils.Hash;
-import utils.ShepherdLogManager;
-import utils.Validate;
 import dbProcs.Database;
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.Hash;
+import utils.ShepherdLogManager;
+import utils.Validate;
 
 /**
  * Cross Site Request Forgery Challenge Target Four - Does not return Result key
@@ -171,7 +172,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("CSRF4 Token Check Failure ", e);
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);

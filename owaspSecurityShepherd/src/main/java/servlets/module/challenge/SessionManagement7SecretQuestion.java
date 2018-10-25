@@ -138,7 +138,7 @@ public class SessionManagement7SecretQuestion extends HttpServlet
 					}
 					catch(SQLException e)
 					{
-						log.error(levelName + " SQL Error: " + e.toString());
+						e.printStackTrace();
 					}
 				}
 				else
@@ -229,7 +229,7 @@ public class SessionManagement7SecretQuestion extends HttpServlet
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.fatal(levelName + " - " + e.toString());
+				e.printStackTrace();
 			}
 		}
 		else

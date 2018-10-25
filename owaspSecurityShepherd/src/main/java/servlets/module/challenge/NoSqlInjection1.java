@@ -150,7 +150,7 @@ public class NoSqlInjection1 extends HttpServlet
 				}
 				catch (MongoException e)
 				{
-					log.debug("MongoDb Error caught - " + e.toString());
+					e.printStackTrace();
 					htmlOutput += "<p>An error was detected!</p>" +
 						"<p>" + Encode.forHtml(e.toString()) + "</p>";
 				}
@@ -165,7 +165,7 @@ public class NoSqlInjection1 extends HttpServlet
 			}
 			catch (MongoException e)
 			{
-				log.debug("MongoDb Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>An error was detected!</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}

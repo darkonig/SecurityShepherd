@@ -135,12 +135,12 @@ public class DirectObjectBankTransfer extends HttpServlet
 			catch(SQLException e)
 			{
 				out.write(errors.getString("error.funky") + " " + bundle.getString("transfer.error.couldNotTransfer"));
-				log.error(levelName + " SQL Error - ", e);
+				e.printStackTrace();
 			}
 			catch(Exception e)
 			{
 				out.write(errors.getString("error.funky"));
-				log.error(levelName + " - ", e);
+				e.printStackTrace();
 			}
 			finally {
 				try {

@@ -154,7 +154,7 @@ public class Getter
 		} 
 		catch (SQLException e) 
 		{
-			log.error("Login Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -220,7 +220,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.debug("userCheckResult Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -277,7 +277,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Player did not exist: " + e.toString());
+			e.printStackTrace();
 			userFound = false;
 		}
 		finally {
@@ -336,7 +336,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -428,7 +428,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -474,7 +474,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = 0;
 		}
 		finally {
@@ -518,7 +518,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -569,7 +569,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -647,12 +647,12 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			htmlOutput = "<p>" + bundle.getString("error.occurred ") + "</p>";
 		}
 		catch (Exception e)
 		{
-			log.fatal("Could not return CSRF Forum: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -729,12 +729,12 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			htmlOutput = "<p>" + bundle.getString("error.occurred") + "</p>";
 		}
 		catch (Exception e)
 		{
-			log.fatal("Could not return CSRF Forum: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -819,7 +819,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("moduleFeedback Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -940,7 +940,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -1056,7 +1056,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -1230,12 +1230,12 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getJsonScore Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		catch(Exception e)
 		{
-			log.error("getJsonScore Unexpected Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		finally {
@@ -1313,7 +1313,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("lesson Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getLesson() ***");
@@ -1358,9 +1358,15 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module Hash Retrieval: " + e.toString());
+<<<<<<< HEAD
+			e.printStackTrace();
 			log.error("moduleID = " + moduleId);
 			log.error("userID = " + userId);
+=======
+			log.error("Module Hash Retrieval: " + e.toString());
+			log.debug("moduleID = " + moduleId);
+			log.debug("userID = " + userId);
+>>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModuleAddress() ***");
@@ -1388,7 +1394,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			theCategory = null;
 		}
 		Database.closeConnection(conn);
@@ -1418,7 +1424,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleGetHash: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1449,7 +1455,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1482,7 +1488,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			theKeyType = true;
 		}
 		Database.closeConnection(conn);
@@ -1513,7 +1519,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute moduleGetNameLocale: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1544,7 +1550,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module did not exist: " + e.toString());
+			e.printStackTrace();
 			moduleFound = null;
 		}
 		Database.closeConnection(conn);
@@ -1577,7 +1583,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1611,7 +1617,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModulesInOptionTags() ***");
@@ -1644,7 +1650,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Challenge Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		log.debug("*** END getModulesInOptionTags() ***");
@@ -1679,7 +1685,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1731,7 +1737,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module Status Menu: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return output;
@@ -1764,7 +1770,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Module Status Menu: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return output;
@@ -1805,7 +1811,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		log.debug("*** END getPlayersByClass");
@@ -1853,7 +1859,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getProgress Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -1904,12 +1910,12 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("getProgressJSON Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		catch(Exception e)
 		{
-			log.error("getProgressJSON Unexpected Failure: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -2052,7 +2058,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Tournament List Retrieval: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return levelMasterList;
@@ -2080,7 +2086,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute userClassId: " + e.toString());
+			e.printStackTrace();
 			result = new String();
 		}
 		Database.closeConnection(conn);
@@ -2110,7 +2116,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -2140,7 +2146,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		Database.closeConnection(conn);
@@ -2180,7 +2186,7 @@ public class Getter
 		}
 		catch(SQLException e)
 		{
-			log.error("csrfLevelComplete Failure: " + e.toString());
+			e.printStackTrace();
 			result = false;
 		}
 		Database.closeConnection(conn);
@@ -2210,7 +2216,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("isModuleOpen Error: " + e.toString());
+			e.printStackTrace();
 		}
 		Database.closeConnection(conn);
 		return result;
@@ -2234,7 +2240,7 @@ public class Getter
 		}
 		catch (SQLException e)
 		{
-			log.error("Could not execute query: " + e.toString());
+			e.printStackTrace();
 			result = null;
 		}
 		log.debug("*** END adminGetAll ***");
@@ -2265,7 +2271,7 @@ public class Getter
 		}
 		catch(Exception e)
 		{
-			log.error("Admin does not exist: " + e.toString());
+			e.printStackTrace();
 			userFound = false;
 		}
 		Database.closeConnection(conn);

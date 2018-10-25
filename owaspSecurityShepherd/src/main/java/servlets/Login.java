@@ -69,7 +69,6 @@ public class Login extends HttpServlet
 		   // get credentials
 		   log.debug("Getting ApplicationRoot");
 		   String ApplicationRoot = getServletContext().getRealPath("");
-		   log.debug("Servlet root = " + ApplicationRoot );
 		   try
 		   {
 			   String user[] = Getter.authUser(ApplicationRoot, p_login, p_pwd);
@@ -135,7 +134,7 @@ public class Login extends HttpServlet
 		{
 			String loginFailed = "Incorrect User name or Password";
 			ses.setAttribute("loginFailed", loginFailed);
-			log.error("Failed to Process Request: " + e.toString());
+			e.printStackTrace();
 		}
 		log.debug("**** End servlets.Login ***");
 		

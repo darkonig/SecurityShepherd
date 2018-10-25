@@ -86,7 +86,6 @@ public class SqlInjection1 extends HttpServlet
 				String aUserId = request.getParameter("aUserId");
 				log.debug("User Submitted - " + aUserId);
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
 				
 				log.debug("Getting Connection to Database");
 				conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeOne");
@@ -120,7 +119,7 @@ public class SqlInjection1 extends HttpServlet
 			}
 			catch (SQLException e)
 			{
-				log.debug("SQL Error caught - " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>"+errors.getString("error.detected")+"</p>" +
 					"<p>" + Encode.forHtml(e.toString()) + "</p>";
 			}
@@ -141,7 +140,7 @@ public class SqlInjection1 extends HttpServlet
 						stmt.close();
 					}
 				} catch (Exception e) {
-					log.error("Error close connections", e);
+					e.printStackTrace();
 				}
 			}
 			log.debug("Outputting HTML");

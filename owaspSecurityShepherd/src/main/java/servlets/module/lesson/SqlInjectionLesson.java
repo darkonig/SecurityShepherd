@@ -78,7 +78,6 @@ extends HttpServlet
 				String aUserName = request.getParameter("aUserName");
 				log.debug("User Submitted - " + aUserName);
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
 				String[][] output = getSqlInjectionResult(ApplicationRoot, aUserName);
 				log.debug("output returned. [0][0] is " + output[0][0]);
 				String htmlOutput = "<h2 class='title'>" + bundle.getString("response.searchResults") + "</h2>";
@@ -154,7 +153,7 @@ extends HttpServlet
 		} 
 		catch (SQLException e)
 		{
-			log.debug("SQL Error caught - " + e.toString());
+			e.printStackTrace();
 			result[0][0] = "error";
 			result[0][1] = Encode.forHtml(e.toString());
 		}
@@ -174,7 +173,7 @@ extends HttpServlet
 					stmt.close();
 				}
 			} catch (Exception e) {
-				log.error("Error close connections", e);
+				e.printStackTrace();
 			}
 		}
 		return result;

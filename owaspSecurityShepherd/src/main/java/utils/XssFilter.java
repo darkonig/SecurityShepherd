@@ -48,7 +48,7 @@ public class XssFilter
 			} 
 			catch (MalformedURLException e) 
 			{
-				log.debug("Could not Cast URL from input: " + e.toString());
+				e.printStackTrace();
 				input = howToMakeAUrlUrl;
 			}
 		}
@@ -78,7 +78,7 @@ public class XssFilter
 			} 
 			catch (MalformedURLException e) 
 			{
-				log.debug("Could not Cast URL from input: " + e.toString());
+				e.printStackTrace();
 				input = howToMakeAUrlUrl;
 			}
 		}

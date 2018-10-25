@@ -155,7 +155,7 @@ public class CreateNewAdmin extends HttpServlet
 				}
 				catch (Exception e)
 				{
-					log.error("Create New Admin Error ", e);
+					e.printStackTrace();
 					out.print("<h3 class=\"title\">Admin Create Failure</h3>" +
 							"<p>" +
 							"<font color=\"red\">An error Occurred! Please try again.</font>" +

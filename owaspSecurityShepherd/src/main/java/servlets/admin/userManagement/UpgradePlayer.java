@@ -72,7 +72,6 @@ public class UpgradePlayer extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
 					String players = (String)request.getParameter("players");;

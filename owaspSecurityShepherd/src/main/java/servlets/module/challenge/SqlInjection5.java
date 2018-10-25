@@ -129,7 +129,7 @@ public class SqlInjection5 extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					log.debug("Could Not Find Coupon: " + e.toString());
+					e.printStackTrace();
 				}
 				conn.close();
 				
@@ -151,7 +151,7 @@ public class SqlInjection5 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.debug("Didn't complete order: " + e.toString());
+				e.printStackTrace();
 				htmlOutput += "<p>" + bundle.getString("response.orderFailed")+ "</p>";
 			}
 			try
@@ -160,7 +160,7 @@ public class SqlInjection5 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause: " + e.toString());
+				e.printStackTrace();
 			}
 			out.write(htmlOutput);
 		}

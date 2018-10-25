@@ -65,7 +65,6 @@ public class ToggleRegistration extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
 					OpenRegistration.toggle();
 					String htmlOutput = new String();
 					if(OpenRegistration.isDisabled())
