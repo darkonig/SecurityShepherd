@@ -406,7 +406,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 	
 	public static String generateUserSolutionKeyOnly(String baseKey, String userSalt)
 	{
-		log.debug("Generating key for " + userSalt);
+		SaveLogs.saveDebug("Generating key for " + userSalt);
 		String forLog = "Key Should be here! Please refresh the home page and try again!";
 
 			try 
