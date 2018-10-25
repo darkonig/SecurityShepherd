@@ -93,7 +93,7 @@ public class CloseAllModulesTest
 		String userName = "configUserTester";
 		String password = userName;
 		//Verify / Create user in DB
-		try
+		try	
 		{
 			TestProperties.verifyTestUser(log, applicationRoot, userName, password);
 			//Sign in as Normal User

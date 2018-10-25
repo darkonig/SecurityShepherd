@@ -117,7 +117,11 @@ public class CsrfChallengeTargetFour extends HttpServlet
 						}
 						else
 						{
-							log.error("UserId '" + plusId + "' could not be found in system.");
+							try{
+								log.error("The user "+ plusId + " could not be found.");
+							}catch(NumberFormatException) {
+								log.error("The user could not be found.");
+							}
 						}
 					}
 					else
