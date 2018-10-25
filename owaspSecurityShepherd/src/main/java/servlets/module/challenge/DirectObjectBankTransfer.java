@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.ShepherdLogManager;
@@ -73,11 +74,11 @@ public class DirectObjectBankTransfer extends HttpServlet
 			String applicationRoot = getServletContext().getRealPath("");
 			try
 			{
-				String senderAccountNumber = request.getParameter("senderAccountNumber");
+				String senderAccountNumber = StringEscapeUtils.escapeHtml4(request.getParameter("senderAccountNumber"));
 				log.debug("Sender Account Number - " + senderAccountNumber);
-				String recieverAccountNumber = request.getParameter("recieverAccountNumber");
+				String recieverAccountNumber = StringEscapeUtils.escapeHtml4(request.getParameter("recieverAccountNumber"));
 				log.debug("Reciever Account Number - " + recieverAccountNumber);
-				String transferAmountString = request.getParameter("transferAmount");
+				String transferAmountString = StringEscapeUtils.escapeHtml4(request.getParameter("transferAmount"));
 				log.debug("Transfer Amount - " + transferAmountString);
 				float tranferAmount = Float.parseFloat(transferAmountString);
 				

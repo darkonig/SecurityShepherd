@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -73,7 +74,7 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 			{
 				log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 				String htmlOutput = new String("Your csrf Token for this Challenge is: ");
-				String userId = request.getParameter("userId").toString();
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId"));
 				
 				Connection conn = null;
 				PreparedStatement callstmnt = null;
@@ -83,7 +84,7 @@ public class CsrfChallengeSixGetToken extends HttpServlet
 					conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeSix");
 					log.debug("Preparing setCsrfChallengeSixToken call");
 					callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfchallengesix.csrfTokens WHERE userId LIKE ?");
-					callstmnt.setString(1, userId);
+					callstmnt.setInt(1, Integer.parseInt(userId));
 					log.debug("Executing setCsrfChallengeSixTokenQuery");
 					rs = callstmnt.executeQuery();
 					int i = 0;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -74,9 +75,9 @@ public class AssignPlayers extends HttpServlet
 					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
-					String[] players = request.getParameterValues("players[]");;
+					String[] players = request.getParameterValues("players[]");
 					log.debug("players = " + players.toString());
 					
 					//Validation
@@ -103,7 +104,7 @@ public class AssignPlayers extends HttpServlet
 						for(int i = 0; i < players.length; i++)
 						{
 							log.debug("Validating player " + players[i]);
-							validPlayer = Getter.findPlayerById(ApplicationRoot, players[i]);
+							validPlayer = Getter.findPlayerById(ApplicationRoot, StringEscapeUtils.escapeHtml4(players[i]));
 						}	
 					}
 					if(notNull && validPlayer)

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -81,13 +82,13 @@ public class AddPlayer extends HttpServlet
 					log.debug("Servlet root = " + ApplicationRoot );
 					
 					log.debug("Getting Parameters");
-					String classId = (String)request.getParameter("classId");
+					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));
 					log.debug("classId = " + classId);
-					String userName = (String)request.getParameter("userName");
+					String userName = StringEscapeUtils.escapeHtml4(request.getParameter("userName"));
 					log.debug("userName = " + userName);
-					String passWord = (String)request.getParameter("passWord");
+					String passWord = StringEscapeUtils.escapeHtml4(request.getParameter("passWord"));
 					log.debug("passWord retrieved");
-					String passWordConfirm = (String)request.getParameter("passWordConfirm");
+					String passWordConfirm = StringEscapeUtils.escapeHtml4(request.getParameter("passWordConfirm"));
 					log.debug("passWordConfirm retrieved");
 					String userAddress = Validate.validateParameter(request.getParameter("userAddress"), 128);
 					log.debug("userAddress = " + userAddress);

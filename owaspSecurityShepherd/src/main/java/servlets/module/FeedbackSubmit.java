@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.parser.Parser;
 import org.owasp.encoder.Encode;
@@ -83,7 +84,7 @@ public class FeedbackSubmit extends HttpServlet
 					String ApplicationRoot = getServletContext().getRealPath("");
 					
 					log.debug("Getting Parameters");
-					String moduleId = (String)request.getParameter("moduleId");;
+					String moduleId = StringEscapeUtils.escapeHtml4(request.getParameter("moduleId"));
 					log.debug("moduleId = " + moduleId.toString());
 					
 					

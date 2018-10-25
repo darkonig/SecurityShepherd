@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
@@ -74,7 +75,7 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 				ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
 				log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
 				String htmlOutput = new String("Your csrf Token for this Challenge is: ");
-				int userId = Integer.decode(request.getParameter("userId"));
+				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId"));
 				
 				Connection conn = Database.getChallengeConnection(getServletContext().getRealPath(""), "csrfChallengeEnumerateTokens");
 				PreparedStatement callstmnt = null;
@@ -82,12 +83,11 @@ public class CsrfChallengeSevenGetToken extends HttpServlet
 				{
 					log.debug("Preparing setCsrfChallengeSevenToken call");
 					callstmnt = conn.prepareStatement("SELECT csrfTokenscol FROM csrfChallengeEnumTokens.csrfTokens WHERE userId LIKE ?");
-					callstmnt.setInt(1, userId);
+					callstmnt.setInt(1, Integer.parseInt(userId));
 					log.debug("Executing setCsrfChallengeSevenTokenQuery");
 					ResultSet rs = callstmnt.executeQuery();
 					int i = 0;
-					while(rs.next())
-					{
+					while(rs.next()) {
 						i++;
 						htmlOutput += Encode.forHtml("\"" + rs.getString(1) + "\"") + " <br/>";
 					}
