@@ -18,6 +18,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import utils.Hash;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 import dbProcs.Database;
@@ -134,7 +135,7 @@ public class BrokenCrypto4 extends HttpServlet
 				}
 				catch(Exception e)
 				{
-					log.error("Could Not Find Coupon", e);
+					SaveLogs.saveLog("BrokenCrypto", e);
 				}
 				finally {
 					try {
@@ -142,21 +143,21 @@ public class BrokenCrypto4 extends HttpServlet
 							coupons.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("BrokenCrypto", e);
 					}
 					try {
 						if (conn != null) {
 							conn.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("BrokenCrypto", e);
 					}
 					try {
 						if (prepstmt != null) {
 							prepstmt.close();
 						}
 					} catch (Exception e) {
-						log.error("Error close connections", e);
+						SaveLogs.saveLog("BrokenCrypto", e);
 					}
 				}
 				
@@ -178,7 +179,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Didn't complete order", e);
+				SaveLogs.saveLog("BrokenCrypto",e);
 				htmlOutput += "<p>" + bundle.getString("insecureCyrptoStorage.4.orderFailed") + "</p>";
 			}
 			
@@ -188,7 +189,7 @@ public class BrokenCrypto4 extends HttpServlet
 			}
 			catch(Exception e)
 			{
-				log.error("Failed to Pause ", e);
+				SaveLogs.saveLog("BrokenCrypto",e);
 			}
 			out.write(htmlOutput);
 		}
