@@ -18,7 +18,7 @@ import utils.ShepherdLogManager;
 import utils.Validate;
 
 /**
- * Control class for the Change Password function
+ * Control class for the Change Pwd function
  * <br/><br/>
  * This file is part of the Security Shepherd Project.
  * 
@@ -42,11 +42,11 @@ public class ChangePassword extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(ChangePassword.class);
 	/** 
-	 * Initiated by index.jsp, getStarted.jsp. This changes a users password. If the user gets it wrong 3 times in a row, they'll be locked out (This is handed by database)
+	 * Initiated by index.jsp, getStarted.jsp. This changes a users pwd. If the user gets it wrong 3 times in a row, they'll be locked out (This is handed by database)
 	 * @param csrfToken
-	 * @param currentPassword User's current password
-	 * @param newPassword Submitted new password
-	 * @param passwordConfirmation	Confirmation of the new password
+	 * @param currentPwd User's current pwd
+	 * @param newPwd Submitted new pwd
+	 * @param pwdConfirmation	Confirmation of the new pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException

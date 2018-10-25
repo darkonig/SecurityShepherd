@@ -141,8 +141,8 @@ public class Validate
 	}
 
 	/**
-	 * Invalid password detecter
-	 * @param passWord
+	 * Invalid pwd detecter
+	 * @param pwd
 	 * @return
 	 */
 	public static boolean isValidPassword(String passWord)
@@ -159,7 +159,7 @@ public class Validate
 	/**
 	 * Used to validate user creation requests
 	 * @param userName User Name
-	 * @param passWord User Password
+	 * @param pwd User pwd
 	 * @return Boolean value stating weather or not these supplied attributes make a valid user
 	 */
 	public static boolean isValidUser(String userName, String passWord)
@@ -176,7 +176,7 @@ public class Validate
 	/**
 	 * Used to validate user creation requests
 	 * @param userName User Name
-	 * @param passWord User Password
+	 * @param pwd User pwd
 	 * @param userAddress User address
 	 * @return Boolean value stating weather or not these supplied attributes make a valid user
 	 */

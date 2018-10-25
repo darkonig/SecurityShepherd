@@ -46,8 +46,8 @@ public class Register extends HttpServlet
 	 * Adding the player to the database is handled by the dbProcs.Setter class. Email is stored for future application expansion
 	 * This function will request requests if the application's registration functionality has been marked as closed by administration.
 	 * @param userName User's User Name
-	 * @param passWord User's Password
-	 * @param passWordConfirm Password Confirmation
+	 * @param pwd User's pwd
+	 * @param pwdConfirm pwd Confirmation
 	 * @param userAddress User's Email
 	 * @param userAddressCnf User's Email Confirmation
 	*/

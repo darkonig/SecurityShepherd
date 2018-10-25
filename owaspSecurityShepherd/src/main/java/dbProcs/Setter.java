@@ -267,7 +267,7 @@ public class Setter
 	 * @param applicationRoot The directory that the server is actually in
 	 * @param url The Url of the core Database
 	 * @param userName The user name of the database user
-	 * @param password The password of the database user
+	 * @param pwd The pwd of the database user
 	 * @return Boolean value depicting the success of the method
 	 */
 	public static boolean setCoreDatabaseInfo(String applicationRoot, String url, String userName, String password)
@@ -626,8 +626,8 @@ public class Setter
 	/**
 	 * @param ApplicationRoot The current running context of the application
 	 * @param userName User name of the user
-	 * @param currentPassword User's current password
-	 * @param newPassword New password to use in update
+	 * @param currentpwd User's current pwd
+	 * @param newpwd New pwd to use in update
 	 * @return ResultSet that contains error details if not successful
 	 */
 	public static boolean updatePassword (String ApplicationRoot, String userName, String currentPassword, String newPassword)
@@ -657,10 +657,10 @@ public class Setter
 	}
 	
 	/**
-	 * Updates a player's password without needing the current password
+	 * Updates a player's pwd without needing the current pwd
 	 * @param ApplicationRoot Running context of the applicaiton
 	 * @param userId The user id of the user to update
-	 * @param newPassword The new password to assign to the user
+	 * @param newpwd The new pwd to assign to the user
 	 * @return
 	 */
 	public static boolean updatePasswordAdmin (String ApplicationRoot, String userId, String newPassword)

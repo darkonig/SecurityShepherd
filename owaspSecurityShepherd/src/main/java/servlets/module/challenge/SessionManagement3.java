@@ -59,7 +59,7 @@ public class SessionManagement3 extends HttpServlet
 	/**
 	 * Users must use this functionality to sign in as an administrator to retrieve the result key. If the user name is valid but not the passwor, an error message with the user name is returned.
 	 * @param userName Sub schema user name
-	 * @param password Sub schema user password
+	 * @param pwd Sub schema user pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException

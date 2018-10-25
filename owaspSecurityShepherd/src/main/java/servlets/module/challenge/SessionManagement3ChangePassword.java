@@ -23,7 +23,7 @@ import utils.Validate;
 import dbProcs.Database;
 
 /**
- * Session Management Challenge Three - Change Password
+ * Session Management Challenge Three - Change pwd
  * This is a level function - DOES NOT RETURN KEY
  * <br/><br/>
  * This file is part of the Security Shepherd Project.
@@ -48,13 +48,13 @@ public class SessionManagement3ChangePassword extends HttpServlet
 
 	private static final long serialVersionUID = 1L;
 	private static final org.apache.log4j.Logger log = Logger.getLogger(SessionManagement3ChangePassword.class);
-	private static String levelName = "Session Management Challenge Three (Change Password)";
+	private static String levelName = "Session Management Challenge Three (Change pwd)";
 	public static String levelHash = "b467dbe3cd61babc0ec599fd0c67e359e6fe04e8cdc618d537808cbb693fee8a";
 	// private static String levelResult = ""; //This Servlet does not return a result
 	/**
-	 * Function used by Session Management Challenge Three to change the password of the submitted user name specified in the "Current" cookie
+	 * Function used by Session Management Challenge Three to change the pwd of the submitted user name specified in the "Current" cookie
 	 * @param current User cookie used to store the current user (encoded twice with base64)
-	 * @param newPassword the password which to use to update an accounts password
+	 * @param newpwd the pwd which to use to update an accounts pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException

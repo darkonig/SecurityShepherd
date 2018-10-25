@@ -49,7 +49,7 @@ public class SessionManagement1 extends HttpServlet
 	/**
 	 * Users must take advance of the broken session management in this application by modifying the tracking cookie "checksum" which is encoded in base 64. They must modify this cookie to be equal to administrator to access the result key.
 	 * @param upgraeUserToAdmin Red herring 
-	 * @param returnPassword Red herring 
+	 * @param returnpwd Red herring 
 	 * @param adminDetected Red herring 
 	 * @param checksum Cookie encoded base 64 that manages who is signed in to the sub schema
 	 */

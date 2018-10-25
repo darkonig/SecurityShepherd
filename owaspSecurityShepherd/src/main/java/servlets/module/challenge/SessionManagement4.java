@@ -49,7 +49,7 @@ public class SessionManagement4 extends HttpServlet
 	/**
 	 * Users must discover the session id for this sub application is very weak. The default session ID for a guest will be 00000001 base64'd. The admin's session will be 00000021
 	 * @param upgraeUserToAdmin Red herring 
-	 * @param returnPassword Red herring 
+	 * @param returnpwd Red herring 
 	 * @param adminDetected Red herring 
 	 * @param checksum Cookie encoded base 64 that manages who is signed in to the sub schema
 	 */

@@ -87,7 +87,7 @@ public class SecurityMisconfigLesson extends HttpServlet
 				}
 				else
 				{
-					// Default username and password were used
+					// Default username and pwd were used
 					log.debug("User has signed in as admin");
 					htmlOutput = "<h2 class='title'>" + bundle.getString("response.authSuccess") + "</h2><p>"
 							+ bundle.getString("result.youDidIt") + "<br><br>"

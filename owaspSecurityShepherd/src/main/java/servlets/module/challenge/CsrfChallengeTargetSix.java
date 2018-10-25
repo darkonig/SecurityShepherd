@@ -81,7 +81,7 @@ public class CsrfChallengeTargetSix extends HttpServlet
 				{
 					log.debug("No CSRF Token associated with user");
 					Random random = new Random();
-					int newToken = random.nextInt(3);
+					int newToken = random.nextInt();
 					storedToken = csrfArray[newToken];
 					out.write(csrfGenerics.getString("target.noTokenNewToken") + " " + storedToken + "<br><br>");
 					ses.setAttribute(csrfTokenName, storedToken);

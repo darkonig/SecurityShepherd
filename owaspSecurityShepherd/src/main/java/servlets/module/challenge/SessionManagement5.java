@@ -53,7 +53,7 @@ public class SessionManagement5 extends HttpServlet
 	/**
 	 * Users must use this functionality to sign in as an administrator to retrieve the result key.
 	 * @param userName Sub schema user name
-	 * @param password Sub schema user password
+	 * @param pwd Sub schema user pwd
 	 */
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException
