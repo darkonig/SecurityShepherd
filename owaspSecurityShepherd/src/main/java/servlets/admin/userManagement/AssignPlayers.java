@@ -16,6 +16,7 @@ import org.owasp.encoder.Encode;
 
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -72,7 +73,7 @@ public class AssignPlayers extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
+					SaveLogs.saveDebug("Servlet root = " + ApplicationRoot);
 					
 					log.debug("Getting Parameters");
 					String classId = StringEscapeUtils.escapeHtml4(request.getParameter("classId"));

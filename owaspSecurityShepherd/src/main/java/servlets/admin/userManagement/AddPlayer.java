@@ -183,8 +183,8 @@ public class AddPlayer extends HttpServlet
 						"</strong></p></div>");
 			}
 			log.debug("*** addPlayer END ***");
-		} catch (Exception e) {
-			log.error("Error " + e.getMessage());
+		} catch (Exception e) {			log.error("Error " + e.getMessage());
+			SaveLogs.saveLog("Error", e);
 			if (out != null) {
 				out.print("<div id='error' class='informationBox'><p colour='red'><strong>" +
 						"An error Occurred! Please try again." +

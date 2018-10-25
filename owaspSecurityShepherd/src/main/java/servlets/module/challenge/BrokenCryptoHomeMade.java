@@ -170,8 +170,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 						}
 						catch(Exception e)
 						{
-							SaveLogs.saveLog("Error", e);
-							log.error("BrokenCrypto:" +e.getMessage());
+							SaveLogs.saveLog("BrokenCrypto:", e);
 							htmlOutput += "<p>" + bundle.getString("result.failed") + "</p>";
 						}
 					}
@@ -300,7 +299,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		} 
 		catch (GeneralSecurityException e)
 		{
-			log.error("decryptUserName:" +e.getMessage());
+			SaveLogs.saveLog("decryptUserName", e);
 		}
 		return decryptedUserName;
 	}
@@ -363,7 +362,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 		}
 		catch(Exception e)
 		{
-			log.error("randomKeyLengthString:" +e.getMessage());
+			SaveLogs.saveLog("randomKeyLengthString", e);
 		}
 		return result;
 	}
@@ -398,7 +397,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("generateUserSolution:" +e.getMessage());
+				SaveLogs.saveLog("generateUserSolution", e);
 				toReturn = "Key Should be here! Please refresh the home page and try again!";;
 			}
 		return toReturn;
@@ -418,7 +417,7 @@ public class BrokenCryptoHomeMade extends HttpServlet
 			} 
 			catch (Exception e) 
 			{ 
-				log.error("generateUserSolutionKeyOnly:" +e.getMessage());
+				SaveLogs.saveLog("generateUserSolutionKeyOnly", e);
 			}
 		return forLog;
 	}

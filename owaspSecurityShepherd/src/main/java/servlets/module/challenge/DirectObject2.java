@@ -80,7 +80,7 @@ public class DirectObject2 extends HttpServlet
 				String userId = StringEscapeUtils.escapeHtml4(request.getParameter("userId[]"));
 				log.debug("User Submitted - " + userId);
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
+				SaveLogs.saveDebug("Servlet root = " + ApplicationRoot);
 				String htmlOutput = new String();
 				
 				conn = Database.getChallengeConnection(ApplicationRoot, "directObjectRefChalTwo");

@@ -71,7 +71,7 @@ public class DeletePlayers extends HttpServlet{
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					log.debug("Servlet root = " + ApplicationRoot );
+					SaveLogs.saveDebug("Servlet root = " + ApplicationRoot);
 					
 					log.debug("Getting Parameters");
 					String player = request.getParameter("player");

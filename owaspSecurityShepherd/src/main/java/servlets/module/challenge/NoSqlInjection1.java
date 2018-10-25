@@ -108,7 +108,7 @@ public class NoSqlInjection1 extends HttpServlet
 				String gamerId = request.getParameter("theGamerName");
 				log.debug("User Submitted - " + gamerId);
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
+				SaveLogs.saveDebug("Servlet root = " + ApplicationRoot);
 				
 				DBObject whereQuery = new BasicDBObject("$where", "this._id == '_id'");
 				whereQuery.put("_id", gamerId);

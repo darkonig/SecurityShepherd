@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import dbProcs.Getter;
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 

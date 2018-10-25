@@ -97,7 +97,7 @@ public class SessionManagement2 extends HttpServlet
 				
 				log.debug("Getting ApplicationRoot");
 				String ApplicationRoot = getServletContext().getRealPath("");
-				log.debug("Servlet root = " + ApplicationRoot );
+				SaveLogs.saveDebug("Servlet root = " + ApplicationRoot);
 				
 				conn = Database.getChallengeConnection(ApplicationRoot, "BrokenAuthAndSessMangChalTwo");
 				log.debug("Checking credentials");

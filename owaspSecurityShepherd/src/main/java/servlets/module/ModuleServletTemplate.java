@@ -162,7 +162,7 @@ extends HttpServlet
 		} 
 		catch (SQLException e)
 		{
-			log.error("Error", e);
+			SaveLogs.saveLog("Error", e);
 			result = bundle.getString("example.error") + ": SQL Error"; //Html Encode Error to prevent XSS
 		}
 		catch (Exception e)
