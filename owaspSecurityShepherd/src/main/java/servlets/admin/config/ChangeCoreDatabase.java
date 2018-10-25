@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.owasp.encoder.Encode;
 
 import dbProcs.Setter;
+import utils.SaveLogs;
 import utils.ShepherdLogManager;
 import utils.Validate;
 
@@ -52,7 +53,7 @@ public class ChangeCoreDatabase extends HttpServlet
 	{
 		//Setting IpAddress To Log and taking header for original IP if forwarded from proxy
 		ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"));
-		log.debug("*** servlets.Admin.config.ChangeCoreDatabase ***");
+		SaveLogs.saveDebug("*** servlets.Admin.config.ChangeCoreDatabase ***");
 		PrintWriter out = response.getWriter();  
 		out.print(getServletInfo());
 		HttpSession ses = request.getSession(true);
@@ -61,6 +62,7 @@ public class ChangeCoreDatabase extends HttpServlet
 		if(Validate.validateAdminSession(ses, tokenCookie, tokenParmeter))
 		{
 			ShepherdLogManager.setRequestIp(request.getRemoteAddr(), request.getHeader("X-Forwarded-For"), ses.getAttribute("userName").toString());
+			SaveLogs.saveDebug("Current User: " + ses.getAttribute("userName").toString());
 			log.debug("Current User: " + ses.getAttribute("userName").toString());
 			if(Validate.validateTokens(tokenCookie, tokenParmeter))
 			{
@@ -68,12 +70,11 @@ public class ChangeCoreDatabase extends HttpServlet
 				{
 					log.debug("Getting ApplicationRoot");
 					String ApplicationRoot = getServletContext().getRealPath("");
-					
-					log.debug("Getting Parameters");
+					SaveLogs.saveDebug("Getting ApplicationRoot");
 					String url = Validate.validateParameter(request.getParameter("databaseUrl"), 256);
-					log.debug("URL = " + url);
+					SaveLogs.saveDebug("URL = " + url);
 					char[] userName = Validate.validateParameter(request.getParameter("bancoDeDadosNomeUsuario"), 256).toCharArray();
-					log.debug("userName = " + userName);
+					SaveLogs.saveDebug("userName = " + userName);
 					char[] password = Validate.validateParameter(request.getParameter("bancoDeDadosSenha"), 256).toCharArray();
 					
 					boolean validData = !url.isEmpty() && userName.length != 0 && password.length != 0;
