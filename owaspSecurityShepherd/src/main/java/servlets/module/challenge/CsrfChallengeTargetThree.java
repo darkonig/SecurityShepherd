@@ -96,13 +96,8 @@ public class CsrfChallengeTargetThree extends HttpServlet
 					}
 					else
 					{
-<<<<<<< HEAD
 						log.error("The userid could not be found.");
 						log.debug("The userid "+ plusId + " could not be found.");
-=======
-							log.error("The userid could not be found.");
-							log.debug("The userid "+ plusId + " could not be found.");
->>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 					}
 				}
 				else

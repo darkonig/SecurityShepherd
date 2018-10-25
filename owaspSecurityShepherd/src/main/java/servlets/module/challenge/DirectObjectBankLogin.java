@@ -86,16 +86,8 @@ public class DirectObjectBankLogin extends HttpServlet
 				log.debug("Account Pass - " + accountPass);
 				String applicationRoot = getServletContext().getRealPath("");
 				String htmlOutput = new String();
-<<<<<<< HEAD
-				
-				Connection conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
-				PreparedStatement callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
-=======
-
 				conn = Database.getChallengeConnection(applicationRoot, "directObjectBank");
 				callstmt = conn.prepareCall("CALL bankAuth(?, ?)");
-
->>>>>>> branch 'master' of https://github.com/darkonig/SecurityShepherd.git
 				callstmt.setString(1, accountHolder);
 				callstmt.setString(2, accountPass);
 				resultSet = callstmt.executeQuery();
