@@ -93,6 +93,23 @@ public class FileInputProperties
 	    	log.error("Error: Properties filename: "+filename+" can not be opened: " + e.getMessage());
 	    	result = result + e.toString();
 	    }
+	    finally {
+	    	if (fis != null) {
+	    		try {
+	    		fis.close();
+	    		}catch (Exception e) {}
+	    	}
+	    	if (bis != null) {
+	    		try {
+	    			bis.close();
+	    		}catch (Exception e) {}
+	    	}
+	    	if (dis != null) {
+	    		try {
+	    			dis.close();
+	    		}catch (Exception e) {}
+	    	}
+	    }
 	    return result;
 	  }
 }

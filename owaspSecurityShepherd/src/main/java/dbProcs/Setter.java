@@ -272,11 +272,12 @@ public class Setter
 	 */
 	public static boolean setCoreDatabaseInfo(String applicationRoot, String url, String userName, String password)
 	{
+		DataOutputStream writer = null;
 		try 
 		{
 			//Update Database Settings
 			File siteProperties = new File(applicationRoot + "/WEB-INF/database.properties");
-			DataOutputStream writer = new DataOutputStream(new FileOutputStream(siteProperties,false));
+			writer = new DataOutputStream(new FileOutputStream(siteProperties,false));
 			String theProperties = new String("databaseConnectionURL=" + url +
 										"\nDriverType=org.gjt.mm.mysql.Driver");
 			writer.write(theProperties.getBytes());
@@ -294,6 +295,13 @@ public class Setter
 		{
 			log.error("Could not update Core Database Info: " + e.toString());
 			return false;
+		}
+		finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				}catch(Exception e) {}
+			}
 		}
 	}
 	
