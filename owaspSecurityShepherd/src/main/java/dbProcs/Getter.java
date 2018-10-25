@@ -443,7 +443,7 @@ public class Getter
 				CallableStatement callstmt = conn.prepareCall("call resultMessageByClass(?, ?)");
 				log.debug("Gathering resultMessageByClass ResultSet");
 				callstmt.setString(1, classId);
-				callstmt.setString(2, moduleId);
+				callstmt.setInt(2, Integer.parseInt(moduleId));
 				ResultSet resultSet = callstmt.executeQuery();
 				log.debug("resultMessageByClass executed");
 				
