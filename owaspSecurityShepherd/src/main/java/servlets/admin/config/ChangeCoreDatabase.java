@@ -74,9 +74,9 @@ public class ChangeCoreDatabase extends HttpServlet
 					log.debug("URL = " + url);
 					char[] userName = Validate.validateParameter(request.getParameter("databaseUsername"), 256).toCharArray();
 					log.debug("userName = " + userName);
-					char[] password = Validate.validateParameter(request.getParameter("databasePassword"), 256);
+					char[] password = Validate.validateParameter(request.getParameter("databasePassword"), 256).toCharArray();
 					
-					boolean validData = !url.isEmpty() && !userName.isEmpty() && !password.isEmpty();
+					boolean validData = !url.isEmpty() && userName.length != 0 && password.length != 0;
 					if(Setter.setCoreDatabaseInfo(ApplicationRoot, url, userName, password))
 					{
 						out.write("<h3 class='title'>Core Database Info Updated</h3>" +
