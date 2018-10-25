@@ -115,11 +115,7 @@ public class CsrfChallengeTargetSix extends HttpServlet
 						}
 						else
 						{
-							try{
-								log.error("The user "+ plusId + " could not be found.");
-							}catch(NumberFormatException e) {
-								log.error("The user could not be found.");
-							}
+								log.error("The user id could not be found.");	
 						}
 					}
 					else
