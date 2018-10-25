@@ -41,7 +41,7 @@ import utils.UserKicker;
  */
 public class DeletePlayers extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(DeletePlayers.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(DeletePlayers.class);
 	
 	/** Initiated by deletePlayers.jsp.
 	 * Deletion of player from Core Database is handed by Setter.deleteUser

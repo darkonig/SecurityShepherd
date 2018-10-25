@@ -40,7 +40,7 @@ import utils.Validate;
 public class ChangePassword extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(ChangePassword.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(ChangePassword.class);
 	/** 
 	 * Initiated by index.jsp, getStarted.jsp. This changes a users password. If the user gets it wrong 3 times in a row, they'll be locked out (This is handed by database)
 	 * @param csrfToken

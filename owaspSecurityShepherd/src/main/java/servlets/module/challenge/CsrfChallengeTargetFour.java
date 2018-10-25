@@ -49,7 +49,7 @@ public class CsrfChallengeTargetFour extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private static String moduleHash = "84118752e6cd78fecc3563ba2873d944aacb7b72f28693a23f9949ac310648b5";
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetFour.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeTargetFour.class);
 	private static String levelName = "CSRF Target 4";
 	/**
 	 * CSRF vulnerable function that can be used by users to force other users to mark their CSRF challenge Two as complete.

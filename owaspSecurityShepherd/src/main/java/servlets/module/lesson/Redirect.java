@@ -41,7 +41,7 @@ import utils.Validate;
 public class Redirect extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(Redirect.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Redirect.class);
 	
 	public void doGet (HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException

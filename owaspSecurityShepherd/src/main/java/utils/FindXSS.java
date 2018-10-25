@@ -37,7 +37,7 @@ import org.w3c.tidy.Tidy;
  */
 public class FindXSS
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(FindXSS.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(FindXSS.class);
 	/**
 	 * Method used to detect valid java script in a user submission. Specifically the presence of a script that will execute an alert command.
 	 * Script tag, URI java script and java script triggers vectors are all including in this detection method.

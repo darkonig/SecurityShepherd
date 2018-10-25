@@ -29,7 +29,7 @@ import utils.ScoreboardStatus;
  */
 public class GetterTest 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetterTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetterTest.class);
 	private static String lang = new String("en_GB");
 	private static Locale locale = new Locale(lang);
 	private static String applicationRoot = new String();

@@ -28,7 +28,7 @@ import utils.InstallationException;
 import utils.Validate;
 
 public class Setup extends HttpServlet {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Setup.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Setup.class);
 	private static final long serialVersionUID = -892181347446991016L;
 
 	public void doPost (HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {

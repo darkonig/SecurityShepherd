@@ -42,7 +42,7 @@ import dbProcs.Setter;
 public class CsrfChallengeFour extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeFour.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(CsrfChallengeFour.class);
 	private static final String levelHash = "84118752e6cd78fecc3563ba2873d944aacb7b72f28693a23f9949ac310648b5";
 	private static String levelName = "CSRF Challenge 4";
 	/**

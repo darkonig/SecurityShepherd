@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
  */
 public class Hash
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Hash.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Hash.class);
 	private static byte[] serverEncryptionKey = randomKeyBytes();
 
 	/**

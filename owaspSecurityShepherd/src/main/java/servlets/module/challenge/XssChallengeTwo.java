@@ -44,7 +44,7 @@ import utils.XssFilter;
 public class XssChallengeTwo extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(XssChallengeTwo.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(XssChallengeTwo.class);
 	private static String levelName = "Cross Site Scripting Challenge Two";
 	private static String levelHash = "t227357536888e807ff0f0eff751d6034bafe48954575c3a6563cb47a85b1e888";
 	/**

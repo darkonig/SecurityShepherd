@@ -45,7 +45,7 @@ import utils.Validate;
 public class UrlAccess1 extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(UrlAccess1.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(UrlAccess1.class);
 	private static String levelName = "URL Access 1 (User)";
 	/**
 	 * This class is the User Level Function Call that works correctly from the level's view without manipulation

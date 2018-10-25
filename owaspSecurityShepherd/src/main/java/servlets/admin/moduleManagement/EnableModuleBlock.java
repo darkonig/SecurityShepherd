@@ -40,7 +40,7 @@ import dbProcs.Getter;
 public class EnableModuleBlock extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableModuleBlock.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableModuleBlock.class);
 	/**
 	 * Used to set a limit to the progress a player can make in a CTF environment
 	 * @param moduleId The identifier of the module that is locked, preventing the user from continuing in the game

@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class Validate 
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(Validate.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(Validate.class);
 	/**
 	 * Finds JSession token from user's cookies[], validates and returns.
 	 * @param userCookies Cookies from users browser

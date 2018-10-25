@@ -46,7 +46,7 @@ import dbProcs.Setter;
 public class SolutionSubmit extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SolutionSubmit.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SolutionSubmit.class);
 	/**
 	 * Initiated by a dynamic form in index.jsp this method checks the existence of the submitted module identifier before ensuring that the submission is correct
 	 * If the submission is found to be valid then the user is returned with a feedback form.

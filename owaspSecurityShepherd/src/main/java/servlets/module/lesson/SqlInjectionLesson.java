@@ -48,7 +48,7 @@ public class SqlInjectionLesson
 extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SqlInjectionLesson.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjectionLesson.class);
 	private static String levelName = "SQL Injection Lesson";
 	public static String levelHash = "e881086d4d8eb2604d8093d93ae60986af8119c4f643894775433dbfb6faa594";
 	// private static String levelResult = ""; // Stored in Vulnerable DB. Not User Specific

@@ -42,7 +42,7 @@ import utils.Validate;
 public class EnableScoreboard extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboard.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(EnableScoreboard.class);
 
 	/** 
 	 * @param classId The identifier of the class to add the players to

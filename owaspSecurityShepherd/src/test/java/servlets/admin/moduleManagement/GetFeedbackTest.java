@@ -20,7 +20,7 @@ import utils.InstallationException;
  */
 public class GetFeedbackTest
 {
-	private static org.apache.log4j.Logger log = Logger.getLogger(GetFeedbackTest.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(GetFeedbackTest.class);
 	private static String applicationRoot = new String();
 	private static String lang = "en_GB";
 	private MockHttpServletRequest request;

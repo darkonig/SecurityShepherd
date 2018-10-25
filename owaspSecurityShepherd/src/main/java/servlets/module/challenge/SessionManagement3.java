@@ -46,7 +46,7 @@ import dbProcs.Database;
 public class SessionManagement3 extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SessionManagement3.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SessionManagement3.class);
 	private static String levelName = "Session Management Challenge Three";
 	private static String levelHash = "t193c6634f049bcf65cdcac72269eeac25dbb2a6887bdb38873e57d0ef447bc3";
 	private static String levelResult = "e62008dc47f5eb065229d48963";

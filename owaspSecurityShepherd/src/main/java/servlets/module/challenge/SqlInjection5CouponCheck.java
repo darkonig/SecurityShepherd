@@ -47,7 +47,7 @@ public class SqlInjection5CouponCheck extends HttpServlet
 {
 	private static final String levelName = "SQLi C5 CouponCheck";
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5CouponCheck.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(SqlInjection5CouponCheck.class);
 	/**
 	 * //TODO - JavaDoc
 	 */

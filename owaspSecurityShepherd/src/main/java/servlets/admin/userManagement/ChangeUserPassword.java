@@ -41,7 +41,7 @@ import dbProcs.Setter;
 public class ChangeUserPassword extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private static org.apache.log4j.Logger log = Logger.getLogger(ChangeUserPassword.class);
+	private static final org.apache.log4j.Logger log = Logger.getLogger(ChangeUserPassword.class);
 	private static String functionName = new String("Player Password Update");
 	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) 
