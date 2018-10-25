@@ -110,11 +110,6 @@ public class GetPlayersByClass extends HttpServlet
 					}
 					else
 					{
-						//Validation Error Responses
-						if(!notNull || !notEmpty)
-						{
-							log.error("Null values detected");
-						}
 						out.print("fail");
 					}
 				}
